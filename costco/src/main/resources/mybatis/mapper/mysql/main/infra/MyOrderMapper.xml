@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mamamoo.infra.myorder.MyOrderDao">
+
+	<resultMap id="resultMapObj" type="com.mamamoo.infra.myorder.MyOrderDto"></resultMap>
+	
+	<select id="selectList" resultMap="resultMapObj">
+		select
+			a.morSeq 
+			,a.morDate 
+			,a.morWarehousingNy 
+			,a.morDelNy 
+			,a.morRegDt 
+			,a.morModDt 
+			,a.mbrSeq 
+				from 
+					myorder a
+				where 
+					1=1
+			 <include refid="selectCommon" /> 
+	</select>
+	
+	<!-- <select id="morCount">
+		select
+			count(*)
+		from
+		 	myorder
+		 where 
+			1=1
+		<include refid="selectCommon" /> 
+		 	
+	</select> -->
+	
+	<sql id ="selectCommon">
+		<if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.morDelNy, 0) = #{shDelNy}</if>
+			<if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.morWarehousingNy, 0) = #{shReceive}</if>
+	         
+	         <choose>
+	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         </choose> 
+	</sql>
+</mapper>
