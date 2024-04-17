@@ -1,7 +1,7 @@
 package com.mamamoo.common.base;
 
 public class BaseVo {
-	// list
+	// 조회
 	private Integer shDelNy = 0; 	// 삭제여부	/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shOptionDate=0;	// 날짜조건 	/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String  shDateStart;	// 시작일자
@@ -16,9 +16,6 @@ public class BaseVo {
 	
 	private int     pgRowCount  = 5;  // 한 페이지 당 보여줄 게시물 개수
 	private int     pgPageCount = 5;  // 한 블럭에 몇 개의 페이지 개수
-	
-	private int     pgRowCountUsr  = 9;  // 한 페이지 당 보여줄 게시물 개수 - 사용자용
-	private int     pgPageCountUsr = 5;  // 한 블럭에 몇 개의 페이지 개수	 - 사용자용
 
 	private int     pgTotalCount;     // 총 게시물 개수
 	
@@ -35,7 +32,7 @@ public class BaseVo {
 	private String 	uri;
 
 
-	// list
+	// 조회
 	//=========================================================================	
 	public Integer getShDelNy() {
 		return shDelNy;
@@ -159,21 +156,9 @@ public class BaseVo {
 	public void setPgPageCount(int pgPageCount) {
 		this.pgPageCount = pgPageCount;
 	}
-	
-	public int getPgRowCountUsr() {
-		return pgRowCountUsr;
-	}
-	
-	public void setPgRowCountUsr(int pgRowCountUsr) {
-		this.pgRowCountUsr = pgRowCountUsr;
-	}
 
 	public int getPgPageCount() {
 		return pgPageCount;
-	}
-	
-	public int getPgPageCountUsr() {
-		return pgPageCountUsr;
 	}
 
 	public int getPgTotalCount() {
