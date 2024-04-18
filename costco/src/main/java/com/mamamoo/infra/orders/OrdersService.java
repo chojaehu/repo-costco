@@ -11,7 +11,12 @@ public class OrdersService {
 	@Autowired
 	OrdersDao dao;
 	
-	public List<OrdersDto> selectList(OrdersDto dto) {
-		return dao.selectList(dto);
+	public List<OrdersDto> selectList(OrdersVo vo) {
+		return dao.selectList(vo);
 	}
+	
+	public int getCount(OrdersVo vo) {
+		return dao.getCount(vo);
+	}
+	
 }

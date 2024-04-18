@@ -3,7 +3,10 @@ package com.mamamoo.infra.orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mamamoo.common.constants.Constants;
 
 @Controller
 public class OrdersController {
@@ -11,11 +14,11 @@ public class OrdersController {
 	OrdersService service;
 	
 	
-	@RequestMapping(value = "/ordersList")
-	public String ordersList(OrdersDto dto, Model model) {
+	@RequestMapping(value = "/orderList")
+	public String ordersList(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
 		
-		model.addAttribute("list", service.selectList(dto));
+		model.addAttribute("list", service.selectList(vo));
 		
-		return "/v1/infra/order/ordersSdmList";
+		return Constants.PATH_ORDERS + "orderList";
 	}
 }

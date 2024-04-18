@@ -25,7 +25,7 @@
 
             			<!-- 검색조건 -->
             			<form id="form" name="form" method="get" autocomplete="off">
-			  				<input type="hidden" id="pgPage" name="pgPage" th:value="${vo.pgPage}" default="1">
+							<input type="hidden" id="pgPage" name="pgPage" th:value="${vo.pgPage}" default="1">
 			  				<div class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                 				<div class="flex flex-col md:flex-row">
                     				<!-- 삭제여부 -->
@@ -73,22 +73,24 @@
 
 				                <div class="flex flex-col md:flex-row">
 				                    <!-- 코드그룹 -->
-				                    <div class="md:h-auto md:w-1/2 mr-3">
+<!-- 나중에 수정 또는 삭제해야함. -->	                    <!-- <div class="md:h-auto md:w-1/2 mr-3">
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
 				                            id="shOptionGroup" name="shOptionGroup">
 				                            <option value="" th:selected="${vo.shOptionGroup == null}">주문선택</option>
 				                            <option th:each="list : ${listCodeGroupName}" th:value="${list.cdgSeq}" th:text="${list.cdgName}" th:selected="${list.cdgSeq == vo.shOptionGroup}">
-											<!--<option th:each="list : ${@codeGroupService.selectListCachedCodeGroup()}" th:value="${list.cdgSeq}" th:text="${list.cdgName}"></option>-->
+											<option th:each="list : ${@codeGroupService.selectListCachedCodeGroup()}" th:value="${list.cdgSeq}" th:text="${list.cdgName}"></option>
 				                        </select>
-				                    </div>
+				                    </div> -->
 				                    
 				                    <!-- 검색구분 -->
 				                    <div class="md:h-auto md:w-1/2 mr-3">
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
 				                            id="shOption" name="shOption">
 				                            <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
-				                            <option value="1" th:selected="${vo.shOption == 1}">코드그룹코드</option>
-				                            <option value="2" th:selected="${vo.shOption == 2}">코드그룹명</option>
+				                            <option value="1" th:selected="${vo.shOption == 1}">주문코드</option>
+				                            <option value="2" th:selected="${vo.shOption == 2}">상품명</option>
+				                            <option value="2" th:selected="${vo.shOption == 3}">거래처명</option>
+				                            <option value="2" th:selected="${vo.shOption == 3}">거래처담당자</option>
 				                        </select>
 				                    </div>
 
@@ -144,13 +146,16 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1">주문순번</th>
-                      						<th class="px-4 py-1">주문일시</th>
-                      						<th class="px-4 py-1">삭제여부</th>
-                      						<th class="px-4 py-1">등록일시</th>
-                      						<th class="px-4 py-1">수정일시</th>
-                      						<th class="px-4 py-1">출고여부</th>
-                      						<th class="px-4 py-1">회원순번</th>
+                      						<th class="px-1 py-1" style="text-align: right;">주문코드</th>
+                      						<th class="px-4 py-1" style="text-align: right;">주문일</th>
+                      						<th class="px-4 py-1" style="text-align: right;">출고여부</th>
+                      						<th class="px-1 py-1" style="text-align: right;">상품명</th>
+                      						<th class="px-1 py-1" style="text-align: right;">상품단가</th>
+                      						<th class="px-1 py-1" style="text-align: right;">주문수량</th>
+                      						<th class="px-1 py-1" style="text-align: right;">상품총액</th>
+                      						<th class="px-1 py-1" style="text-align: right;">거래처</th>
+                      						<th class="px-1 py-1" style="text-align: right;">거래처담당자</th>
+                      						<th class="px-4 py-1" style="text-align: right;">삭제여부</th>
                     					</tr>
                   					</thead>
                   
@@ -166,35 +171,18 @@
                   						</tr>
 					                  	<tr class="text-gray-700 dark:text-gray-400" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
 					                  		<td class="px-2 py-1">
-					                  			<input th:if="${list.xcodeCount == 0}" class="checkboxList text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray mr-3"
+					                  			<input class="checkboxList text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray mr-3"
 					                  				id = "checkbox" name="checkbox" type="checkbox"
-					                  				th:value="${list.cdgSeq}"
+					                  				th:value="${list.ordSeq}"
 					                        		style="height: 15px; width: 15px"
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}"></td>
+					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}" style="text-align: right;"></td>
 					                    	
-                   							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                   							
-					                        <td class="px-4 py-1">
-					                        	<th:block th:switch="${list.cdgDelNy}">
-					                        		<span th:case = "0"
-					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-					                        			N
-					                        		</span>
-					                        		<span th:case = "1"
-					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
-					                        			Y
-					                        		</span>                        		
-					                        	</th:block>
-					                        </td>        	
-                   							
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.ordRegDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                   							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" style="text-align: right;"></td>
 					                    	
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.ordModDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-					                    	
-					                    	<td class="px-4 py-1">
+					                    	<td class="px-4 py-1" style="text-align: right;">
 					                        	<th:block th:switch="${list.ordReleasedNy}">
 					                        		<span th:case = "0"
 					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
@@ -206,12 +194,35 @@
 					                        		</span>                        		
 					                        	</th:block>
 					                        </td>
+
+											<td id="pdtName" name="pdtName" class="px-1 py-1" th:text="${list.pdtName}" style="text-align: right;"></td>
+											
+											<td id="pdtPrice" name="pdtPrice" class="px-1 py-1" th:text="${#numbers.formatInteger(list.pdtPrice,1,'COMMA')}" style="text-align: right;"></td>
+											
+											<td id="ortCount" name="ortCount" class="px-1 py-1" th:text="${list.ortCount}" style="text-align: right;"></td>
+											
+											<td id="ortAmt" name="ortAmt" class="px-1 py-1" th:text="${#numbers.formatInteger(list.ortAmt,1,'COMMA')}" style="text-align: right;"></td>
+											
+											<td id="mbrClientName" name="mbrClientName" class="px-1 py-1" th:text="${list.mbrClientName}" style="text-align: right;"></td>
+											
+											<td id="mbrName" name="mbrName" class="px-1 py-1" th:text="${list.mbrName}" style="text-align: right;"></td>
+											
+					                        <td class="px-4 py-1" style="text-align: right;">
+					                        	<th:block th:switch="${list.ordDelNy}">
+					                        		<span th:case = "0"
+					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+					                        			N
+					                        		</span>
+					                        		<span th:case = "1"
+					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
+					                        			Y
+					                        		</span>                        		
+					                        	</th:block>
+					                        </td>        	
 					                    	
-					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}"></td>
-					                    	
-					                    	<td class="px-6 py-1">
-											<!-- 수정 -->
-                    	    					<button class="btnSave px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+					                    	<!-- <td class="px-6 py-1">
+											수정
+나중에 수정및 사젝요망                 	    					<button class="btnSave px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                             						id="btnUpate" name="btnUpdate">
 													<a th:href="@{/codeGroupSdmForm(cdgSeq=${list.cdgSeq}, cdgName=${list.cdgName})}">
 														<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -219,7 +230,7 @@
 															<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z"></path>
 														</svg>															
 													</a>
-                      							</button>
+                      							</button> -->
                     						</td>
                   						</tr> 
                   					</tbody>
@@ -315,7 +326,7 @@
 		let shValue			= document.querySelector("input[name=shValue]");
 		let shValueValid	= document.querySelector("span[name=shValueValid]");
 
-		let goUrlSdmList   	= "/codeGroupSdmList";		/* 조회화면 */
+		let goUrlSdmList   	= "/orderList";				/* 조회화면 */
 		let goUrlSdmForm   	= "/codeGroupSdmForm";		/* 수정화면 */
 		let goUrlSdmCreate 	= "/codeGroupSdmCreate";	/* 등록화면 */
 		let goUrlSdmInsert 	= "/codeGroupSdmInsert";	/* 등록 */

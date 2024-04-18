@@ -6,30 +6,50 @@
 	<resultMap id="resultMapObj" type="com.mamamoo.infra.orders.OrdersDto"></resultMap>
 
 	<sql id="selectCommon">
-          FROM orders
-         WHERE 1=1
-        <!--  <if test="shDelNy != null and !shDelNy.equals('')">AND a.cdgDelNy = #{shDelNy}</if>
+    	FROM orderdetail a
+			join orders b on b.ordSeq = a.ordSeq
+			join product c on c.pdtSeq = a.pdtSeq
+			left join members d on d.mbrSeq = a.ortCompCd
+        WHERE 1=1
+        <if test="shDelNy != null and !shDelNy.equals('')">AND b.ordDelNy = #{shDelNy}</if>
+         
+        <choose>
+         	<when test="shOptionDate == 1">AND ordRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        	<when test="shOptionDate == 2">AND ordModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        </choose>
          
          <choose>
-         	<when test="shOptionDate == 1">AND a.cdgRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-         	<when test="shOptionDate == 2">AND a.cdgUdtDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+         	<when test="shOption == 1">AND b.ordSeq = #{shValue}</when>
+         	<when test="shOption == 2">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
+         	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+         	<when test="shOption == 4">AND d.mbrName LIKE CONCAT('%', #{shValue}, '%')</when>
          </choose>
          
-         <choose>
-         	<when test="shOption == 1">AND a.cdgSeq = #{shValue}</when>
-         	<when test="shOption == 2">AND a.cdgName LIKE CONCAT('%', #{shValue}, '%')</when>
-         </choose>
-         
-         <if test="shOptionGroup != null and !shOptionGroup.equals('')">AND a.cdgSeq = #{shOptionGroup}</if> 	 -->
+         <!-- <if test="shOptionGroup != null and !shOptionGroup.equals('')">AND a.cdgSeq = #{shOptionGroup}</if> -->
 	</sql>
+
+	
 	<select id="selectList" resultMap="resultMapObj">
-	SELECT
-		ordSeq
-		,ordDate
-		,ordDelNy
-		,ordRegDt
-		,ordModDt
-		,ordReleasedNy
-		<include refid="selectCommon"/>
+		select
+			a.ortCount
+			,a.ortAmt
+			,b.ordSeq
+			,b.ordDate
+			,b.ordReleasedNy
+			,b.ordDelNy
+			,c.pdtName
+			,c.pdtPrice
+			,d.mbrClientName
+			,d.mbrName
+			<include refid="selectCommon"/>
 	</select>
+	
+	<!-- 카운팅 -->
+    <select id="getCount">
+        SELECT COUNT(*)
+      <include refid="selectCommon"/>
+    </select>
+	
+	
+	
 </mapper>

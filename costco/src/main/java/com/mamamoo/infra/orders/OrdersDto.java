@@ -10,7 +10,7 @@ public class OrdersDto {
 	private Integer ordDelNy;		//삭제여부
 	private Date ordRegDt;			//등록일시
 	private Date ordModDt;			//수정일시
-	private Date ordReleasedNy;		//출고여부(0:미출고, 1:출고)
+	private Integer ordReleasedNy;	//출고여부(0:미출고, 1:출고)
 	private String mbrSeq;			//회원순번
 // orders
 	
@@ -27,6 +27,17 @@ public class OrdersDto {
 	private Date ortModDt;			//수정일시
 	private String pdtSeq;			//상품순번
 // orderdetail
+
+// product
+	private String pdtName; 		//상품평
+	private Double pdtPrice;		//상품단가
+// product
+	
+// members	
+	private String mbrClientName;	//거래처명
+	private String mbrName;			//거래처성명
+// members
+	
 	
 	public String getOrdSeq() {
 		return ordSeq;
@@ -68,14 +79,14 @@ public class OrdersDto {
 		this.ordModDt = ordModDt;
 	}
 	
-	public Date getOrdReleasedNy() {
+	public Integer getOrdReleasedNy() {
 		return ordReleasedNy;
 	}
-	
-	public void setOrdReleasedNy(Date ordReleasedNy) {
+
+	public void setOrdReleasedNy(Integer ordReleasedNy) {
 		this.ordReleasedNy = ordReleasedNy;
 	}
-	
+
 	public String getMbrSeq() {
 		return mbrSeq;
 	}
@@ -171,5 +182,38 @@ public class OrdersDto {
 	public void setPdtSeq(String pdtSeq) {
 		this.pdtSeq = pdtSeq;
 	}
+
+	public String getPdtName() {
+		return pdtName;
+	}
+
+	public void setPdtName(String pdtName) {
+		this.pdtName = pdtName;
+	}
+
+	public Double getPdtPrice() {
+		return pdtPrice;
+	}
+
+	public void setPdtPrice(Double pdtPrice) {
+		this.pdtPrice = pdtPrice;
+	}
+
+	public String getMbrClientName() {
+		return mbrClientName;
+	}
+
+	public void setMbrClientName(String mbrClientName) {
+		this.mbrClientName = mbrClientName;
+	}
+
+	public String getMbrName() {
+		return mbrName;
+	}
+
+	public void setMbrName(String mbrName) {
+		this.mbrName = mbrName;
+	}
+	
 	
 }

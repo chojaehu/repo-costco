@@ -4,5 +4,7 @@ import java.util.List;
 
 public interface OrdersDao {
 	
-	public List<OrdersDto> selectList(OrdersDto dto);
+	public List<OrdersDto> selectList(OrdersVo vo);
+	
+	public int getCount(OrdersVo vo);
 }
