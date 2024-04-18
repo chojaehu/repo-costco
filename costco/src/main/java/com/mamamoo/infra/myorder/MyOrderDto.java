@@ -25,6 +25,20 @@ public class MyOrderDto {
 	
 	
 	private Integer xmorCount;
+	
+	private String pdtName;
+	
+	
+
+
+	public String getPdtName() {
+		return pdtName;
+	}
+
+
+	public void setPdtName(String pdtName) {
+		this.pdtName = pdtName;
+	}
 
 
 	public String getMorSeq() {

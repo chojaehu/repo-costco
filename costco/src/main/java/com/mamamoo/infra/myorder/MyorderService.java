@@ -11,10 +11,20 @@ public class MyorderService {
 	
 	@Autowired
 	MyOrderDao dao;
-	
+//	발주 리스트
 	public List<MyOrderDto> selectList(MyOrderVo vo)
 	{
 		return dao.selectList(vo);
+	}
+//	발주 디테일 리스트
+	public List<MyOrderDto> myorderdetailList(MyOrderVo vo)
+	{
+		return dao.myorderdetailList(vo);
+	}
+//	발주 디테일 수정폼 화면
+	public MyOrderDto myorderdetailitem(MyOrderDto dto)
+	{
+		return dao.myorderdetailitem(dto);
 	}
 
 }

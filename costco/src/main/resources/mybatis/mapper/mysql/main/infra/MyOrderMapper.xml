@@ -21,6 +21,69 @@
 			 <include refid="selectCommon" /> 
 	</select>
 	
+	<!-- 발주 디테일 리스트 -->
+	<select id="myorderdetailList" resultMap="resultMapObj">
+			select
+				a.motSeq 
+				,b.morDate 
+				,a.motCompCd 
+				,c.pdtName 
+				,a.motCount 
+				,a.motAmt
+				,a.motWarehousingNy 
+				,a.motDelNy 
+				,a.motRegDt 
+				,a.motModDt
+				,b.mbrSeq 
+					from 
+						myorderdetail a
+					join
+						myorder b
+					on 
+						a.morSeq = b.morSeq
+					join 
+						product c
+					on 
+						a.pdtSeq  = c.pdtSeq 
+					where 1=1
+			 <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
+			 <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
+	         
+	         <choose>
+	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         </choose> 
+	</select>
+	
+	<!-- 발주 디테일 상세페이지 -->
+	<select  id="myorderdetailitem" resultMap="resultMapObj">
+	
+	select
+	a.motSeq 
+	,b.morDate 
+	,a.motCompCd 
+	,c.pdtName 
+	,a.motCount 
+	,a.motAmt
+	,a.motWarehousingNy 
+	,a.motDelNy 
+	,a.motRegDt 
+	,a.motModDt
+	,b.mbrSeq 
+		from 
+			myorderdetail a
+		join
+			myorder b
+		on 
+			a.morSeq = b.morSeq
+		join 
+			product c
+		on 
+			a.pdtSeq  = c.pdtSeq 
+		where 
+			a.motSeq = #{motSeq}
+	</select>
+	
 	<!-- <select id="morCount">
 		select
 			count(*)
