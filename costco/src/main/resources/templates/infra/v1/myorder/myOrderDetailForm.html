@@ -30,8 +30,9 @@
                     <input type="text" style="display: none;"/>                  
                     <label class="block text-sm">
                       <span class="text-gray-700 dark:text-gray-400">발주일자</span>
+                      
                       <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                          id="" name=""
+                           id="orderdate" name="orderdate" 
                           th:value="${#dates.format(item.morDate, 'yyyy-MM-dd HH:mm:ss')}"
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
                       <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
@@ -49,7 +50,7 @@
                           th:value="${@membersService.selectOneMembersClientName(item.motCompCd)}"
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
                       <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
-                      	그룹코드명 입력하세요
+                      	발주사를 선택하세요
                       </span>                    
                     </label>
                   </div>  
@@ -63,7 +64,7 @@
                           th:value ="${item.pdtName}"
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
                       <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
-                      	그룹코드명 입력하세요
+                      	발주제품을 선택하세요
                       </span>                    
                     </label>
                   </div>  
@@ -77,7 +78,7 @@
                           th:value="${item.motCount}"
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
                       <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
-                      	그룹코드명 입력하세요
+                      	발주수량을 입력하세요
                       </span>                    
                     </label>
                   </div>              
@@ -93,7 +94,7 @@
                           th:value="${#numbers.formatInteger(item.motAmt, 3, 'COMMA')}"
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
                       <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
-                      	그룹코드명 입력하세요
+                      	발주금액을 입력하세요
                       </span>                    
                     </label>
                   </div>  
@@ -134,7 +135,7 @@
                     aria-label="Search"
                     type="button"
                   >        
-                    <a th:href="@{/myOrderSdmList}">
+                    <a th:href="@{/myOrderList}">
 						<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 						  <path clip-rule="evenodd" fill-rule="evenodd" d="M7.793 2.232a.75.75 0 0 1-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 0 1 0 10.75H10.75a.75.75 0 0 1 0-1.5h2.875a3.875 3.875 0 0 0 0-7.75H3.622l4.146 3.957a.75.75 0 0 1-1.036 1.085l-5.5-5.25a.75.75 0 0 1 0-1.085l5.5-5.25a.75.75 0 0 1 1.06.025Z"></path>
 						</svg>	
@@ -200,6 +201,14 @@
 // ============================================================================
 
     	// 저장버튼
+    	window.addEventListener('load', function() {
+			jQuery.datetimepicker.setLocale('ko'); // 한국어
+	
+			$("#orderdate").datetimepicker({
+				timepicker:false,
+				format: 'Y-m-d', //'Y-m-d' //H:i
+			});
+		});
 		document.getElementById("btnSubmit").onclick = function() {
 			//fnCallController();
 		};

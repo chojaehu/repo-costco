@@ -84,6 +84,29 @@
 			a.motSeq = #{motSeq}
 	</select>
 	
+	<!-- 발주사 이름 -->
+	<select  id="clientNameList" resultMap="resultMapObj">
+	select 
+		mbrSeq,
+		mbrClientName,
+		mbrClientCd 
+			from members
+				where 
+				 mbrClientCd  = '4';
+	</select>
+	
+	<!-- 발주등록 발주 제품 리스트 -->
+	<select id="productList" resultMap="resultMapObj">
+	select 
+		pdtSeq 
+		,pdtName 
+		,pdtPrice 
+		,mbrSeq
+			from 
+				product 
+			where 1=1
+	</select>
+	
 	<!-- <select id="morCount">
 		select
 			count(*)

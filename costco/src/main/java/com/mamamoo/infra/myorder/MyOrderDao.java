@@ -11,4 +11,9 @@ public interface MyOrderDao {
 	
 //	발주디테일 수종폼 화면
 	public MyOrderDto myorderdetailitem(MyOrderDto dto);
+	
+//	발주등록 발주사
+	public List<MyOrderDto> clientNameList(MyOrderDto dto);
+//	발주등록 제품
+	public List<MyOrderDto> productList(MyOrderDto dto);
 }

@@ -26,5 +26,14 @@ public class MyorderService {
 	{
 		return dao.myorderdetailitem(dto);
 	}
+//	발주 등록 발주사
+	public List<MyOrderDto> clientNameList(MyOrderDto dto)
+	{
+		return dao.clientNameList(dto);
+	}
+	public List<MyOrderDto> productList(MyOrderDto dto)
+	{
+		return dao.productList(dto);
+	}
 
 }
