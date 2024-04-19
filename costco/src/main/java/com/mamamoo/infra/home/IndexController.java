@@ -9,8 +9,8 @@ import com.mamamoo.common.constants.Constants;
 public class IndexController {
 	
 	// 관리자메인
-	@RequestMapping(value = "/indexSdm")
+	@RequestMapping(value = "/index")
 	public String indexSdm() throws Exception {
-		return Constants.PATH_HOME + "indexSdm";
+		return Constants.PATH_HOME + "index";
 	}
 }
