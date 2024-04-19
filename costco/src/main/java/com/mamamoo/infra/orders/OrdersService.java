@@ -19,4 +19,15 @@ public class OrdersService {
 		return dao.getCount(vo);
 	}
 	
+	public OrdersDto selectOne(OrdersDto dto) {
+		return dao.selectOne(dto);
+	}
+	
+	public int insertOrt(OrdersDto dto) {
+		return dao.insertOrt(dto);
+	}
+	
+	public int insertOrd(OrdersDto dto) {
+		return dao.insertOrd(dto);
+	}
 }

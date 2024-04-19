@@ -32,7 +32,7 @@
                     				<div class="md:h-auto md:w-1/2 mr-3">
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
 				                            id="shDelNy" name="shDelNy">
-				                            <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+				                            <option value="" th:selected="${vo.shDelNy == null}">출고여부</option>
 				                            <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
 				                            <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
 				                        </select>
@@ -45,6 +45,7 @@
 											<option value=""  th:selected="${vo.shOptionDate == null}">날짜</option>
 				                            <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
 				                            <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+				                            <option value="3" th:selected="${vo.shOptionDate == 3}">주문일</option>
 				                        </select>
 				                    </div>
 
@@ -89,8 +90,8 @@
 				                            <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
 				                            <option value="1" th:selected="${vo.shOption == 1}">주문코드</option>
 				                            <option value="2" th:selected="${vo.shOption == 2}">상품명</option>
-				                            <option value="2" th:selected="${vo.shOption == 3}">거래처명</option>
-				                            <option value="2" th:selected="${vo.shOption == 3}">거래처담당자</option>
+				                            <option value="3" th:selected="${vo.shOption == 3}">거래처명</option>
+				                            <option value="4" th:selected="${vo.shOption == 4}">거래처담당자</option>
 				                        </select>
 				                    </div>
 
@@ -230,8 +231,8 @@
 															<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z"></path>
 														</svg>															
 													</a>
-                      							</button> -->
-                    						</td>
+                      							</button>
+                    						</td> -->
                   						</tr> 
                   					</tbody>
                 				</table>
@@ -284,7 +285,7 @@
 			                    	id="btnInsert"
 			                    	name="btnInsert"
 			                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
-									<a th:href="@{/codeGroupSdmCreate}">
+<!-- 추가 버튼 수정요망 -->									<a th:href="@{/orderCreate}">
 										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
 										</svg>	

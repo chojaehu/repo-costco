@@ -16,6 +16,7 @@
         <choose>
          	<when test="shOptionDate == 1">AND ordRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
         	<when test="shOptionDate == 2">AND ordModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        	<when test="shOptionDate == 3">AND ordDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
         </choose>
          
          <choose>
@@ -50,6 +51,90 @@
       <include refid="selectCommon"/>
     </select>
 	
+	<select id="selectOne" resultMap="resultMapObj">
+        SELECT a.ordSeq
+     		 , a.ordDate
+     		 , a.ordDelNy
+     		 , a.ordRegDt
+     		 , a.ordModDt
+     		 , a.ordReleasedNy
+     		 , a.mbrSeq
+     		 , b.ortSeq
+     		 , b.ortCompCd
+     		 , b.ortCount
+     		 , b.ortAmt
+     		 , b.ortShippingCd
+     		 , b.ortReleaseDt
+     		 , b.ortReleaseNy
+     		 , b.ortDelNy
+     		 , b.ortRegDt
+     		 , b.ortModDt
+     		 , b.ordSeq
+     		 , b.pdtSeq
+  		  FROM orders a
+       		   LEFT JOIN orderdetail b
+              		  ON b.ordSeq = a.ordSeq
+               join product c
+					  ON c.pdtSeq = b.pdtSeq
+			left join members d
+					  ON d.mbrSeq = b.ortCompCd             		          
+         WHERE 1 = 1
+           AND a.ordSeq = #{ordSeq}
+           <!-- <if test="ortSeq != null and !cdcSeq.equals('')">AND b.ortSeq = #{ortSeq}</if>  -->          
+	</select>
+	
+	<!-- 주문목록 추가 -->
+	<insert id="insertOrt">
+		INSERT INTO orderdetail
+			( 
+			  ortCompCd
+			, ortCount
+			, ortAmt
+			, ortShippingCd
+			, ortReleaseDt
+			, ortReleaseNy
+			, ortDelNy
+			, ortRegDt
+			, ortModDt
+			, ordSeq
+			, pdtSeq
+			)
+		VALUES
+			(
+			  #{ortCompCd}
+			, #{ortCount}
+			, #{ortAmt}
+			, #{ortShippingCd}
+			, #{ortReleaseDt}
+			, #{ortReleaseNy}
+			, 0
+			, now()
+			, now()
+			, #{ordSeq}
+			, #{pdtSeq}
+			)
+	</insert>
+	
+	<insert id="insertOrd">
+		INSERT INTO orders
+			( 
+			  ordDate
+			, ordReleasedNy
+			, ordDelNy
+			, ordRegDt
+			, ordModDt
+			, mbrSeq
+			)
+		VALUES
+			(
+			  #{ordDate}
+			, #{ordReleasedNy}
+			, 0
+			, now()
+			, now()
+			, #{mbrSeq}
+			)
+	</insert>
 	
 	
 </mapper>
