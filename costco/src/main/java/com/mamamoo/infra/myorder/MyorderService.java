@@ -16,6 +16,11 @@ public class MyorderService {
 	{
 		return dao.selectList(vo);
 	}
+//	발주 수정 폼
+	public MyOrderDto selectOne(MyOrderDto dto)
+	{
+		return dao.selectOne(dto);
+	}
 //	발주 디테일 리스트
 	public List<MyOrderDto> myorderdetailList(MyOrderVo vo)
 	{
@@ -31,9 +36,17 @@ public class MyorderService {
 	{
 		return dao.clientNameList(dto);
 	}
+//	제품 리스트
 	public List<MyOrderDto> productList(MyOrderDto dto)
 	{
 		return dao.productList(dto);
+	}
+	
+
+//	발주 디테일 등록
+	public int myorderdetailinsert(MyOrderDto dto)
+	{
+		return dao.myorderdetailinsert(dto);
 	}
 
 }

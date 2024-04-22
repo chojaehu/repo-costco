@@ -5,6 +5,7 @@ import java.util.List;
 public interface MyOrderDao {
 //	발주 리스트
 	public List<MyOrderDto> selectList(MyOrderVo vo);
+	public MyOrderDto selectOne(MyOrderDto dto);
 	
 //	발주 디테일 리스트
 	public List<MyOrderDto> myorderdetailList(MyOrderVo vo);
@@ -16,4 +17,8 @@ public interface MyOrderDao {
 	public List<MyOrderDto> clientNameList(MyOrderDto dto);
 //	발주등록 제품
 	public List<MyOrderDto> productList(MyOrderDto dto);
+	
+	
+//	발주 디테일 등록 
+	public int myorderdetailinsert(MyOrderDto dto);
 }
