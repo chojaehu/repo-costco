@@ -32,7 +32,7 @@
                     				<div class="md:h-auto md:w-1/2 mr-3">
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
 				                            id="shDelNy" name="shDelNy">
-				                            <option value="" th:selected="${vo.shDelNy == null}">삭제</option>
+				                            <option value="" th:selected="${vo.shDelNy == null}">출고여부</option>
 				                            <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
 				                            <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
 				                        </select>
@@ -73,15 +73,15 @@
 				                </div>
 
 				                <div class="flex flex-col md:flex-row">
-				                    <!-- 출고여부 -->
-							        <div class="md:h-auto md:w-1/2 mr-3">
+				                    <!-- 코드그룹 -->
+<!-- 나중에 수정 또는 삭제해야함. -->	                    <!-- <div class="md:h-auto md:w-1/2 mr-3">
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-				                            id="shReleasedNy" name="shReleasedNy">
-				                            <option value="" th:selected="${vo.shReleasedNy == null}">출고여부</option>
-				                            <option value="0" th:selected="${vo.shReleasedNy == 0}">미출고</option>
-				                            <option value="1" th:selected="${vo.shReleasedNy == 1}">출고</option>
+				                            id="shOptionGroup" name="shOptionGroup">
+				                            <option value="" th:selected="${vo.shOptionGroup == null}">주문선택</option>
+				                            <option th:each="list : ${listCodeGroupName}" th:value="${list.cdgSeq}" th:text="${list.cdgName}" th:selected="${list.cdgSeq == vo.shOptionGroup}">
+											<option th:each="list : ${@codeGroupService.selectListCachedCodeGroup()}" th:value="${list.cdgSeq}" th:text="${list.cdgName}"></option>
 				                        </select>
-				                    </div>
+				                    </div> -->
 				                    
 				                    <!-- 검색구분 -->
 				                    <div class="md:h-auto md:w-1/2 mr-3">
@@ -89,6 +89,9 @@
 				                            id="shOption" name="shOption">
 				                            <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
 				                            <option value="1" th:selected="${vo.shOption == 1}">주문코드</option>
+				                            <option value="2" th:selected="${vo.shOption == 2}">상품명</option>
+				                            <option value="3" th:selected="${vo.shOption == 3}">거래처명</option>
+				                            <option value="4" th:selected="${vo.shOption == 4}">거래처담당자</option>
 				                        </select>
 				                    </div>
 
@@ -144,14 +147,17 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1" style="text-align: left;">주문코드</th>
-                      						<th class="px-4 py-1" style="text-align: left;">주문일자</th>
-                      						<th class="px-1 py-1" style="text-align: left;">담당자</th>
-                      						<th class="px-4 py-1" style="text-align: left;">출고여부</th>
-                      						<th class="px-1 py-1" style="text-align: left;">등록일</th>
-                      						<th class="px-4 py-1" style="text-align: left;">수정일</th>
-                      						<th class="px-4 py-1" style="text-align: left;">삭제여부</th>
-                      						<th class="px-4 py-1" style="text-align: left;">수정</th>
+                      						<th class="px-1 py-1" style="text-align: right;">###</th>
+                      						<th class="px-1 py-1" style="text-align: right;">주문코드</th>
+                      						<th class="px-4 py-1" style="text-align: right;">주문일</th>
+                      						<th class="px-1 py-1" style="text-align: right;">거래처</th>
+                      						<th class="px-1 py-1" style="text-align: right;">거래처담당자</th>
+                      						<th class="px-1 py-1" style="text-align: right;">상품명</th>
+                      						<th class="px-1 py-1" style="text-align: right;">상품단가</th>
+                      						<th class="px-1 py-1" style="text-align: right;">주문수량</th>
+                      						<th class="px-1 py-1" style="text-align: right;">상품총액</th>
+                      						<th class="px-4 py-1" style="text-align: right;">출고여부</th>
+                      						<th class="px-4 py-1" style="text-align: right;">삭제여부</th>
                     					</tr>
                   					</thead>
                   
@@ -173,13 +179,26 @@
 					                        		style="height: 15px; width: 15px"
 					                        		th:checked="false" />
 					                    	</td>
-					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}" style="text-align: left;"></td>
 					                    	
-                   							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
+					                    	<td id="ortSeq" name="ortSeq" class="px-1 py-1" th:text="${list.ortSeq}" style="text-align: right;"></td>
 					                    	
-											<td id="mbrSeq" name="mbrSeq" class="px-1 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}" style="text-align: left;"></td>
+					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}" style="text-align: right;"></td>
+					                    	
+                   							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" style="text-align: right;"></td>
+					                    	
+											<td id="mbrClientName" name="mbrClientName" class="px-1 py-1" th:text="${list.mbrClientName}" style="text-align: right;"></td>
+											
+											<td id="mbrName" name="mbrName" class="px-1 py-1" th:text="${list.mbrName}" style="text-align: right;"></td>
+											
+											<td id="pdtName" name="pdtName" class="px-1 py-1" th:text="${list.pdtName}" style="text-align: right;"></td>
 
-					                    	<td class="px-4 py-1" style="text-align: left;">
+											<td id="pdtPrice" name="pdtPrice" class="px-1 py-1" th:text="${#numbers.formatInteger(list.pdtPrice,1,'COMMA')}" style="text-align: right;"></td>
+											
+											<td id="ortCount" name="ortCount" class="px-1 py-1" th:text="${list.ortCount}" style="text-align: right;"></td>
+											
+											<td id="ortAmt" name="ortAmt" class="px-1 py-1" th:text="${#numbers.formatInteger(list.ortAmt,1,'COMMA')}" style="text-align: right;"></td>
+											
+					                    	<td class="px-4 py-1" style="text-align: right;">
 					                        	<th:block th:switch="${list.ordReleasedNy}">
 					                        		<span th:case = "0"
 					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
@@ -188,14 +207,15 @@
 					                        		<span th:case = "1"
 					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
 					                        			출고
-					                        		</span>                        		
+					                        		</span>
+					                        		<span th:case = "2"
+					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
+					                        			일부출고
+					                        		</span>                         		
 					                        	</th:block>
 					                        </td>
-					                        
-					                        <td class="px-4 py-1" th:text="${#dates.format(list.ordRegDt, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
-					                        <td class="px-4 py-1" th:text="${#dates.format(list.ordModDt, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
-
-					                        <td class="px-4 py-1" style="text-align: left;">
+											
+					                        <td class="px-4 py-1" style="text-align: right;">
 					                        	<th:block th:switch="${list.ordDelNy}">
 					                        		<span th:case = "0"
 					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
@@ -206,31 +226,20 @@
 					                        			Y
 					                        		</span>                        		
 					                        	</th:block>
-					                        </td>
-
-					                    	<td class="px-6 py-1" >
-			           	    					<div class="flex flex-col overflow-y-auto md:flex-row">
-	                    	    					<button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-2"
-	                            						id="btnUpate" name="btnUpdate">
-														<a>
-															<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-																<path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z"></path>
-																<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z"></path>
-															</svg>															
-														</a>
-	                      							</button>
-	                      							<button 
-								                    	id="btnInsert"
-								                    	name="btnInsert"
-								                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
-														<a th:href="@{/orderCreate(ordSeq=${list.ordSeq})}">
-															<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-														  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
-															</svg>	
-														</a>
-									                </button> 
-								                </div>
-                    						</td> 
+					                        </td>        	
+					                    	
+					                    	<!-- <td class="px-6 py-1">
+											수정
+나중에 수정및 삭제요망                 	    					<button class="btnSave px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                            						id="btnUpate" name="btnUpdate">
+													<a th:href="@{/codeGroupSdmForm(cdgSeq=${list.cdgSeq}, cdgName=${list.cdgName})}">
+														<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+															<path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z"></path>
+															<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z"></path>
+														</svg>															
+													</a>
+                      							</button>
+                    						</td> -->
                   						</tr> 
                   					</tbody>
                 				</table>

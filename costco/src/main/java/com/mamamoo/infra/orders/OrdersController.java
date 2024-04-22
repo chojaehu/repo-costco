@@ -15,7 +15,7 @@ public class OrdersController {
 	@Autowired
 	OrdersService service;
 	
-// 전체리스트
+// 주문리스트
 	@RequestMapping(value = "/orderList")
 	public String ordersList(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
 		
@@ -32,11 +32,30 @@ public class OrdersController {
 		
 		return Constants.PATH_ORDERS + "orderList";
 	}
+// 상세주문리스트
+	@RequestMapping(value = "/orderDetailList")
+	public String orderDetailList(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
+		
+		UtilFunction.setSearch(vo);
+		
+		int rowCount = service.getCountOrt(vo);
+		
+		if(rowCount > 0) {			
+			vo.setPagingVo(rowCount);
+			
+			model.addAttribute("list", service.selectListOrt(vo));
+			
+		};
+		
+		return Constants.PATH_ORDERS + "orderDetailList";
+	}
 	
 //	등록화면
 	@RequestMapping(value = "/orderCreate")
 	public String orderCreate(OrdersDto dto, Model model) throws Exception {
-		model.addAttribute("item", service.selectOne(dto));	
+	
+		
+		
 		return Constants.PATH_ORDERS + "orderCreate";
 	}
 	

@@ -27,101 +27,55 @@
               <div class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                 <div class="mt-4 mb-4">                  
                 	<div class="flex flex-col md:flex-row mt-4 mb-4">
-						<!--  주문번호 -->
+						<!-- 주문고객사 -->
 						<div class="md:h-auto mr-3 md:w-1/2">
 			      			<label class="block text-sm">
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">주문번호</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordSeq" name="ordSeq" placeholder="주문번호">			            			
+			        			<span class="text-gray-700 dark:text-gray-400">주문고객사</span>
+			            		<select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+									id="mbrClientCd" name="mbrClientCd" >
+									<option value="">고객사를 선택하세요</option>
+									<option th:if="${!#lists.isEmpty(list)}"
+									th:each="list : ${list}" th:value="${list.mbrSeq}" th:text= "${list.mbrClientName}"></option>
+								</select>		            			
 			      			</label>
 			    		</div>
 			    		
-			    		<!--  주문일 -->
+			    		<!-- 주문제품 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
 			      			<label class="block text-sm">
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">주문일</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordSeq" name="ordSeq" placeholder="주문일">			            			
+			        			<span class="text-gray-700 dark:text-gray-400">주문제품</span>
+			        			<select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+									id="mbrClientCd" name="mbrClientCd" >
+									<option value="">제품을 선택하세요</option>
+									<option th:if="${!#lists.isEmpty(list)}"
+									th:each="list : ${list}" th:value="${list.mbrSeq}" th:text= "${list.mbrClientName}"></option>
+								</select>			            			
 			      			</label>
 			    		</div>
 	
-						<!--  상품명 -->
-			    		<div class="md:h-auto mr-3 md:w-1/2">
-			      			<label class="block text-sm">
-			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">상품명</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordDate" name="ordDate" placeholder="상품명">			            			
-			      			</label>
-			    		</div>
-					</div>
-					<div class="flex flex-col md:flex-row mt-4 mb-4">
-					
-						<!--  주문수량 -->
+						<!-- 주문수량 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
 			      			<label class="block text-sm">
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 			        			<span class="text-gray-700 dark:text-gray-400">주문수량</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordSeq" name="ordSeq" placeholder="주문수량">			            			
+			            			id="ordDate" name="ordDate" placeholder="주문수량">			            			
 			      			</label>
 			    		</div>
-			    		
-						<!--  상품단가 -->
-						<div class="md:h-auto mr-3 md:w-1/2">
-			      			<label class="block text-sm">
-			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">상품단가</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordDelNy" name="ordDelNy" placeholder="상품단가">			            			
-			      			</label>
-			    		</div>
-						<!--  상품총액 -->
+			    		<!-- 주문총액 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
 			      			<label class="block text-sm">
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">상품총액</span>
+			        			<span class="text-gray-700 dark:text-gray-400">주문총액</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordDate" name="ordDate" placeholder="상품총액">			            			
+			            			id="ordDate" name="ordDate" placeholder="주문총액">			            			
 			      			</label>
 			    		</div>
-					</div>
-					<div class="flex flex-col md:flex-row mt-4 mb-4">
-						<!--  거래처 -->
-			    		<div class="md:h-auto mr-3 md:w-1/2">
-			      			<label class="block text-sm">
-			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">거래처</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordDelNy" name="ordDelNy" placeholder="거래처">			            			
-			      			</label>
-			    		</div>
-						<!--  거래처담당자 -->
-			    		<div class="md:h-auto mr-3 md:w-1/2">
-			      			<label class="block text-sm">
-			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">거래처담당자</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordSeq" name="ordSeq" placeholder="거래처담당자">			            			
-			      			</label>
-			    		</div>
-	
-						<!--  공백 -->
-			    		<div class="md:h-auto mr-3 md:w-1/2">
-			      			<!-- <label class="block text-sm">
-			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">발주수량</span>
-			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ordDate" name="ordDate" placeholder="발주수량">			            			
-			      			</label> -->
-			    		</div>
-	
 					</div>
                 </div>
               </div>
-               
   
               <!-- 저장버튼, 회원조회버튼 -->
               <div class="flex flex-col md:flex-row mt-4">
@@ -241,6 +195,32 @@
 		};
 
     </script>
+    <script th:inline="javascript">
+    	document.getElementById("test").onclick = function(){
+    		var index =[[${pdtlist}]];
+    		console.log(index)
+    		alert(index[1].pdtName)
+    	}
+    	document.getElementById("mbrClientCd").onchange = function(){
+    		let index =[[${pdtlist}]];
+    		let aa= $("#mbrClientCd").val();
+    		/* console.log(index)
+    		alert(aa); */
+    			alert(aa)
+    			let anotherSelectBox = document.getElementById("pdtSeq");
+                anotherSelectBox.innerHTML = '';
+	                for (let i = 0; i < index.length; i++) {
+	                	if(index[i].mbrSeq  ==  aa){
+	                		var option = document.createElement("option");
+		                    option.text = index[i].pdtName; 
+		                    option.value = index[i].pdtSeq; 
+		                    anotherSelectBox.add(option);
+	                		
+	                	}
+	                } 
+    	}
+		  
+	</script>
       
   </body>
 </html>

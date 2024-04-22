@@ -18,6 +18,14 @@ public class OrdersService {
 	public int getCount(OrdersVo vo) {
 		return dao.getCount(vo);
 	}
+
+	public List<OrdersDto> selectListOrt(OrdersVo vo) {
+		return dao.selectListOrt(vo);
+	}
+	
+	public int getCountOrt(OrdersVo vo) {
+		return dao.getCountOrt(vo);
+	}
 	
 	public OrdersDto selectOne(OrdersDto dto) {
 		return dao.selectOne(dto);

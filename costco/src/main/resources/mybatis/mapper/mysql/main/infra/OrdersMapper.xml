@@ -5,7 +5,7 @@
 
 	<resultMap id="resultMapObj" type="com.mamamoo.infra.orders.OrdersDto"></resultMap>
 
-	<sql id="selectCommon">
+	<sql id="selectCommonOrt">
     	FROM orderdetail a
 			join orders b on b.ordSeq = a.ordSeq
 			join product c on c.pdtSeq = a.pdtSeq
@@ -26,13 +26,32 @@
          	<when test="shOption == 4">AND d.mbrName LIKE CONCAT('%', #{shValue}, '%')</when>
          </choose>
          
+	</sql>
+	
+	<sql id="selectCommon">
+    	FROM orders
+        WHERE 1=1
+        <if test="shDelNy != null and !shDelNy.equals('')">AND ordDelNy = #{shDelNy}</if>
+        <if test="shReleasedNy != null and !shReleasedNy.equals('')">AND ordReleasedNy = #{shReleasedNy}</if>
+         
+        <choose>
+         	<when test="shOptionDate == 1">AND ordRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        	<when test="shOptionDate == 2">AND ordModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        	<when test="shOptionDate == 3">AND ordDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        </choose>
+         
+         <choose>
+         	<when test="shOption == 1">AND ordSeq = #{shValue}</when>
+         </choose>
+         
          <!-- <if test="shOptionGroup != null and !shOptionGroup.equals('')">AND a.cdgSeq = #{shOptionGroup}</if> -->
 	</sql>
 
-	
-	<select id="selectList" resultMap="resultMapObj">
+	<!-- 상세주문리스트 -->
+	<select id="selectListOrt" resultMap="resultMapObj">
 		select
-			a.ortCount
+			a.ortSeq
+			,a.ortCount
 			,a.ortAmt
 			,b.ordSeq
 			,b.ordDate
@@ -42,13 +61,34 @@
 			,c.pdtPrice
 			,d.mbrClientName
 			,d.mbrName
-			<include refid="selectCommon"/>
+			<include refid="selectCommonOrt"/>
+	</select>
+	<!-- 고객사명을 불러오기 위한 리스트 -->
+	<select id="clientNameList" resultMap="resultMapObj">
+		select 
+			mbrSeq
+			,mbrClientName
+			,mbrClientCd 
+		from members
+		where 
+			mbrClientCd  = '5';
+	</select>
+	
+	<!-- 주문등록을 위한 제품 리스트 -->
+	<select id="productList" resultMap="resultMapObj">
+		select 
+			pdtSeq 
+			,pdtName 
+			,pdtPrice 
+			,mbrSeq
+		from product
+		where 1=1
 	</select>
 	
 	<!-- 카운팅 -->
-    <select id="getCount">
+    <select id="getCountOrt">
         SELECT COUNT(*)
-      <include refid="selectCommon"/>
+      <include refid="selectCommonOrt"/>
     </select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
@@ -80,10 +120,50 @@
 					  ON d.mbrSeq = b.ortCompCd             		          
          WHERE 1 = 1
            AND a.ordSeq = #{ordSeq}
-           <!-- <if test="ortSeq != null and !cdcSeq.equals('')">AND b.ortSeq = #{ortSeq}</if>  -->          
+           <if test="ortSeq != null and !cdcSeq.equals('')">AND b.ortSeq = #{ortSeq}</if>           
+	</select>
+
+	<!-- 주문리스트 -->
+	<select id="selectList" resultMap="resultMapObj">
+		select
+			ordSeq
+			,ordDate
+			,ordDelNy
+			,ordRegDt
+			,ordModDt
+			,ordReleasedNy
+			,mbrSeq
+			<include refid="selectCommon"/>
 	</select>
 	
+	<!-- 카운팅 -->
+    <select id="getCount">
+        SELECT COUNT(*)
+      <include refid="selectCommon"/>
+    </select>
+    
 	<!-- 주문목록 추가 -->
+	<insert id="insertOrd">
+		INSERT INTO orders
+			( 
+			  ordDate
+			, ordReleasedNy
+			, ordDelNy
+			, ordRegDt
+			, ordModDt
+			, mbrSeq
+			)
+		VALUES
+			(
+			  #{ordDate}
+			, #{ordReleasedNy}
+			, 0
+			, now()
+			, now()
+			, #{mbrSeq}
+			)
+	</insert>
+	<!-- 상세주문록록 추가 -->
 	<insert id="insertOrt">
 		INSERT INTO orderdetail
 			( 
@@ -115,26 +195,6 @@
 			)
 	</insert>
 	
-	<insert id="insertOrd">
-		INSERT INTO orders
-			( 
-			  ordDate
-			, ordReleasedNy
-			, ordDelNy
-			, ordRegDt
-			, ordModDt
-			, mbrSeq
-			)
-		VALUES
-			(
-			  #{ordDate}
-			, #{ordReleasedNy}
-			, 0
-			, now()
-			, now()
-			, #{mbrSeq}
-			)
-	</insert>
 	
 	
 </mapper>
