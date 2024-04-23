@@ -24,7 +24,7 @@ public class MyOrderController {
 	
 //	발주 리스트 페이지
 	@RequestMapping(value = "/myorderList")
-	public String myOrderSdmList(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception
+	public String myorderList(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception
 	{
 		
 		int rowCount = service.morCount(vo);

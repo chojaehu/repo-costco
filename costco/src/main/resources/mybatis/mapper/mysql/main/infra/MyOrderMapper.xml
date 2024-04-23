@@ -242,11 +242,11 @@
 	
 	<sql id ="selectCommon">
 		<if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(morDelNy, 0) = #{shDelNy}</if>
-			<if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.morWarehousingNy, 0) = #{shReceive}</if>
+			<if test="shReceive != null and !shReceive.equals('')">AND IFNULL(morWarehousingNy, 0) = #{shReceive}</if>
 	         
 	         <choose>
-	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 1">AND morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 	         </choose> 
 	</sql>
 </mapper>
