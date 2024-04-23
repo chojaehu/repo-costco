@@ -106,9 +106,21 @@
 					</a>
                   </button> 
                 </div>  
+                
                               
                 <!-- 저장버튼 -->
                 <div class="flex md:h-auto sm:mt-auto md:w-1/2 sm:justify-end">
+                <!-- 발주 디테일 리스트 페이지 -->
+                <button
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-3"
+                    aria-label="Search"
+                    type="button">        
+                    <a th:href="@{/myorderDetailList}">
+						<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+							<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
+						</svg>     	
+					</a>
+                  </button> 
                   <button   
                     id="btnSubmit"
                     name="btnSubmit"             
@@ -204,7 +216,7 @@
 
 		// controller 호출
 		fnCallController = function() {
-			//if(!fnValidation()) {return false;};
+			if(!fnValidation()) {return false;};
 			
 			// 저장
 			form.action = goUrlSdmInsert;
@@ -277,6 +289,7 @@
     	} 
     	// 저장버튼
 		document.getElementById("btnSubmit").onclick = function() {
+			if(!fnValidation()) {return false;};
 			//fnCallController();
 			/* alert($("#motCompCd").val())
 			alert($("#pdtSeq").val())

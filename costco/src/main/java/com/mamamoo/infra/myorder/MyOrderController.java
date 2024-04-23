@@ -59,6 +59,13 @@ public class MyOrderController {
 		service.myorderinsert(dto);
 		return "redirect:myorderList";
 	}
+//	발주 수정
+	@RequestMapping(value = "/myorderUpdt")
+	public String myorderUpdt(MyOrderDto dto)throws Exception
+	{
+		service.myorderUpdt(dto);
+		return "redirect:myorderList";
+	}
 	
 	
 	

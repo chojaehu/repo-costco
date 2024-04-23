@@ -7,6 +7,9 @@ public interface MyOrderDao {
 	public List<MyOrderDto> selectList(MyOrderVo vo);
 	public MyOrderDto selectOne(MyOrderDto dto);
 	public int morCount(MyOrderVo vo);
+//	발주 수정
+	public int myorderUpdt(MyOrderDto dto);
+	
 	
 //	발주 디테일 리스트
 	public List<MyOrderDto> myorderdetailList(MyOrderVo vo);

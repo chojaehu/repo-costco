@@ -6,6 +6,8 @@ import com.mamamoo.infra.members.MembersDto;
 
 public class MyOrderDto extends MembersDto{
 	
+	
+	private String testmorSeq;
 //	myorder 변수
 	private String morSeq;				//발주순번
 	private Date morDate;				//발주일시
@@ -31,6 +33,14 @@ public class MyOrderDto extends MembersDto{
 	private String pdtName;
 	private Integer pdtSeq;
 	private Double pdtPrice;
+	
+	
+	public String getTestmorSeq() {
+		return testmorSeq;
+	}
+	public void setTestmorSeq(String testmorSeq) {
+		this.testmorSeq = testmorSeq;
+	}
 	public String getMorSeq() {
 		return morSeq;
 	}

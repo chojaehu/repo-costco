@@ -147,6 +147,13 @@
 		,9
 	)
 	</insert>
+	<update id = "myorderUpdt">
+		update myorder
+		set
+		morWarehousingNy = #{morWarehousingNy}
+		where
+			morSeq = #{morSeq}
+	</update>
 	
 	
 	<!-- 발주 디테일 등록 -->

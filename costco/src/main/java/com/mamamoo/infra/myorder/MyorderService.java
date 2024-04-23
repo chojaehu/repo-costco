@@ -70,5 +70,10 @@ public class MyorderService {
 	{
 		return dao.myorderinsert(dto);
 	}
+//	발주 수정
+	public int myorderUpdt(MyOrderDto dto)
+	{
+		return dao.myorderUpdt(dto);
+	}
 
 }
