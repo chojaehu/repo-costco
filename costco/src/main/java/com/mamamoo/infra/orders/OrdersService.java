@@ -38,4 +38,13 @@ public class OrdersService {
 	public int insertOrd(OrdersDto dto) {
 		return dao.insertOrd(dto);
 	}
+//	주문등록 고객사
+	public List<OrdersDto> clientNameList(OrdersDto dto) {
+		return dao.clientNameList(dto);
+	}
+//	주문등록 제품
+	public List<OrdersDto> productList(OrdersDto dto) {
+		return dao.productList(dto);
+	}
+	
 }

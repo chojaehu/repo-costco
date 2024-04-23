@@ -10,6 +10,7 @@
 			join orders b on b.ordSeq = a.ordSeq
 			join product c on c.pdtSeq = a.pdtSeq
 			left join members d on d.mbrSeq = a.ortCompCd
+			left join members e on e.mbrSeq = a.ortShippingCd
         WHERE 1=1
         <if test="shDelNy != null and !shDelNy.equals('')">AND b.ordDelNy = #{shDelNy}</if>
          
@@ -53,14 +54,17 @@
 			a.ortSeq
 			,a.ortCount
 			,a.ortAmt
+			,a.ortReleaseDt 
+			,a.ortReleaseNy
 			,b.ordSeq
 			,b.ordDate
-			,b.ordReleasedNy
 			,b.ordDelNy
 			,c.pdtName
 			,c.pdtPrice
 			,d.mbrClientName
 			,d.mbrName
+			,e.mbrClientName
+			,e.mbrName as xmberName
 			<include refid="selectCommonOrt"/>
 	</select>
 	<!-- 고객사명을 불러오기 위한 리스트 -->
@@ -155,14 +159,15 @@
 			)
 		VALUES
 			(
-			  #{ordDate}
-			, #{ordReleasedNy}
+			  now()
+			, 0
 			, 0
 			, now()
 			, now()
-			, #{mbrSeq}
+			, 10
 			)
 	</insert>
+	
 	<!-- 상세주문록록 추가 -->
 	<insert id="insertOrt">
 		INSERT INTO orderdetail
@@ -186,7 +191,7 @@
 			, #{ortAmt}
 			, #{ortShippingCd}
 			, #{ortReleaseDt}
-			, #{ortReleaseNy}
+			, 0
 			, 0
 			, now()
 			, now()

@@ -10,7 +10,7 @@
 	  		<div th:replace="~{infra/v1/include/bodySdm :: bodyTop(2)}"></div>
 
       		<div class="flex flex-col flex-1 w-full">
-				<div th:replace="~{infra/v1/include/bodySdm :: bodyHeader('코드관리','코드그룹')}"></div>
+				<div th:replace="~{infra/v1/include/bodySdm :: bodyHeader('주문관리','')}"></div>
 
         		<main class="h-full pb-16 overflow-y-auto">
           			<div class="container grid px-6 mx-auto">
@@ -157,6 +157,7 @@
                       						<th class="px-1 py-1" style="text-align: right;">주문수량</th>
                       						<th class="px-1 py-1" style="text-align: right;">상품총액</th>
                       						<th class="px-4 py-1" style="text-align: right;">출고여부</th>
+                      						<th class="px-4 py-1" style="text-align: right;">출고일</th>
                       						<th class="px-4 py-1" style="text-align: right;">삭제여부</th>
                     					</tr>
                   					</thead>
@@ -199,21 +200,20 @@
 											<td id="ortAmt" name="ortAmt" class="px-1 py-1" th:text="${#numbers.formatInteger(list.ortAmt,1,'COMMA')}" style="text-align: right;"></td>
 											
 					                    	<td class="px-4 py-1" style="text-align: right;">
-					                        	<th:block th:switch="${list.ordReleasedNy}">
-					                        		<span th:case = "0"
-					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+					                        	<th:block th:switch="${list.ortReleaseNy}">
+					                        		<span th:case = "0">
 					                        			미출고
 					                        		</span>
-					                        		<span th:case = "1"
-					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
+					                        		<span th:case = "1">
 					                        			출고
 					                        		</span>
-					                        		<span th:case = "2"
-					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
+					                        		<span th:case = "2">
 					                        			일부출고
 					                        		</span>                         		
 					                        	</th:block>
 					                        </td>
+					                    	
+					                    	<td class="px-4 py-1" th:text="${#dates.format(list.ortReleaseDt, 'yyyy-MM-dd')}" style="text-align: right;"></td>
 											
 					                        <td class="px-4 py-1" style="text-align: right;">
 					                        	<th:block th:switch="${list.ordDelNy}">
@@ -292,7 +292,7 @@
 			                    	id="btnInsert"
 			                    	name="btnInsert"
 			                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
-<!-- 추가 버튼 수정요망 -->									<a th:href="@{/orderCreate}">
+									<a th:href="@{/orderCreate}">
 										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
 										</svg>	
@@ -334,7 +334,7 @@
 		let shValue			= document.querySelector("input[name=shValue]");
 		let shValueValid	= document.querySelector("span[name=shValueValid]");
 
-		let goUrlSdmList   	= "/orderList";				/* 조회화면 */
+		let goUrlSdmList   	= "/orderDetailList";		/* 조회화면 */
 		let goUrlSdmForm   	= "/codeGroupSdmForm";		/* 수정화면 */
 		let goUrlSdmCreate 	= "/codeGroupSdmCreate";	/* 등록화면 */
 		let goUrlSdmInsert 	= "/codeGroupSdmInsert";	/* 등록 */
@@ -485,8 +485,6 @@
 				alert("선택된 자료가 없습니다");
 			}
 		}
-		
     </script>
-    
   </body>
 </html>

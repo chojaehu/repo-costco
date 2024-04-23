@@ -13,9 +13,12 @@ public interface OrdersDao {
 	public int getCountOrt(OrdersVo vo);
 //	주문항목생성 시작
 	public OrdersDto selectOne(OrdersDto dto);
-	
-	public int insertOrt(OrdersDto dto);
-
+//	주문추가
 	public int insertOrd(OrdersDto dto);
-
+// 상세주문추가
+	public int insertOrt(OrdersDto dto);
+//	주문등록 고객사
+	public List<OrdersDto> clientNameList(OrdersDto dto);
+//	주문등록 제품
+	public List<OrdersDto> productList(OrdersDto dto);
 }

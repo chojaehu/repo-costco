@@ -51,24 +51,31 @@ public class OrdersController {
 	}
 	
 //	등록화면
-	@RequestMapping(value = "/orderCreate")
-	public String orderCreate(OrdersDto dto, Model model) throws Exception {
+	@RequestMapping(value = "/orderDetailCreate")
+	public String orderDetailCreate(OrdersDto dto, Model model) throws Exception {
 	
+		model.addAttribute("list", service.clientNameList(dto));
+		model.addAttribute("pdtlist", service.productList(dto));
 		
-		
-		return Constants.PATH_ORDERS + "orderCreate";
+		return Constants.PATH_ORDERS + "orderDetailCreate";
 	}
 	
 //	주문등록
 	@RequestMapping(value = "/orderInsert")
 	public String orderInsert(OrdersDto dto) throws Exception {
 		
-		service.insertOrt(dto);
 		service.insertOrd(dto);
 		
 		return "redirect:/orderList";
 	}
 	
-	
+//	상세주문등록
+	@RequestMapping(value = "/ortInsert")
+	public String ortInsert(OrdersDto dto) throws Exception {
+		
+		service.insertOrt(dto);
+		
+		return "redirect:/orderList";
+	}	
 	
 }

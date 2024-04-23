@@ -36,8 +36,9 @@ public class OrdersDto {
 // members	
 	private String mbrClientName;	//거래처명
 	private String mbrName;			//거래처성명
+	private String xmberName;
 // members
-	
+
 	
 	public String getOrdSeq() {
 		return ordSeq;
@@ -213,6 +214,14 @@ public class OrdersDto {
 
 	public void setMbrName(String mbrName) {
 		this.mbrName = mbrName;
+	}
+
+	public String getXmberName() {
+		return xmberName;
+	}
+
+	public void setXmberName(String xmberName) {
+		this.xmberName = xmberName;
 	}
 	
 	
