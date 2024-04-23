@@ -6,9 +6,11 @@ public interface MyOrderDao {
 //	발주 리스트
 	public List<MyOrderDto> selectList(MyOrderVo vo);
 	public MyOrderDto selectOne(MyOrderDto dto);
+	public int morCount(MyOrderVo vo);
 	
 //	발주 디테일 리스트
 	public List<MyOrderDto> myorderdetailList(MyOrderVo vo);
+	public int motCount(MyOrderVo vo);
 	
 //	발주디테일 수종폼 화면
 	public MyOrderDto myorderdetailitem(MyOrderDto dto);
@@ -21,4 +23,11 @@ public interface MyOrderDao {
 	
 //	발주 디테일 등록 
 	public int myorderdetailinsert(MyOrderDto dto);
+//	발주 디테일 수정 업데이트
+	public int myorderdetailupdt(MyOrderDto dto);
+//	발주 등록 
+	public int myorderinsert(MyOrderDto dto);
+	
+	
+	
 }

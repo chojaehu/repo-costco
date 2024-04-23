@@ -20,7 +20,7 @@
 					myorder a
 				where 
 					1=1
-			 <include refid="selectCommon" /> 
+			 <include refid="selectCommon"/> 
 	</select>
 	<!-- 발주 수정폼 -->
 	<select id="selectOne" resultMap="resultMapObj">
@@ -36,7 +36,6 @@
 					myorder a
 				where 
 					1=1 AND a.morSeq = #{morSeq}
-			 <include refid="selectCommon" /> 
 	</select>
 	
 	<!-- 발주 디테일 리스트 -->
@@ -127,7 +126,30 @@
 	</select>
 	
 	
+	<!-- 발주 등록 -->
+	<insert id="myorderinsert">
+	insert  into myorder
+	(
+		morDate
+		,morWarehousingNy
+		,morDelNy
+		,morRegDt
+		,morModDt
+		,mbrSeq
+	)
+	values
+	(
+		NOW()
+		,0
+		,0
+		,NOW()
+		,NOW()
+		,9
+	)
+	</insert>
 	
+	
+	<!-- 발주 디테일 등록 -->
 	<insert id= "myorderdetailinsert">
 	insert into myorderdetail 
 	(
@@ -154,6 +176,20 @@
 		,#{pdtSeq}
 	)
 	</insert>
+	
+	<!-- 발주 디테일 수정 -->
+	<update id="myorderdetailupdt">
+	update 
+		myorderdetail
+		set
+			motCompCd = #{motCompCd}
+			,motCount = #{motCount}
+			,motAmt = #{motAmt}
+			,motWarehousingNy = #{motWarehousingNy}
+			,pdtSeq = #{pdtSeq}
+		where 
+			motSeq = #{motSeq}
+	</update>
 	<!-- <select id="morCount">
 		select
 			count(*)
@@ -164,9 +200,41 @@
 		<include refid="selectCommon" /> 
 		 	
 	</select> -->
+	<select id="morCount">
+	select 
+		count(*)
+		from 
+			myorder
+			where
+			 1=1 
+	   <include refid="selectCommon"/> 
+	</select>
+	
+	<select id="motCount">
+		select 
+			count(*)
+					from 
+						myorderdetail a
+					join
+						myorder b
+					on 
+						a.morSeq = b.morSeq
+					join 
+						product c
+					on 
+						a.pdtSeq  = c.pdtSeq 
+					where 1=1
+			 <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
+			 <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
+	         
+	         <choose>
+	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         </choose> 
+	</select>
 	
 	<sql id ="selectCommon">
-		<if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.morDelNy, 0) = #{shDelNy}</if>
+		<if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(morDelNy, 0) = #{shDelNy}</if>
 			<if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.morWarehousingNy, 0) = #{shReceive}</if>
 	         
 	         <choose>

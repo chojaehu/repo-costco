@@ -79,8 +79,9 @@
                     <label class="block text-sm">
                       <span class="text-gray-700 dark:text-gray-400">발주금액</span>
                       <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                          id="motAmt" name="motAmt"
-                          onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
+                          id="motAmts" name="motAmts"
+                          onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">  
+                          <input type="hidden" id="motAmt" name="motAmt">                  
                       <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	발주금액을 입력하세요
                       </span>                    
@@ -239,7 +240,7 @@
                 anotherSelectBox.innerHTML = '';
                 
                 let motCount = document.getElementById("motCount");
-    			let motAmt = document.getElementById("motAmt");
+    			let motAmt = document.getElementById("motAmts");
                 motCount.value = null;
                 motAmt.value=null
                 
@@ -268,11 +269,11 @@
     		alert(price);
     		alert(count)
     		let prises = price * count; // 총 합계
+    		let hiddenprice = document.getElementById("motAmt"); // 실제 저장할 값
+    		let totalprice = document.getElementById("motAmts");// 보여주는 값
     		
-    		let totalprice = document.getElementById("motAmt");// 합계출력할 inputtype
-    		
-    		//totalprice.text = prises.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, "."); //3자리 마다 콤마 찍기
-    	    totalprice.value = prises; 
+    		totalprice.value = prises.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); //3자리 마다 콤마 찍기
+    		hiddenprice.value = prises; 
     	} 
     	// 저장버튼
 		document.getElementById("btnSubmit").onclick = function() {

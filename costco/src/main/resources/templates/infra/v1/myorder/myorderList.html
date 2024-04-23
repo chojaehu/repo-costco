@@ -168,7 +168,7 @@
                   						</tr>
 					                  	<tr class="text-gray-700 dark:text-gray-400" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
 					                  		<td class="px-2 py-1">
-					                  			<input th:if="${list.xmorCount == 0}" class="checkboxList text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray mr-3"
+					                  			<input class="checkboxList text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray mr-3"
 					                  				id = "checkbox" name="checkbox" type="checkbox"
 					                  				th:value="${list.morSeq}"
 					                        		style="height: 15px; width: 15px"
@@ -291,11 +291,12 @@
 			                    	id="btnInsert"
 			                    	name="btnInsert"
 			                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
-									<a th:href="@{/myorderCreate}">
+										<a th:href="@{/myorderinsert}">
 										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
 										</svg>	
-									</a>
+										</a>
+
 				                </button>                  
                 			</span>                
               			</div>
@@ -336,7 +337,7 @@
 		let goUrlSdmList   	= "/myOrderSdmList";		/* 조회화면 */
 		let goUrlSdmForm   	= "/codeGroupSdmForm";		/* 수정화면 */
 		let goUrlSdmCreate 	= "/codeGroupSdmCreate";	/* 등록화면 */
-		let goUrlSdmInsert 	= "/codeGroupSdmInsert";	/* 등록 */
+		let goUrlSdmInsert 	= "/myorderinsert";	/* 등록 */
 		let goUrlSdmUpdate 	= "/codeGroupSdmUpdate";	/* 수정 */
 		let goUrlSdmDelete 	= "/codeGroupSdmDelete";	/* 삭제 */
 		let goUrlSdmUdtDelNy= "/codeGroupSdmUdtDelNy";	/* 삭제여부변경 */
@@ -366,6 +367,11 @@
 				format: 'Y-m-d', //'Y-m-d' //H:i
 			});
 		});
+		
+		/* document.getElementById("btnInsert").onclick =function(){
+			form.action = goUrlSdmInsert;
+	       	form.submit(); 
+		} */
 		
     	// 조회버튼
 		document.getElementById("btnSubmit").onclick = function() {

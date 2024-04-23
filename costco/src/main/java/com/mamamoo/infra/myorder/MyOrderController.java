@@ -26,8 +26,14 @@ public class MyOrderController {
 	@RequestMapping(value = "/myorderList")
 	public String myOrderSdmList(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception
 	{
-		UtilFunction.setSearch(vo);
-		model.addAttribute("list", service.selectList(vo));
+		
+		int rowCount = service.morCount(vo);
+		
+		if(rowCount > 0)
+		{
+			UtilFunction.setSearch(vo);
+			model.addAttribute("list", service.selectList(vo));
+		}
 		return Constants.PATH_MYORDER + "myorderList";
 	}
 	
@@ -38,11 +44,20 @@ public class MyOrderController {
 		return Constants.PATH_MYORDER + "myorderCreate";
 	}
 	
+//	발주 수정 페이지
 	@RequestMapping(value = "/myorderForm")
 	public String myorderForm(MyOrderDto dto,Model model)throws Exception
 	{
 		model.addAttribute("item", service.selectOne(dto));
 		return Constants.PATH_MYORDER + "myorderForm";
+	}
+	
+//	발주 등록
+	@RequestMapping(value ="/myorderinsert")
+	public String myorderinsert(MyOrderDto dto)throws Exception
+	{
+		service.myorderinsert(dto);
+		return "redirect:myorderList";
 	}
 	
 	
@@ -52,8 +67,14 @@ public class MyOrderController {
 	@RequestMapping(value = "/myorderDetailList")
 	public String myOrderDetailSdmList(@ModelAttribute("vo") MyOrderVo vo, Model model ) throws Exception
 	{
-		UtilFunction.setSearch(vo);
-		model.addAttribute("list", service.myorderdetailList(vo));
+		
+		int rowCount = service.motCount(vo);
+		if(rowCount > 0)
+		{
+			UtilFunction.setSearch(vo);
+			model.addAttribute("list", service.myorderdetailList(vo));
+		}
+		
 		return Constants.PATH_MYORDER + "myorderDetailList";
 	}
 	
@@ -74,6 +95,15 @@ public class MyOrderController {
 		model.addAttribute("pdtlist", service.productList(dto));
 		return Constants.PATH_MYORDER + "myorderDetailCreate";
 	}
+//	발주 디테일 수정
+	@RequestMapping(value = "/myorderdetailupdt")
+	public String myorderdetailupdt(MyOrderDto dto) throws Exception
+	{
+		service.myorderdetailupdt(dto);
+		return "redirect:/myorderDetailList";
+	}
+	
+
 	
 	
 	

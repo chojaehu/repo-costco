@@ -26,6 +26,17 @@ public class MyorderService {
 	{
 		return dao.myorderdetailList(vo);
 	}
+	
+//	발주 카운트
+	public int morCount(MyOrderVo vo)
+	{
+		return dao.morCount(vo);
+	}
+//	발주 디테일 카운트
+	public int motCount(MyOrderVo vo)
+	{
+		return dao.motCount(vo);
+	}
 //	발주 디테일 수정폼 화면
 	public MyOrderDto myorderdetailitem(MyOrderDto dto)
 	{
@@ -47,6 +58,17 @@ public class MyorderService {
 	public int myorderdetailinsert(MyOrderDto dto)
 	{
 		return dao.myorderdetailinsert(dto);
+	}
+//	발주 디테일 수정 업데이트
+	public int myorderdetailupdt(MyOrderDto dto)
+	{
+		return dao.myorderdetailupdt(dto);
+	}
+	
+//	발주 등록
+	public int myorderinsert(MyOrderDto dto)
+	{
+		return dao.myorderinsert(dto);
 	}
 
 }
