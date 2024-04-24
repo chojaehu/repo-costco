@@ -39,3 +39,4 @@ out/
 ### by costco ###
 application.properties
 application-external.properties
+logs/
