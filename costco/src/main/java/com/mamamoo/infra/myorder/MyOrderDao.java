@@ -9,6 +9,15 @@ public interface MyOrderDao {
 	public int morCount(MyOrderVo vo);
 //	발주 수정
 	public int myorderUpdt(MyOrderDto dto);
+//	발주 등록 
+	public int myorderinsert(MyOrderDto dto);
+//	발주 삭제
+	public int myorderdelete(MyOrderDto dto);
+//	발주 다중 삭제
+	public int myorderListDelete(MyOrderVo vo);
+//	발주 ny 변경
+	public int myorderSelNY(MyOrderDto dto);
+
 	
 	
 //	발주 디테일 리스트
@@ -28,8 +37,13 @@ public interface MyOrderDao {
 	public int myorderdetailinsert(MyOrderDto dto);
 //	발주 디테일 수정 업데이트
 	public int myorderdetailupdt(MyOrderDto dto);
-//	발주 등록 
-	public int myorderinsert(MyOrderDto dto);
+//	발주 디테일 삭제
+	public int myorderdetaildelete(MyOrderDto dto);
+//	발주 디테일 다중 삭제
+	public int myorderDetailListDelete(MyOrderVo vo);
+//	발주 디테일 ny변경
+	public int myorderDetailSelNY(MyOrderDto dto);
+
 	
 	
 	

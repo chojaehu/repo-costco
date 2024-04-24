@@ -21,6 +21,7 @@
 				where 
 					1=1
 			 <include refid="selectCommon"/> 
+			 
 	</select>
 	<!-- 발주 수정폼 -->
 	<select id="selectOne" resultMap="resultMapObj">
@@ -37,6 +38,68 @@
 				where 
 					1=1 AND a.morSeq = #{morSeq}
 	</select>
+	
+	<!-- 발주 등록 -->
+	<insert id="myorderinsert">
+	insert  into myorder
+	(
+		morDate
+		,morWarehousingNy
+		,morDelNy
+		,morRegDt
+		,morModDt
+		,mbrSeq
+	)
+	values
+	(
+		NOW()
+		,0
+		,0
+		,NOW()
+		,NOW()
+		,9
+	)
+	</insert>
+	<!-- 발주 입고여부 변경 -->
+	<update id = "myorderUpdt">
+		update myorder
+		set
+		morWarehousingNy = #{morWarehousingNy}
+		where
+			morSeq = #{morSeq}
+	</update>
+	
+	<!-- 발주 삭제 -->
+	<delete id= "myorderdelete">
+	delete 
+		from
+			myorder
+		where 
+			morSeq = #{morSeq}
+	</delete>
+	
+	<!-- 체크된 리스트 삭제 -->
+	<delete id = "myorderListDelete">
+		delete 
+			from
+				myorder
+			where 1=1
+			AND morSeq IN
+			<foreach collection="shCheckedArray" item="list" open="(" close=")" separator=",">
+	    	         #{list}
+	    	</foreach>
+	</delete>
+	<!-- 발주 ny 변경 -->
+	<update id="myorderSelNY">
+	update myorder
+		set
+			morDelNy = 1
+		where
+			morSeq = #{morSeq}
+	</update>
+	
+	
+	
 	
 	<!-- 발주 디테일 리스트 -->
 	<select id="myorderdetailList" resultMap="resultMapObj">
@@ -70,6 +133,9 @@
 	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 	         </choose> 
+	         ORDER BY a.motSeq 
+	         LIMIT #{pgRowCount}
+    		 OFFSET #{pgOffset} 
 	</select>
 	
 	<!-- 발주 디테일 수정폼 -->
@@ -126,35 +192,6 @@
 	</select>
 	
 	
-	<!-- 발주 등록 -->
-	<insert id="myorderinsert">
-	insert  into myorder
-	(
-		morDate
-		,morWarehousingNy
-		,morDelNy
-		,morRegDt
-		,morModDt
-		,mbrSeq
-	)
-	values
-	(
-		NOW()
-		,0
-		,0
-		,NOW()
-		,NOW()
-		,9
-	)
-	</insert>
-	<update id = "myorderUpdt">
-		update myorder
-		set
-		morWarehousingNy = #{morWarehousingNy}
-		where
-			morSeq = #{morSeq}
-	</update>
-	
 	
 	<!-- 발주 디테일 등록 -->
 	<insert id= "myorderdetailinsert">
@@ -197,16 +234,38 @@
 		where 
 			motSeq = #{motSeq}
 	</update>
-	<!-- <select id="morCount">
-		select
-			count(*)
-		from
-		 	myorder
-		 where 
-			1=1
-		<include refid="selectCommon" /> 
-		 	
-	</select> -->
+	<!-- 발주 디테일 삭제 -->
+	<delete id= "myorderdetaildelete">
+		delete 
+			from
+				myorderdetail
+			where
+				motSeq = #{motSeq}
+			
+	</delete>
+	<!-- 발주 디테일 다중 삭제 -->
+	<delete id = "myorderDetailListDelete">
+		delete 
+			from
+				myorderdetail
+			where 1=1
+			AND motSeq IN
+			<foreach collection="shCheckedArray" item="list" open="(" close=")" separator=",">
+	    	         #{list}
+	    	</foreach>
+	</delete>
+	
+	<!-- 발주 디테일 ny변경  -->
+	<update id="myorderDetailSelNY">
+	update myorderdetail
+		set
+			motDelNy = 1
+		where
+			motSeq = #{motSeq}
+	</update>
+
+
+	<!-- 발주 카운트 -->
 	<select id="morCount">
 	select 
 		count(*)
@@ -217,6 +276,8 @@
 	   <include refid="selectCommon"/> 
 	</select>
 	
+	
+	<!-- 발주 디테일 카운트 -->
 	<select id="motCount">
 		select 
 			count(*)
@@ -239,6 +300,9 @@
 	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 	         </choose> 
 	</select>
+	
+	
+	
 	
 	<sql id ="selectCommon">
 		<if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(morDelNy, 0) = #{shDelNy}</if>

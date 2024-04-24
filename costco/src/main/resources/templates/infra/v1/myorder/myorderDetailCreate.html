@@ -216,7 +216,7 @@
 
 		// controller 호출
 		fnCallController = function() {
-			if(!fnValidation()) {return false;};
+			//if(!fnValidation()) {return false;};
 			
 			// 저장
 			form.action = goUrlSdmInsert;
@@ -244,7 +244,7 @@
     		let aa= $("#motCompCd").val();
     		/* console.log(index)
     		alert(aa); */
-    			alert(aa)
+    			//alert(aa)
     			let anotherSelectBox = document.getElementById("pdtSeq");
     		
     		
@@ -278,8 +278,8 @@
     		
     		let count = document.getElementById("motCount").value;
     		
-    		alert(price);
-    		alert(count)
+    		//alert(price);
+    		//alert(count)
     		let prises = price * count; // 총 합계
     		let hiddenprice = document.getElementById("motAmt"); // 실제 저장할 값
     		let totalprice = document.getElementById("motAmts");// 보여주는 값
@@ -289,7 +289,7 @@
     	} 
     	// 저장버튼
 		document.getElementById("btnSubmit").onclick = function() {
-			if(!fnValidation()) {return false;};
+			//if(!fnValidation()) {return false;};
 			//fnCallController();
 			/* alert($("#motCompCd").val())
 			alert($("#pdtSeq").val())
@@ -297,7 +297,7 @@
 			alert($("#motAmt").val()) */
 			let urlpa =new URLSearchParams(window.location.search);
 			let morSeq = urlpa.get('morSeq');
-			alert(morSeq);
+			//alert(morSeq);
 			$.ajax({
 				async: true 
 				,cache: false
@@ -308,7 +308,7 @@
 				,success: function(response) {
 					if(response.rt == "success") {
 						
-						alert("등록 성공 성공");
+						//alert("등록 성공 성공");
 						self.location.reload();
 					} 
 					else{

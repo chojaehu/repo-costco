@@ -1,5 +1,6 @@
 package com.mamamoo.infra.myorder;
 
+import java.io.StreamTokenizer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,12 @@ public class MyOrderController {
 	@RequestMapping(value = "/myorderList")
 	public String myorderList(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception
 	{
-		
+		UtilFunction.setSearch(vo);
 		int rowCount = service.morCount(vo);
 		
 		if(rowCount > 0)
 		{
-			UtilFunction.setSearch(vo);
+			vo.setPagingVo(rowCount);
 			model.addAttribute("list", service.selectList(vo));
 		}
 		return Constants.PATH_MYORDER + "myorderList";
@@ -66,7 +67,35 @@ public class MyOrderController {
 		service.myorderUpdt(dto);
 		return "redirect:myorderList";
 	}
-	
+//	발주 삭제 
+	@RequestMapping(value= "/myorderdelete")
+	public String myorderdelete(MyOrderDto dto)throws Exception
+	{
+		service.myorderdelete(dto);
+		return "redirect:myorderList";
+	}
+//	발주 다중 삭제
+	@ResponseBody
+	@RequestMapping(value = "/myorderListDelete")
+	public Map<String, Object> myorderListDelete(MyOrderDto dto,MyOrderVo vo) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		if(service.myorderListDelete(vo)>0)
+		{
+			returnMap.put("rt", "success");
+		}else {
+			returnMap.put("rt", "fail");
+		}
+
+		return returnMap;
+	}
+//	발주 ny 변경 
+	@RequestMapping(value = "/myorderSelNY")
+	public String myorderSelNY(MyOrderDto dto)throws Exception
+	{
+		service.myorderSelNY(dto);
+		return "redirect:myorderList";
+	}
 	
 	
 	
@@ -74,15 +103,29 @@ public class MyOrderController {
 	@RequestMapping(value = "/myorderDetailList")
 	public String myOrderDetailSdmList(@ModelAttribute("vo") MyOrderVo vo, Model model ) throws Exception
 	{
-		
+		UtilFunction.setSearch(vo);
 		int rowCount = service.motCount(vo);
 		if(rowCount > 0)
 		{
-			UtilFunction.setSearch(vo);
+			vo.setPagingVo(rowCount);
 			model.addAttribute("list", service.myorderdetailList(vo));
 		}
 		
 		return Constants.PATH_MYORDER + "myorderDetailList";
+	}
+	
+	@RequestMapping(value = "/myorderDetailListAjax")
+	public String myorderDetailListAjax(@ModelAttribute("vo") MyOrderVo vo, Model model ) throws Exception
+	{
+		UtilFunction.setSearch(vo);
+		int rowCount = service.motCount(vo);
+		if(rowCount > 0)
+		{
+			vo.setPagingVo(rowCount);
+			model.addAttribute("list", service.myorderdetailList(vo));
+		}
+		
+		return Constants.PATH_MYORDER + "myorderDetailListAjax";
 	}
 	
 //	발주 디테일 수정 페이지
@@ -110,6 +153,8 @@ public class MyOrderController {
 		return "redirect:/myorderDetailList";
 	}
 	
+	
+	
 
 	
 	
@@ -124,6 +169,37 @@ public class MyOrderController {
 		
 		service.myorderdetailinsert(dto);
 		returnMap.put("rt", "success");
+
+		return returnMap;
+	}
+//	발주 디테일 삭제
+	@RequestMapping(value = "/myorderdetaildelete")
+	public String myorderdetaildelete(MyOrderDto dto) throws Exception
+	{
+		service.myorderdetaildelete(dto);
+		return "redirect:/myorderDetailList";
+	}
+	
+//	발주 디테일 ny 변경
+	@RequestMapping(value ="myorderDetailSelNY")
+	public String myorderDetailSelNY(MyOrderDto dto) throws Exception
+	{
+		service.myorderDetailSelNY(dto);
+		return "redirect:/myorderDetailList";
+	}
+	
+//	발주 디테일 다중 삭제
+	@ResponseBody
+	@RequestMapping(value = "/myorderDetailListDelete")
+	public Map<String, Object> myorderDetailListDelete(MyOrderVo vo) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		if(service.myorderDetailListDelete(vo)>0)
+		{
+			returnMap.put("rt", "success");
+		}else {
+			returnMap.put("rt", "fail");
+		}
 
 		return returnMap;
 	}
