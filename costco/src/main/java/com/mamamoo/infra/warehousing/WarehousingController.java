@@ -34,6 +34,23 @@ public class WarehousingController {
 
 		return Constants.PATH_WAREHOUSING + "warehousingList";
 	}
+
+	// 페이징 조회
+	@RequestMapping(value = "/warehousingPaging")
+	public String warehousingPaging(@ModelAttribute("vo") WarehousingVo vo, Model model) throws Exception {
+		
+		UtilFunction.setSearch(vo);
+		
+		int rowCount = service.selectOneCount(vo);
+		
+		if(rowCount > 0) {			
+			vo.setPagingVo(rowCount);
+			
+			model.addAttribute("list", service.selectList(vo));
+		};
+		
+		return Constants.PATH_WAREHOUSING + "warehousingListAjax";
+	}
 	
 	// 등록페이지 호출
 	@RequestMapping(value = "/warehousingCreate")

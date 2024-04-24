@@ -8,6 +8,7 @@ public class Constants {
 	public static final String PATH_MYORDER 	= "infra/v1/myorder/";
 	public static final String PATH_WAREHOUSING	= "infra/v1/warehousing/";
 	public static final String PATH_ORDERS 		= "infra/v1/orders/";
+	public static final String PATH_STOCK 		= "infra/v1/stock/";
 	
 	public static final String DATETIME_FORMAT_BASIC = "yyyy-MM-dd HH:mm:ss";
 	

@@ -126,7 +126,7 @@
             
             			<!-- 조회결과 리스트 -->
             			<div class="w-full overflow-hidden rounded-lg shadow-xs">
-              				<div class="w-full overflow-x-auto">
+              				<div id="listData" class="w-full overflow-x-auto">
                 				<table class="w-full whitespace-no-wrap">
                   					<!-- 조회결과 리스트 타이틀-->
                   					<thead>
@@ -145,20 +145,21 @@
                       						<th class="px-2 py-1" style="text-align: right;">발주수량</th>
                       						<th class="px-2 py-1" style="text-align: right;">발주금액</th>
                       						<th class="px-2 py-1">입고일</th>
-                      						<th class="px-2 py-1" style="text-align: right;">입고수량</th>
+                      						<th class="px-2 py-1" style="text-align: right;">입고</th>
+                      						<th class="px-2 py-1" style="text-align: right;">미입고</th>
                       						<th class="px-2 py-1">입고여부</th>
                       						<th class="px-2 py-1">삭제여부</th>
-                      						<th class="px-2 py-1">작업</th>
+                      						<th class="px-2 py-1" style="text-align: center;">작업</th>
                     					</tr>
                   					</thead>
                   
                   					<!-- 조회결과 리스트 내용 -->
-                  					<tbody id="trList" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                  					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                   						<!-- 체크된 항목 담을 태그 -->
                   						<input type="hidden" id="shCheckedArray" name="shCheckedArray" value="" />
                   						
                   						<tr th:if="${#lists.isEmpty(list)}">
-					                  		<td colspan="9" class="text-center text-purple-600"> 
+					                  		<td colspan="15" class="text-center text-purple-600"> 
 												There is no data !!!
 					                  		</td>
                   						</tr>
@@ -191,6 +192,8 @@
 					                    	<td class="px-2 py-1" th:text="${#dates.format(list.whsDate, 'yyyy-MM-dd')}"></td>
 					                    	<!-- 입고수량 -->
 					                    	<td class="px-2 py-1" th:text="${list.whsCount}" style="text-align: right;"></td>
+					                    	<!-- 미입고수량 -->
+					                    	<td class="px-2 py-1" th:text="${list.xwhsCountTot}" style="text-align: right;"></td>
 					                    	<!-- 입고여부 -->
 					                    	<td class="px-2 py-1">
 												<th:block th:switch="${list.xwhsMotWarehousingNy}">
@@ -243,6 +246,9 @@
                   						</tr> 
                   					</tbody>
                 				</table>
+
+								<!-- 페이지넘김 -->
+								<div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div>
               				</div>
 
 							<script>
@@ -255,9 +261,6 @@
 							  		$(".checkboxList").prop("checked", isChecked);
 								}  
 							</script>
-              
-							<!-- 페이지넘김 -->
-							<div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div>
 							         
 							<!-- 삭제버튼, 홈버튼 -->
 							<div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
@@ -278,27 +281,28 @@
                 				</span>
                               
                 				<span class="flex col-span-3 sm:mt-auto sm:justify-end">
-								<!-- 홈버튼 -->                
-				                <button class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Back">
-				                	<a th:href="@{/index}">
-										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-									  		<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
-										</svg>                
-				                  	</a>	                  
-				                </button>
-								<!-- 추가버튼 -->        
-								<!--&nbsp;&nbsp;          
-				                <button 
-			                    	id="btnInsert"
-			                    	name="btnInsert"
-			                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
-									<a th:href="@{/codeGroupSdmCreate}">
-										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-									  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
-										</svg>	
-									</a>
-				                </button>-->                  
-                			</span>                
+									<!-- 홈버튼 -->                
+					                <button class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Back">
+					                	<a th:href="@{/index}">
+											<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										  		<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
+											</svg>                
+					                  	</a>	                  
+					                </button>
+									<!-- 추가버튼 -->        
+									<!--&nbsp;&nbsp;          
+					                <button 
+				                    	id="btnInsert"
+				                    	name="btnInsert"
+				                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
+										<a th:href="@{/codeGroupSdmCreate}">
+											<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
+											</svg>	
+										</a>
+					                </button>-->                  
+                				</span>  
+                			</div>              
               			</div>
             		</div>
           		</div>
@@ -341,6 +345,7 @@
 		let goUrlSdmUpdate 	= "/warehousingUpdate";		/* 수정 */
 		let goUrlSdmDelete 	= "/warehousingDelete";		/* 삭제 */
 		let goUrlSdmUdtDelNy= "/warehousingUdtDelNy";	/* 삭제여부변경 */
+		let goUrlSdmPaging  = "/warehousingPaging";		/* 페이징처리 */
 		
 		// 필수입력체크대상
 		// validType : 1(한글), 2(영문), 3(숫자:정수), 4(숫자:실수)
