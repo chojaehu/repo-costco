@@ -20,7 +20,7 @@
 					<svg  class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 					  <path d="M15.98 1.804a1 1 0 0 0-1.96 0l-.24 1.192a1 1 0 0 1-.784.785l-1.192.238a1 1 0 0 0 0 1.962l1.192.238a1 1 0 0 1 .785.785l.238 1.192a1 1 0 0 0 1.962 0l.238-1.192a1 1 0 0 1 .785-.785l1.192-.238a1 1 0 0 0 0-1.962l-1.192-.238a1 1 0 0 1-.785-.785l-.238-1.192ZM6.949 5.684a1 1 0 0 0-1.898 0l-.683 2.051a1 1 0 0 1-.633.633l-2.051.683a1 1 0 0 0 0 1.898l2.051.684a1 1 0 0 1 .633.632l.683 2.051a1 1 0 0 0 1.898 0l.683-2.051a1 1 0 0 1 .633-.633l2.051-.683a1 1 0 0 0 0-1.898l-2.051-.683a1 1 0 0 1-.633-.633L6.95 5.684ZM13.949 13.684a1 1 0 0 0-1.898 0l-.184.551a1 1 0 0 1-.632.633l-.551.183a1 1 0 0 0 0 1.898l.551.183a1 1 0 0 1 .633.633l.183.551a1 1 0 0 0 1.898 0l.184-.551a1 1 0 0 1 .632-.633l.551-.183a1 1 0 0 0 0-1.898l-.551-.184a1 1 0 0 1-.633-.632l-.183-.551Z"></path>
 					</svg>
-					&nbsp;상세주문등록
+					&nbsp;상세주문수정
 	              </a>                         
               </h2>
   				
@@ -36,7 +36,7 @@
 									id="ortCompCd" name="ortCompCd" >
 									<option value="">고객사를 선택하세요</option>
 									<option th:if="${!#lists.isEmpty(list)}"
-									th:each="list : ${list}" th:value="${list.mbrSeq}" th:text= "${list.mbrClientName}"></option>
+									th:each="list : ${list}" th:value="${list.mbrSeq}" th:text= "${list.mbrClientName}" th:selected="${item.ortCompCd} == ${list.mbrSeq}"></option>
 								</select>		            			
 			      			</label>
 			    		</div>
@@ -50,7 +50,7 @@
 									id="pdtSeq" name="pdtSeq" >
 									<option value="">제품을 선택하세요</option>
 									<option th:if="${!#lists.isEmpty(pdtlist)}"
-									th:each="pdtlist : ${pdtlist}" th:value="${pdtlist.pdtSeq}" th:text= "${pdtlist.pdtName}" th:data-price="${pdtlist.pdtPrice}"></option>
+									th:each="pdtlist : ${pdtlist}" th:value="${pdtlist.pdtSeq}" th:text= "${pdtlist.pdtName}" th:data-price="${pdtlist.pdtPrice}" th:selected="${item.pdtSeq} == ${pdtlist.pdtSeq}"></option>
 								</select>
 								<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;"></span>		            			
 			      			</label>
@@ -62,7 +62,7 @@
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 			        			<span class="text-gray-700 dark:text-gray-400">주문수량</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ortCount" name="ortCount" placeholder="주문수량">
+			            			id="ortCount" name="ortCount" placeholder="주문수량" th:value="${item.ortCount}">
 			            		<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       				발주수량을 입력하세요
                       			</span>   			
@@ -71,22 +71,68 @@
 			    		
 			    		<!-- 주문총액 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
-			    		<input type="hidden" id="ortAmt" name ="ortAmt">
+			    		<input type="hidden" id="ortAmt" name ="ortAmt"th:value="${item.ortAmt}">
 			      			<label class="block text-sm">
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 			        			<span class="text-gray-700 dark:text-gray-400">주문총액</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			            			id="ortAmts" name="ortAmts" placeholder="주문총액">
+			            			id="ortAmts" name="ortAmts" placeholder="주문총액" th:value="${#numbers.formatInteger(item.ortAmt, 3, 'COMMA')}">
 			            	<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       			발주금액을 입력하세요
                       		</span> 	            			
 			      			</label>
 			    		</div>
-			    		<input type="hidden" name="ordSeq" id="ordSeq">
+			    		<input type="hidden" name="ortSeq" id="ortSeq">
+					</div>
+                </div>
+                <div class="mt-4 mb-4">                  
+                	<div class="flex flex-col md:flex-row mt-4 mb-4">
+						<!-- 출고여부 -->
+						<div class="md:h-auto mr-3 md:w-1/2">
+			      			<label class="block text-sm">
+			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
+			        			<span class="text-gray-700 dark:text-gray-400">출고여부</span>
+			            		<select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+									id="ortReleaseNy" name="ortReleaseNy" >
+									<option value="0" th:selected="${item.ortReleaseNy} == 0">미출고</option>
+									<option value="1" th:selected="${item.ortReleaseNy} == 1">출고</option>
+									<option value="2" th:selected="${item.ortReleaseNy} == 2">일부출고</option>
+								</select>	            			
+			      			</label>
+			    		</div>
+			    		
+			    		<!-- 배송사 -->
+			    		<div class="md:h-auto mr-3 md:w-1/2">
+			      			<label class="block text-sm">
+			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
+			        			<span class="text-gray-700 dark:text-gray-400">배송사</span>
+			        			<select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+									id="ortShippingCd" name="ortShippingCd" >
+									<option value="">배송사를 선택하세요</option>
+									<option th:if="${!#lists.isEmpty(courierList)}"
+									th:each="courierList : ${courierList}" th:value="${courierList.mbrSeq}" th:text= "${courierList.mbrClientName}" th:selected="${item.ortShippingCd} == ${courierList.mbrSeq}"></option>
+								</select>
+								<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;"></span>		            			
+			      			</label>
+			    		</div>
+			      		
+			    		<!-- 출고일 설정 -->
+			    		<div class="md:h-auto mr-3 md:w-1/2">
+			    			<label class="block text-sm">
+			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
+			        			<span class="text-gray-700 dark:text-gray-400">출고일</span>
+			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				                            id="ortDt" name="ortReleaseDt"
+				                            th:value="${#dates.format(item.ortReleaseDt, 'yyyy/MM/dd HH:mm:ss')}">
+			      			</label>
+			    		</div>
+	
+						<!-- 공백 -->
+			    		<div class="md:h-auto mr-3 md:w-1/2"></div>
 					</div>
                 </div>
               </div>
-  			</div>
+  
               <!-- 저장버튼, 회원조회버튼 -->
               <div class="flex flex-col md:flex-row mt-4">
                 <!-- 이전 -->
@@ -117,6 +163,7 @@
                   </button>                
                 </div>
               </div>
+          	</div>
           </form>          
         </main>
       </div>
@@ -137,7 +184,7 @@
 		let goUrlSdmForm   	= "/codeGroupSdmForm";		/* 수정화면 */
 		let goUrlSdmCreate 	= "/codeGroupSdmCreate";	/* 등록화면 */
 		let goUrlSdmInsert 	= "/ortInsert";				/* 등록 */
-		let goUrlSdmUpdate 	= "/codeGroupSdmUpdate";	/* 수정 */
+		let goUrlSdmUpdate 	= "/updateOrt";				/* 수정 */
 		let goUrlSdmDelete 	= "/codeGroupSdmDelete";	/* 삭제 */
 		let goUrlSdmUdtOne 	= "/codeGroupSdmDelNy";		/* 삭제여부변경 */
 
@@ -160,6 +207,15 @@
 // ============================================================================
 
     	// 저장버튼
+    	window.addEventListener('load', function() {
+			jQuery.datetimepicker.setLocale('ko'); // 한국어
+	
+			$("#ortDt").datetimepicker({
+				timepicker:false,
+				format: 'Y/m/d', //'Y-m-d' //H:i
+			});
+		});
+		
 		document.getElementById("btnSubmit").onclick = function() {
 			fnCallController();
 		};
@@ -192,7 +248,7 @@
 			/* if(!fnValidation()) {return false;}; */
 			
 			// 저장
-			form.action = goUrlSdmInsert;
+			form.action = goUrlSdmUpdate;
 			form.submit();
 		};	
 		
@@ -231,7 +287,7 @@
 	    // 현재 URL에서 ordSeq 값을 가져오는 함수
 	    function getOrdSeqFromURL() {
 	        var urlParams = new URLSearchParams(window.location.search);
-	        return urlParams.get('ordSeq');
+	        return urlParams.get('ortSeq');
 	    }
 	
 	    // 페이지가 로드될 때 실행되는 함수
@@ -241,7 +297,7 @@
 	
 	        // 가져온 값이 null이 아니면 hidden input에 할당
 	        if (ordSeqValue !== null) {
-	            document.getElementById('ordSeq').value = ordSeqValue;
+	            document.getElementById('ortSeq').value = ordSeqValue;
 	        }
 	    };
 	</script>

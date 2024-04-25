@@ -15,10 +15,14 @@ public interface OrdersDao {
 	public OrdersDto selectOne(OrdersDto dto);
 //	주문추가
 	public int insertOrd(OrdersDto dto);
-// 상세주문추가
+// 	상세주문추가
 	public int insertOrt(OrdersDto dto);
-//	주문등록 고객사
+//	주문등록 및 수정 고객사
 	public List<OrdersDto> clientNameList(OrdersDto dto);
-//	주문등록 제품
+//	주문등록 및 수정 택배사
+	public List<OrdersDto> courierServiceList(OrdersDto dto);
+//	주문등록 및 수정제품
 	public List<OrdersDto> productList(OrdersDto dto);
+//	상세주문 수정
+	public int updateOrt(OrdersDto dto);
 }
