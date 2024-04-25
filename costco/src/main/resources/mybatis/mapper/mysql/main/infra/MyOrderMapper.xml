@@ -21,6 +21,9 @@
 				where 
 					1=1
 			 <include refid="selectCommon"/> 
+			 ORDER BY a.morSeq 
+			 LIMIT #{pgRowCount}
+    		 OFFSET #{pgOffset} 
 			 
 	</select>
 	<!-- 발주 수정폼 -->
@@ -70,6 +73,15 @@
 	</update>
 	
 	<!-- 발주 삭제 -->
+	<delete id= "myorderdeletechile">
+	delete 
+		from
+			myorderdetail
+		where 
+			morSeq = #{morSeq}
+	</delete>
+	
+	<!-- 발주 삭제 자식요소 삭제 -->
 	<delete id= "myorderdelete">
 	delete 
 		from
@@ -78,11 +90,25 @@
 			morSeq = #{morSeq}
 	</delete>
 	
+	
+	
 	<!-- 체크된 리스트 삭제 -->
 	<delete id = "myorderListDelete">
 		delete 
 			from
 				myorder
+			where 1=1
+			AND morSeq IN
+			<foreach collection="shCheckedArray" item="list" open="(" close=")" separator=",">
+	    	         #{list}
+	    	</foreach>
+	</delete>
+	
+	<!-- 체크된 리스트 자식요소 삭제 -->
+	<delete id = "myorderDetailListDeletechile">
+		delete 
+			from
+				myorderdetail
 			where 1=1
 			AND morSeq IN
 			<foreach collection="shCheckedArray" item="list" open="(" close=")" separator=",">
@@ -114,7 +140,9 @@
 				,a.motDelNy 
 				,a.motRegDt 
 				,a.motModDt
-				,b.mbrSeq 
+				,b.mbrSeq
+				,d.mbrClientName 
+				,d.mbrName
 					from 
 						myorderdetail a
 					join
@@ -125,14 +153,27 @@
 						product c
 					on 
 						a.pdtSeq  = c.pdtSeq 
+					join
+						members d
+					on 
+						a.motCompCd = d.mbrSeq
 					where 1=1
 			 <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
 			 <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
 	         
 	         <choose>
-	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 1">AND b.morDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND a.motRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 3">AND a.motModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	
+	         	
 	         </choose> 
+	         <choose>
+	         	<when test="shOption == 1">AND a.motSeq  = #{shValue}</when>
+	         	<when test="shOption == 2">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         </choose>
+	         
 	         ORDER BY a.motSeq 
 	         LIMIT #{pgRowCount}
     		 OFFSET #{pgOffset} 
@@ -291,14 +332,24 @@
 						product c
 					on 
 						a.pdtSeq  = c.pdtSeq 
+					join
+						members d
+					on 
+						a.motCompCd = d.mbrSeq
 					where 1=1
 			 <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
 			 <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
 	         
 	         <choose>
-	         	<when test="shOptionDate == 1">AND a.morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	<when test="shOptionDate == 2">AND a.morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 1">AND b.morDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND a.motRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 3">AND a.motModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 	         </choose> 
+	         <choose>
+	         	<when test="shOption == 1">AND a.motSeq  = #{shValue}</when>
+	         	<when test="shOption == 2">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         </choose>
 	</select>
 	
 	
@@ -307,10 +358,15 @@
 	<sql id ="selectCommon">
 		<if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(morDelNy, 0) = #{shDelNy}</if>
 			<if test="shReceive != null and !shReceive.equals('')">AND IFNULL(morWarehousingNy, 0) = #{shReceive}</if>
-	         
 	         <choose>
-	         	<when test="shOptionDate == 1">AND morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	<when test="shOptionDate == 2">AND morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOption == 1">AND morSeq  = #{shValue}</when>
+	         </choose>
+	         <choose>
+	         	<when test="shOptionDate == 1">AND morDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 2">AND morRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	<when test="shOptionDate == 3">AND morModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+	         	
 	         </choose> 
+	         
 	</sql>
 </mapper>

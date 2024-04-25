@@ -38,6 +38,20 @@ public class MyOrderController {
 		return Constants.PATH_MYORDER + "myorderList";
 	}
 	
+	@RequestMapping(value = "/myorderlListAjax")
+	public String myorderlListAjax(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception
+	{
+		UtilFunction.setSearch(vo);
+		int rowCount = service.morCount(vo);
+		
+		if(rowCount > 0)
+		{
+			vo.setPagingVo(rowCount);
+			model.addAttribute("list", service.selectList(vo));
+		}
+		return Constants.PATH_MYORDER + "myorderlListAjax";
+	}
+	
 //	발주 등록 페이지
 	@RequestMapping(value = "/myorderCreate")
 	public String myOrderSdmCreate()throws Exception
@@ -71,6 +85,7 @@ public class MyOrderController {
 	@RequestMapping(value= "/myorderdelete")
 	public String myorderdelete(MyOrderDto dto)throws Exception
 	{
+		service.myorderdeletechile(dto);
 		service.myorderdelete(dto);
 		return "redirect:myorderList";
 	}
@@ -80,8 +95,10 @@ public class MyOrderController {
 	public Map<String, Object> myorderListDelete(MyOrderDto dto,MyOrderVo vo) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
+		service.myorderDetailListDeletechile(vo);
 		if(service.myorderListDelete(vo)>0)
 		{
+			service.myorderdeletechile(dto);
 			returnMap.put("rt", "success");
 		}else {
 			returnMap.put("rt", "fail");

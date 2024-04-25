@@ -25,17 +25,40 @@
               </h2>
   
               <div class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+              
+              	  <div class="flex flex-col md:flex-row"> 
+	              	  <div class="md:h-auto md:w-1/2 mr-3">
+	                    <input type="text" style="display: none;"/>                  
+	                    <label class="block text-sm">
+	                      <span class="text-gray-700 dark:text-gray-400">발주번호</span>
+	                      <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
+	                          th:value="${item.motSeq}"
+	                          onchange="fnOnChange(this)" readonly>                    
+	                      <span id="motCountValid" name="motCountValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+	                      	발주수량을 입력하세요
+	                      </span>                    
+	                    </label>
+	                  </div>
+	                  <div class="md:h-auto md:w-1/2 mr-3">
+	                  </div>
+	                  <div class="md:h-auto md:w-1/2 mr-3">
+	                  </div>
+	                  <div class="md:h-auto md:w-1/2 mr-3">
+	                  </div>
+              	  </div>
+              	  
+              	  
                 <div class="flex flex-col md:flex-row">                  
                   <div class="md:h-auto md:w-1/2 mr-3">
-                    <input type="text" style="display: none;"/>                  
+                    <input type="text" style="display: none;" />                  
                     <label class="block text-sm">
-                      <span class="text-gray-700 dark:text-gray-400">발주일자</span>
+                      <span class="text-gray-700 dark:text-gray-400">발주일시</span>
                       
                       <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                            id="orederDate" name="orederDate" 
                           th:value="${#dates.format(item.morDate, 'yyyy-MM-dd HH:mm:ss')}"
-                          onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
-                      <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+                          onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)" readonly>                    
+                      <span id="orederDateValid" name="orederDateValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	그룹코드명 입력하세요
                       </span>                    
                     </label>
@@ -59,7 +82,7 @@
 					  th:each="list : ${list}" th:value="${list.mbrSeq}" th:text= "${list.mbrClientName}" th:selected="${item.motCompCd} == ${list.mbrSeq}"></option>
 				      </select>   
 				                      
-                      <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+                      <span id="motCompCdValid" name="motCompCdValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	발주사를 선택하세요
                       </span>                    
                     </label>
@@ -80,7 +103,7 @@
 					  th:each="pdtlist : ${pdtlist}" th:value="${pdtlist.pdtSeq}" th:text= "${pdtlist.pdtName}" th:data-price = "${pdtlist.pdtPrice}"
 					  th:selected="${item.pdtSeq} == ${pdtlist.pdtSeq}"></option>
 				      </select>               
-                      <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+                      <span id="pdtSeqValid" name="pdtSeqValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	발주제품을 선택하세요
                       </span>                    
                     </label>
@@ -89,13 +112,13 @@
                   <div class="md:h-auto md:w-1/2 mr-3">
                     <input type="text" style="display: none;"/>                  
                     <label class="block text-sm">
-                      <span class="text-gray-700 dark:text-gray-400">발수수량</span>
+                      <span class="text-gray-700 dark:text-gray-400">발주수량</span>
                       <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                           id="motCount" 
                           name="motCount"    
                           th:value="${item.motCount}"
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">                    
-                      <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+                      <span id="motCountValid" name="motCountValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	발주수량을 입력하세요
                       </span>                    
                     </label>
@@ -114,7 +137,7 @@
                           onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)"> 
                           <input type="hidden" id="motAmt" name="motAmt"  th:value="${item.motAmt}"> 
                           <input type="hidden" id="motSeq" name="motSeq"  th:value="${item.motSeq}">                        
-                      <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+                      <span id="motAmtsValid" name="motAmtsValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	발주금액을 입력하세요
                       </span>                    
                     </label>
@@ -131,7 +154,7 @@
 				        <option value="1" th:selected="${item.motWarehousingNy} == 1">입고</option>
 				        <option value="2" th:selected="${item.motWarehousingNy} == 2">일부입고</option>
 				       </select>                  
-                      <span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
+                      <span id="motWarehousingNyValid" name="motWarehousingNyValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
                       	그룹코드명 입력하세요
                       </span>                    
                     </label>
@@ -250,9 +273,9 @@
 		// TYPE_PW   = 20, TYPE_DT   = 21, TYPE_EM   = 22;
 		// TYPE_SP   = 30, TYPE_NULL = 31;
 		let dispText = "";
-		let typeArr = [TYPE_KRENIT];		
-		let nameArr = ["cdgName"];
-		let textArr = [dispText];	
+		let typeArr = [3,3,3,30,3];		
+		let nameArr = ["motCompCd","pdtSeq","motCount","motAmts","motWarehousingNy"];
+		let textArr = ["발주사를 선택하세요","발주제품을 선택하세요","발주수량을 입력하세요","발주금액을 입력하세요","입고여부를 선택하세요"];	
 		
 // ============================================================================
 // event
@@ -309,7 +332,7 @@
 
 		// controller 호출
 		fnCallController = function() {
-			//if(!fnValidation()) {return false;};
+			if(!fnValidation()) {return false;};
 			
 			// 저장
 			form.action = goUrlSdmUpdate;
@@ -343,15 +366,14 @@
     		alert(aa); */
     			//alert(aa)
     			let anotherSelectBox = document.getElementById("pdtSeq");
-    		
-    		
-    			
                 anotherSelectBox.innerHTML = '';
                 
                 let motCount = document.getElementById("motCount");
     			let motAmt = document.getElementById("motAmts");
+    			let hiddenprice = document.getElementById("motAmt");
                 motCount.value = null;
                 motAmt.value=null
+                hiddenprice.value = null;
                 
 	                for (let i = 0; i < index.length; i++) {
 	                	if(index[i].mbrSeq  ==  aa){

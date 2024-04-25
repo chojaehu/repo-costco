@@ -17,6 +17,10 @@ public interface MyOrderDao {
 	public int myorderListDelete(MyOrderVo vo);
 //	발주 ny 변경
 	public int myorderSelNY(MyOrderDto dto);
+//	삭제시 자식요소 삭제
+	public int myorderdeletechile(MyOrderDto dto);
+//	체크된 자식요소 삭제
+	public int myorderDetailListDeletechile(MyOrderVo vo);
 
 	
 	

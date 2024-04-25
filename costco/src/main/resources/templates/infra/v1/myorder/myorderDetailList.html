@@ -43,8 +43,9 @@
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
 				                            id="shOptionDate" name="shOptionDate">
 										    <option value=""  th:selected="${vo.shOptionDate == null}">날짜</option>
-				                            <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
-				                            <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> 
+										    <option value="1" th:selected="${vo.shOptionDate == 1}">발주일</option>
+				                            <option value="2" th:selected="${vo.shOptionDate == 2}">등록일</option>
+				                            <option value="3" th:selected="${vo.shOptionDate == 3}">수정일</option> 
 				                        </select>
 				                    </div>
 
@@ -87,9 +88,10 @@
 				                    <div class="md:h-auto md:w-1/2 mr-3">
 				                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
 				                            id="shOption" name="shOption">
-				                            <!-- <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
-				                            <option value="1" th:selected="${vo.shOption == 1}">코드그룹코드</option>
-				                            <option value="2" th:selected="${vo.shOption == 2}">코드그룹명</option> -->
+				                            <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
+				                            <option value="1" th:selected="${vo.shOption == 1}">발주코드</option>
+				                            <option value="2" th:selected="${vo.shOption == 2}">상품명</option>
+				                            <option value="3" th:selected="${vo.shOption == 3}">발주사</option>
 				                        </select>
 				                    </div>
 
@@ -125,7 +127,7 @@
 	                  					<span style="visibility:hidden;">&nbsp;</span>	                                          
                     				</div>
 
-									<div class="md:h-auto md:w-1/2 mr-3"></div> 
+									<!-- <div class="md:h-auto md:w-1/2 mr-3"></div>  -->
                 				</div>
               				</div> 
 
@@ -148,6 +150,7 @@
                       						<th class="px-1 py-1">###</th>
                       						<th class="px-4 py-1">발주일자</th>
                       						<th class="px-4 py-1">발주사</th>
+                      						<th class="px-4 py-1">발주담당자</th>
                       						<th class="px-4 py-1">제품</th>
                       						<th class="px-4 py-1">수량</th>
                       						<th class="px-4 py-1">금액</th>
@@ -181,9 +184,10 @@
 					                    	
 					                    	<td class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1"  th:text="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
+					                    	<td id="motCompCd" name="motCompCd" class="px-1 py-1" th:text ="${list.mbrClientName}"  th:value="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
+					                    	<td id="motCompCd" name="motCompCd" class="px-1 py-1" th:text ="${list.mbrName}"  th:value="${@membersService.selectOneMembersClientName(list.mbrName)}"></td>
 					                    	<!-- selectOneMembersClientName -->
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.pdtName}"></td>
+					                    	<td id="pdtName" name="pdtName" class="px-1 py-1" th:text="${list.pdtName}"></td>
 					                    	
 					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motCount}" style="text-align: right;"></td>
 					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${#numbers.formatInteger(list.motAmt, 3, 'COMMA')}" style="text-align: right;"></td>
@@ -278,7 +282,7 @@
                 				<span class="flex col-span-3 sm:mt-auto sm:justify-end">
 								<!-- 홈버튼 -->                
 				                <button class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Back">
-				                	<a th:href="@{/indexSdm}">
+				                	<a th:href="@{/index}">
 										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									  		<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
 										</svg>                

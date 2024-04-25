@@ -48,6 +48,16 @@ public class MyorderService {
 	{
 		return dao.myorderSelNY(dto);
 	}
+//	삭제시 자식 요소 삭제
+	public int myorderdeletechile(MyOrderDto dto)
+	{
+		return dao.myorderdeletechile(dto);
+	}
+//	체크된 자식요소 삭제
+	public int myorderDetailListDeletechile(MyOrderVo vo)
+	{
+		return dao.myorderDetailListDeletechile(vo);
+	}
 	
 	
 	
