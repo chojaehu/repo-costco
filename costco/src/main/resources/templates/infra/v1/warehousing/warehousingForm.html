@@ -68,10 +68,14 @@
 				    		</div>
 
 							<!--  입고수량 -->
-				    		<div class="md:h-auto mr-3 md:w-1/2">
+				    		<div class="md:h-auto mr-3 md:w-1/2 mb-4">
 				      			<label class="block text-sm">
 				        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 				        			<span class="text-gray-700 dark:text-gray-400">입고수량</span>
+				        			
+				        			<input th:if = "${item.whsSeq} == null" id="whsCount" name="whsCount" type="hidden" th:value="${item.xwhsCountTot}">
+				        			<input th:unless = "${item.whsSeq} == null" id="whsCount" name="whsCount" type="hidden" th:value="${item.whsCount}">
+				        			
 				        			<input th:if = "${item.whsSeq} == null" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				            			id="xwhsCountTot" name="xwhsCountTot" placeholder="입고수량"
 				            			th:value="${item.xwhsCountTot}">			            			
@@ -82,7 +86,6 @@
 				      			</label>
 				    		</div>
 						</div>
-						
 						<!-- 저장버튼, 회원조회버튼 -->
 						<div class="flex flex-col md:flex-row mt-4">
 				  			<!-- 이전 -->
@@ -126,7 +129,7 @@
       </div>
     </div>
     
-    <!-- modalFormSdm -->  
+    <!-- modalFormOneBtn(타이틀, 내용, 버튼명) --> 
 	<div th:replace="~{infra/v1/include/modalSdm :: modalFormSdm}"></div>
         
     <script type="text/javascript">
@@ -163,7 +166,19 @@
 
     	// 저장버튼
 		document.getElementById("btnSubmit").onclick = function() {
-			fnCallController();
+			let xwhsCountTot = parseInt($("#xwhsCountTot").val());
+			let whsCount     = parseInt($("#whsCount").val());
+			 
+			if(xwhsCountTot > whsCount) {
+				let xwhsCountTot = document.querySelector("input[name=xwhsCountTot]");
+				let xwhsCountTotValid = document.querySelector("span[name=xwhsCountTotValid]"); 
+				
+				xwhsCountTot.setAttribute("class","block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input");
+				xwhsCountTotValid.innerHTML = "발주 수량을 초과하여 입력할 수 없습니다";
+				xwhsCountTotValid.setAttribute("style", "");
+			} else {
+				fnCallController();
+			}
 		};
 		
     	// 삭제버튼
