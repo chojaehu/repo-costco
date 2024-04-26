@@ -148,6 +148,7 @@
                           							style="height: 15px; width: 15px">
                       						</th>
                       						<th class="px-1 py-1">###</th>
+                      						<th class="px-1 py-1">발주번호</th>
                       						<th class="px-4 py-1">발주일자</th>
                       						<th class="px-4 py-1">발주사</th>
                       						<th class="px-4 py-1">발주담당자</th>
@@ -180,17 +181,18 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motSeq}"></td>
+					                    	<td id="motSeq" name="motSeq" class="px-1 py-1" th:text="${list.motSeq}" style="text-align: center;"></td>
+					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}" style="text-align: center;"></td>
 					                    	
 					                    	<td class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 					                    	
-					                    	<td id="motCompCd" name="motCompCd" class="px-1 py-1" th:text ="${list.mbrClientName}"  th:value="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
-					                    	<td id="motCompCd" name="motCompCd" class="px-1 py-1" th:text ="${list.mbrName}"  th:value="${@membersService.selectOneMembersClientName(list.mbrName)}"></td>
+					                    	<td id="mbrClientName" name="mbrClientName" class="px-1 py-1" th:text ="${list.mbrClientName}"  th:value="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
+					                    	<td id="mbrName" name="mbrName" class="px-1 py-1" th:text ="${list.mbrName}"  th:value="${@membersService.selectOneMembersClientName(list.mbrName)}"></td>
 					                    	<!-- selectOneMembersClientName -->
 					                    	<td id="pdtName" name="pdtName" class="px-1 py-1" th:text="${list.pdtName}"></td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motCount}" style="text-align: right;"></td>
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${#numbers.formatInteger(list.motAmt, 3, 'COMMA')}" style="text-align: right;"></td>
+					                    	<td id="motCount" name="motCount" class="px-1 py-1" th:text="${list.motCount}" style="text-align: right;"></td>
+					                    	<td id="motAmt" name="motAmt" class="px-1 py-1" th:text="${#numbers.formatInteger(list.motAmt, 3, 'COMMA')}" style="text-align: right;"></td>
 					                    	
 
 					                    	<td class="px-4 py-1">

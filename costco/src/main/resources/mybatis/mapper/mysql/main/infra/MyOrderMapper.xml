@@ -16,10 +16,15 @@
 			,a.morRegDt 
 			,a.morModDt 
 			,a.mbrSeq 
+			, (SELECT COUNT(*) 
+					      FROM myorderdetail aa 
+					     WHERE aa.morSeq = a.morSeq		        
+					   ) xmorCount
 				from 
 					myorder a
 				where 
 					1=1
+					
 			 <include refid="selectCommon"/> 
 			 ORDER BY a.morSeq 
 			 LIMIT #{pgRowCount}
@@ -36,6 +41,10 @@
 			,a.morRegDt 
 			,a.morModDt 
 			,a.mbrSeq 
+			, (SELECT COUNT(*) 
+					      FROM myorderdetail aa 
+					     WHERE aa.morSeq = a.morSeq		        
+					   ) xmorCount
 				from 
 					myorder a
 				where 
@@ -131,6 +140,7 @@
 	<select id="myorderdetailList" resultMap="resultMapObj">
 			select
 				a.motSeq 
+				,b.morSeq
 				,b.morDate 
 				,a.motCompCd 
 				,c.pdtName 
@@ -174,7 +184,7 @@
 	         	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
 	         </choose>
 	         
-	         ORDER BY a.motSeq 
+	         ORDER BY b.morSeq 
 	         LIMIT #{pgRowCount}
     		 OFFSET #{pgOffset} 
 	</select>

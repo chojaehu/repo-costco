@@ -15,6 +15,7 @@
                           							style="height: 15px; width: 15px">
                       						</th>
                       						<th class="px-1 py-1">###</th>
+                      						<th class="px-1 py-1">발주번호</th>
                       						<th class="px-4 py-1">발주일자</th>
                       						<th class="px-4 py-1">발주사</th>
                       						<th class="px-4 py-1">제품</th>
@@ -46,7 +47,8 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motSeq}"></td>
+					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motSeq}"  style="text-align: center;"></td>
+					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}" style="text-align: center;"></td>
 					                    	
 					                    	<td class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 					                    	
@@ -92,7 +94,8 @@
 					                    	
 					                    	<td class="px-4 py-1" th:text="${#dates.format(list.motModDt, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
 					                    	
-					                    	<td class="px-4 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}"></td>
+					                    	<td class="px-4 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}" ></td>
+					                    	
 					                    
 					                    	<td class="px-6 py-1">
 											<!-- 수정 -->

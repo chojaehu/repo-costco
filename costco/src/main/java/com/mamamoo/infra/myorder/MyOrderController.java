@@ -1,6 +1,5 @@
 package com.mamamoo.infra.myorder;
 
-import java.io.StreamTokenizer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,7 +84,7 @@ public class MyOrderController {
 	@RequestMapping(value= "/myorderdelete")
 	public String myorderdelete(MyOrderDto dto)throws Exception
 	{
-		service.myorderdeletechile(dto);
+		//service.myorderdeletechile(dto);
 		service.myorderdelete(dto);
 		return "redirect:myorderList";
 	}
@@ -95,7 +94,7 @@ public class MyOrderController {
 	public Map<String, Object> myorderListDelete(MyOrderDto dto,MyOrderVo vo) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-		service.myorderDetailListDeletechile(vo);
+		//service.myorderDetailListDeletechile(vo);
 		if(service.myorderListDelete(vo)>0)
 		{
 			service.myorderdeletechile(dto);
