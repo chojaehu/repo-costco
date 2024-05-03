@@ -10,7 +10,7 @@ public class OrdersDto {
 	private Integer ordDelNy;		//삭제여부
 	private Date ordRegDt;			//등록일시
 	private Date ordModDt;			//수정일시
-	private Integer ordReleasedNy;	//출고여부(0:미출고, 1:출고)
+	private Integer ordReleasedNy;	//출고여부(0:미출고, 1:출고, 2:일부출고)
 	private String mbrSeq;			//회원순번
 // orders
 	
@@ -21,7 +21,7 @@ public class OrdersDto {
 	private Double ortAmt;			//주문금액
 	private String ortShippingCd;	//배송처
 	private Date ortReleaseDt;		//출고일자
-	private Integer ortReleaseNy;	//출고여부(0:미출고, 1:출고, 2:일부출고)
+	private Integer ortReleaseNy;	//출고여부(0:미출고, 1:출고)
 	private Integer ortDelNy;		//삭제여부
 	private Date ortRegDt;			//등록일시
 	private Date ortModDt;			//수정일시
@@ -36,9 +36,16 @@ public class OrdersDto {
 // members	
 	private String mbrClientName;	//거래처명
 	private String mbrName;			//거래처성명
-	private String xmberName;
+	private String xmbrClientName;	//배송처명
+	private String xmbrName;		//배송처성명
 // members
 
+//	미출고, 출고완료, 일부출고
+	private Integer xorderdetail_0; // 미출고
+	private Integer xordortCount;
+//	private Integer xorderdetail_2; // 출고
+//	private Integer xorderdetail_3; // 일부출고
+//	미출고, 출고완료, 일부출고
 	
 	public String getOrdSeq() {
 		return ordSeq;
@@ -215,14 +222,40 @@ public class OrdersDto {
 	public void setMbrName(String mbrName) {
 		this.mbrName = mbrName;
 	}
-
-	public String getXmberName() {
-		return xmberName;
+	
+	public String getXmbrClientName() {
+		return xmbrClientName;
 	}
 
-	public void setXmberName(String xmberName) {
-		this.xmberName = xmberName;
+	public void setXmbrClientName(String xmbrClientName) {
+		this.xmbrClientName = xmbrClientName;
 	}
+
+	public String getXmbrName() {
+		return xmbrName;
+	}
+
+	public void setXmbrName(String xmbrName) {
+		this.xmbrName = xmbrName;
+	}
+
+	public Integer getXorderdetail_0() {
+		return xorderdetail_0;
+	}
+
+	public void setXorderdetail_0(Integer xorderdetail_0) {
+		this.xorderdetail_0 = xorderdetail_0;
+	}
+
+	public Integer getXordortCount() {
+		return xordortCount;
+	}
+
+	public void setXordortCount(Integer xordortCount) {
+		this.xordortCount = xordortCount;
+	}
+
+	
 	
 	
 }

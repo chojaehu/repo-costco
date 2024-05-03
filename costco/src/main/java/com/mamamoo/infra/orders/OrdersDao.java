@@ -25,4 +25,8 @@ public interface OrdersDao {
 	public List<OrdersDto> productList(OrdersDto dto);
 //	상세주문 수정
 	public int updateOrt(OrdersDto dto);
+//	주문 출고상세 상태
+	public OrdersDto selectOneOrtReleaseNy(OrdersDto dto);
+//	주문 출고여부 변경
+	public int updateOrdReleasedNy(OrdersDto dto);
 }

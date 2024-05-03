@@ -55,6 +55,16 @@ public class OrdersService {
 	public int updateOrt(OrdersDto dto) {
 		return dao.updateOrt(dto);
 	}
+//	주문 출고상세 상태
+	public OrdersDto selectOneOrtReleaseNy(OrdersDto dto) {
+		return dao.selectOneOrtReleaseNy(dto);
+	}
+//	주문 출고여부 변경
+	public int updateOrdReleasedNy(OrdersDto dto) {
+		return dao.updateOrdReleasedNy(dto);
+	}
+	
+
 
 	
 }

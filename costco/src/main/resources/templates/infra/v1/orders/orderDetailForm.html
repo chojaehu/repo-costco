@@ -55,17 +55,21 @@
 								<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;"></span>		            			
 			      			</label>
 			    		</div>
-	
-						<!-- 주문수량 -->
+			    		<input type="hidden" name="ortSeq" id="ortSeq" th:value="${item.ortSeq}">
+			    		<input type="hidden" name="ordSeq" id="ordSeq" th:value="${item.ordSeq}">
+					</div>
+                </div>
+                
+                <div class="mt-4 mb-4">                  
+                	<div class="flex flex-col md:flex-row mt-4 mb-4">
+			    		
+			    		<!-- 주문수량 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
 			      			<label class="block text-sm">
 			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 			        			<span class="text-gray-700 dark:text-gray-400">주문수량</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 			            			id="ortCount" name="ortCount" placeholder="주문수량" th:value="${item.ortCount}">
-			            		<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
-                      				발주수량을 입력하세요
-                      			</span>   			
 			      			</label>
 			    		</div>
 			    		
@@ -77,29 +81,13 @@
 			        			<span class="text-gray-700 dark:text-gray-400">주문총액</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 			            			id="ortAmts" name="ortAmts" placeholder="주문총액" th:value="${#numbers.formatInteger(item.ortAmt, 3, 'COMMA')}">
-			            	<span id="cdgNameValid" name="cdgNameValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
-                      			발주금액을 입력하세요
-                      		</span> 	            			
 			      			</label>
 			    		</div>
-			    		<input type="hidden" name="ortSeq" id="ortSeq">
 					</div>
                 </div>
+                
                 <div class="mt-4 mb-4">                  
                 	<div class="flex flex-col md:flex-row mt-4 mb-4">
-						<!-- 출고여부 -->
-						<div class="md:h-auto mr-3 md:w-1/2">
-			      			<label class="block text-sm">
-			        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
-			        			<span class="text-gray-700 dark:text-gray-400">출고여부</span>
-			            		<select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-									id="ortReleaseNy" name="ortReleaseNy" >
-									<option value="0" th:selected="${item.ortReleaseNy} == 0">미출고</option>
-									<option value="1" th:selected="${item.ortReleaseNy} == 1">출고</option>
-									<option value="2" th:selected="${item.ortReleaseNy} == 2">일부출고</option>
-								</select>	            			
-			      			</label>
-			    		</div>
 			    		
 			    		<!-- 배송사 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
@@ -126,9 +114,6 @@
 				                            th:value="${#dates.format(item.ortReleaseDt, 'yyyy/MM/dd HH:mm:ss')}">
 			      			</label>
 			    		</div>
-	
-						<!-- 공백 -->
-			    		<div class="md:h-auto mr-3 md:w-1/2"></div>
 					</div>
                 </div>
               </div>
@@ -206,7 +191,6 @@
 // event
 // ============================================================================
 
-    	// 저장버튼
     	window.addEventListener('load', function() {
 			jQuery.datetimepicker.setLocale('ko'); // 한국어
 	
@@ -216,6 +200,7 @@
 			});
 		});
 		
+    	// 저장버튼
 		document.getElementById("btnSubmit").onclick = function() {
 			fnCallController();
 		};

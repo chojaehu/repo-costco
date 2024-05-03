@@ -81,7 +81,6 @@
 				                            <option value="" th:selected="${vo.shReleasedNy == null}">출고여부</option>
 				                            <option value="0" th:selected="${vo.shReleasedNy == 0}">미출고</option>
 				                            <option value="1" th:selected="${vo.shReleasedNy == 1}">출고</option>
-				                            <option value="2" th:selected="${vo.shReleasedNy == 2}">일부출고</option>
 				                        </select>
 				                    </div>
 				                    
@@ -94,6 +93,8 @@
 				                            <option value="2" th:selected="${vo.shOption == 2}">상품명</option>
 				                            <option value="3" th:selected="${vo.shOption == 3}">거래처명</option>
 				                            <option value="4" th:selected="${vo.shOption == 4}">거래처담당자</option>
+				                            <option value="5" th:selected="${vo.shOption == 5}">배송처</option>
+				                            <option value="6" th:selected="${vo.shOption == 6}">배송담당자</option>
 				                        </select>
 				                    </div>
 
@@ -139,7 +140,7 @@
             
             			<!-- 조회결과 리스트 -->
             			<div class="w-full overflow-hidden rounded-lg shadow-xs">
-              				<div class="w-full overflow-x-auto">
+              				<div class="w-full overflow-x-auto" id="listData">
                 				<table class="w-full whitespace-no-wrap">
                   					<!-- 조회결과 리스트 타이틀-->
                   					<thead>
@@ -149,21 +150,23 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1" style="text-align: right;">###</th>
-                      						<th class="px-1 py-1" style="text-align: right;">주문코드</th>
-                      						<th class="px-1 py-1" style="text-align: right;">주문일</th>
-                      						<th class="px-1 py-1" style="text-align: right;">거래처</th>
-                      						<th class="px-1 py-1" style="text-align: right;">거래처담당자</th>
-                      						<th class="px-1 py-1" style="text-align: right;">상품명</th>
-                      						<th class="px-1 py-1" style="text-align: right;">상품단가</th>
+                      						<th class="px-2 py-1" style="text-align: right;">#</th>
+                      						<th class="px-2 py-1" style="text-align: right;">주문</th>
+                      						<th class="px-4 py-1" style="text-align: right;">주문일</th>
+                      						<th class="px-2 py-1">거래처</th>
+                      						<th class="px-2 py-1">담당자</th>
+                      						<th class="px-4 py-1">상품명</th>
+                      						<th class="px-4 py-1" style="text-align: right;">상품단가</th>
                       						<th class="px-1 py-1" style="text-align: right;">주문수량</th>
-                      						<th class="px-1 py-1" style="text-align: right;">상품총액</th>
-                      						<th class="px-1 py-1" style="text-align: right;">출고여부</th>
-                      						<th class="px-1 py-1" style="text-align: right;">출고일</th>
-                      						<th class="px-1 py-1" style="text-align: right;">작업</th>
-                      						<th class="px-1 py-1" style="text-align: right;">등록일</th>
-                      						<th class="px-1 py-1" style="text-align: right;">수정일</th>
-                      						<th class="px-1 py-1" style="text-align: right;">삭제여부</th>
+                      						<th class="px-4 py-1" style="text-align: right;">상품총액</th>
+                      						<th class="px-2 py-1">배송처</th>
+                      						<th class="px-2 py-1">배송담당자</th>
+                      						<th class="px-4 py-1">출고여부</th>
+                      						<th class="px-4 py-1" style="text-align: right;">출고일</th>
+                      						<th class="px-4 py-1">작업</th>
+                      						<th class="px-4 py-1" style="text-align: right;">등록일</th>
+                      						<th class="px-4 py-1" style="text-align: right;">수정일</th>
+                      						<th class="px-4 py-1">삭제여부</th>
                     					</tr>
                   					</thead>
                   
@@ -186,35 +189,38 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="ortSeq" name="ortSeq" class="px-1 py-1" th:text="${list.ortSeq}" style="text-align: right;"></td>
+					                    	<td id="ortSeq" name="ortSeq" class="px-2 py-1" th:text="${list.ortSeq}" style="text-align: right;"></td>
 					                    	
-					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}" style="text-align: right;"></td>
+					                    	<td id="ordSeq" name="ordSeq" class="px-2 py-1" th:text="${list.ordSeq}" style="text-align: right;"></td>
 					                    	
                    							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" style="text-align: right;"></td>
 					                    	
-											<td id="mbrClientName" name="mbrClientName" class="px-1 py-1" th:text="${list.mbrClientName}" style="text-align: right;"></td>
+											<td id="mbrClientName" name="mbrClientName" class="px-2 py-1" th:text="${list.mbrClientName}"></td>
 											
-											<td id="mbrName" name="mbrName" class="px-1 py-1" th:text="${list.mbrName}" style="text-align: right;"></td>
+											<td id="mbrName" name="mbrName" class="px-2 py-1" th:text="${list.mbrName}"></td>
 											
-											<td id="pdtName" name="pdtName" class="px-1 py-1" th:text="${list.pdtName}" style="text-align: right;"></td>
+											<td id="pdtName" name="pdtName" class="px-4 py-1" th:text="${list.pdtName}"></td>
 
-											<td id="pdtPrice" name="pdtPrice" class="px-1 py-1" th:text="${#numbers.formatInteger(list.pdtPrice,1,'COMMA')}" style="text-align: right;"></td>
+											<td id="pdtPrice" name="pdtPrice" class="px-4 py-1" th:text="${#numbers.formatInteger(list.pdtPrice,1,'COMMA')}" style="text-align: right;"></td>
 											
 											<td id="ortCount" name="ortCount" class="px-1 py-1" th:text="${list.ortCount}" style="text-align: right;"></td>
 											
-											<td id="ortAmt" name="ortAmt" class="px-1 py-1" th:text="${#numbers.formatInteger(list.ortAmt,1,'COMMA')}" style="text-align: right;"></td>
+											<td id="ortAmt" name="ortAmt" class="px-4 py-1" th:text="${#numbers.formatInteger(list.ortAmt,1,'COMMA')}" style="text-align: right;"></td>
+					                    	
+					                    	<td id="xmbrClientName" name="xmbrClientName" class="px-2 py-1" th:text="${list.xmbrClientName}"></td>
 											
-					                    	<td class="px-4 py-1" style="text-align: right;">
+											<td id="xmbrName" name="xmbrName" class="px-2 py-1" th:text="${list.xmbrName}"></td>
+											
+					                    	<td class="px-4 py-1">
 					                        	<th:block th:switch="${list.ortReleaseNy}">
-					                        		<span th:case = "0">
+					                        		<span th:case = "0"
+					                        			class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700">
 					                        			미출고
 					                        		</span>
-					                        		<span th:case = "1">
-					                        			출고
+					                        		<span th:case = "1"
+					                        			class="px-2 py-1 font-semibold leading-tight text-blue-100 bg-blue-600 rounded-full dark:text-white dark:bg-blue-700">
+					                        			출&emsp;고
 					                        		</span>
-					                        		<span th:case = "2">
-					                        			일부출고
-					                        		</span>                         		
 					                        	</th:block>
 					                        </td>
 					                    	
@@ -223,7 +229,7 @@
 					                    	<td class="px-4 py-1">
                	    							<button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-2"
                             						id="btnUpate" name="btnUpdate">
-													<a th:href="@{/orderDetailForm(ortSeq=${list.ortSeq})}">
+													<a th:href="@{/orderDetailForm(ortSeq=${list.ortSeq},ordSeq=${list.ordSeq})}">
 														<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 															<path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z"></path>
 															<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z"></path>
@@ -251,6 +257,8 @@
                   						</tr> 
                   					</tbody>
                 				</table>
+								<!-- 페이지넘김 -->
+								<div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div>
               				</div>
 
 							<script>
@@ -264,8 +272,6 @@
 								}  
 							</script>
               
-							<!-- 페이지넘김 -->
-							<div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div>
 							         
 							<!-- 삭제버튼, 홈버튼 -->
 							<div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
@@ -348,7 +354,7 @@
 		let goUrlSdmUpdate 	= "/codeGroupSdmUpdate";	/* 수정 */
 		let goUrlSdmDelete 	= "/codeGroupSdmDelete";	/* 삭제 */
 		let goUrlSdmUdtDelNy= "/codeGroupSdmUdtDelNy";	/* 삭제여부변경 */
-		
+		let goUrlSdmPaging = "/orderDetailListAjax";	/* 페이징 */
 		// 필수입력체크대상
 		// validType : 1(한글), 2(영문), 3(숫자:정수), 4(숫자:실수)
 		//             10(한글영문), 11(한글숫자), 12(영문숫자), 13(한글영문숫자)

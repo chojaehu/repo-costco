@@ -80,6 +80,7 @@
 				                            <option value="" th:selected="${vo.shReleasedNy == null}">출고여부</option>
 				                            <option value="0" th:selected="${vo.shReleasedNy == 0}">미출고</option>
 				                            <option value="1" th:selected="${vo.shReleasedNy == 1}">출고</option>
+				                            <option value="2" th:selected="${vo.shReleasedNy == 2}">부분출고</option>
 				                        </select>
 				                    </div>
 				                    
@@ -134,7 +135,7 @@
             
             			<!-- 조회결과 리스트 -->
             			<div class="w-full overflow-hidden rounded-lg shadow-xs">
-              				<div class="w-full overflow-x-auto">
+              				<div class="w-full overflow-x-auto" id="listData">
                 				<table class="w-full whitespace-no-wrap">
                   					<!-- 조회결과 리스트 타이틀-->
                   					<thead>
@@ -182,13 +183,17 @@
 					                    	<td class="px-4 py-1">
 					                        	<th:block th:switch="${list.ordReleasedNy}">
 					                        		<span th:case = "0"
-					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+					                        			class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700">
 					                        			미출고
 					                        		</span>
 					                        		<span th:case = "1"
-					                        			class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
-					                        			출고
-					                        		</span>                        		
+					                        			class="px-2 py-1 font-semibold leading-tight text-blue-100 bg-blue-600 rounded-full dark:text-white dark:bg-blue-700">
+					                        			출&emsp;고
+					                        		</span>
+					                        		<span th:case = "2"
+					                        			class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700">
+					                        			일&emsp;부
+					                        		</span>                          		
 					                        	</th:block>
 					                        </td>
 					                        
@@ -235,8 +240,9 @@
                   						</tr> 
                   					</tbody>
                 				</table>
+								<!-- 페이지넘김 -->
+								<div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div>
               				</div>
-
 							<script>
 								// 타이틀바 체크시 리스트 체크박스 체크 및 해제
 								document.getElementById("checkboxAll").addEventListener("change", fnCheckboxCheck);
@@ -248,8 +254,6 @@
 								}  
 							</script>
               
-							<!-- 페이지넘김 -->
-							<div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div>
 							         
 							<!-- 삭제버튼, 홈버튼 -->
 							<div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
@@ -299,7 +303,7 @@
     </div>
     
     <!-- modalFormSdm -->
-    <div th:replace="~{infra/v1/include/modalSdm :: modalFormSdm}"></div>    
+    <!-- <div th:replace="~{infra/v1/include/modalSdm :: modalFormSdm}"></div>  -->   
     
     <script type="text/javascript">
 // ============================================================================
@@ -333,7 +337,7 @@
 		let goUrlSdmUpdate 	= "/codeGroupSdmUpdate";	/* 수정 */
 		let goUrlSdmDelete 	= "/codeGroupSdmDelete";	/* 삭제 */
 		let goUrlSdmUdtDelNy= "/codeGroupSdmUdtDelNy";	/* 삭제여부변경 */
-		
+		let goUrlSdmPaging = "/orderListAjax";			/* 페이징 */
 		// 필수입력체크대상
 		// validType : 1(한글), 2(영문), 3(숫자:정수), 4(숫자:실수)
 		//             10(한글영문), 11(한글숫자), 12(영문숫자), 13(한글영문숫자)

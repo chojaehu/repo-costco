@@ -27,6 +27,8 @@
          	<when test="shOption == 2">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
          	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
          	<when test="shOption == 4">AND d.mbrName LIKE CONCAT('%', #{shValue}, '%')</when>
+         	<when test="shOption == 5">AND e.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+         	<when test="shOption == 6">AND e.mbrName LIKE CONCAT('%', #{shValue}, '%')</when>
          </choose>
          
 	</sql>
@@ -67,9 +69,11 @@
 			,c.pdtPrice
 			,d.mbrClientName
 			,d.mbrName
-			,e.mbrClientName
-			,e.mbrName as xmberName
+			,e.mbrClientName as xmbrClientName
+			,e.mbrName as xmbrName
 			<include refid="selectCommonOrt"/>
+			ORDER BY b.ordSeq
+			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	
 	<!-- 카운팅 -->
@@ -142,6 +146,8 @@
 			,ordReleasedNy
 			,mbrSeq
 			<include refid="selectCommon"/>
+			ORDER BY ordSeq
+			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	
 	<!-- 카운팅 -->
@@ -182,7 +188,7 @@
 				,ortAmt = #{ortAmt}
 				,ortShippingCd = #{ortShippingCd}
 				,ortReleaseDt = #{ortReleaseDt}
-				,ortReleaseNy = #{ortReleaseNy}
+				,ortReleaseNy = 1
 				,ortDelNy = 0
 				,ortModDt = now()
 			WHERE 
@@ -221,6 +227,22 @@
 			)
 	</insert>
 	
+	<!-- 주문 출고상태 -->
+    <select id="selectOneOrtReleaseNy" resultMap="resultMapObj">
+    	SELECT (SELECT COUNT(*) FROM orderdetail aa WHERE aa.ordSeq = a.ordSeq AND aa.ortReleaseNy = 1) xorderdetail_0
+    			,(SELECT COUNT(*) FROM orderdetail aa WHERE aa.ordSeq = a.ordSeq) xordortCount
+  		  FROM orders a
+ 		 WHERE 1 = 1
+ 		   AND a.ordSeq = #{ordSeq}
+    </select>
+    
+    <!-- 주문 출고상태 변경 -->
+    <update id="updateOrdReleasedNy">
+    	UPDATE orders
+    	   SET ordModDt = now()
+    	     , ordReleasedNy = #{ordReleasedNy}
+    	 WHERE ordSeq = #{ordSeq}
+    </update>
 	
 	
 	
