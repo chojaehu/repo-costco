@@ -97,33 +97,37 @@
               <div class="flex flex-col md:flex-row mt-4">
                 <!-- 이전 -->
                 <div class="md:h-auto sm:mt-auto md:w-1/2">
+                <a th:href="@{/myorderList}">
                   <button
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-3"
                     aria-label="Search"
                     type="button"
                   >        
-                    <a th:href="@{/myorderList}">
+                    
 						<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 						  <path clip-rule="evenodd" fill-rule="evenodd" d="M7.793 2.232a.75.75 0 0 1-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 0 1 0 10.75H10.75a.75.75 0 0 1 0-1.5h2.875a3.875 3.875 0 0 0 0-7.75H3.622l4.146 3.957a.75.75 0 0 1-1.036 1.085l-5.5-5.25a.75.75 0 0 1 0-1.085l5.5-5.25a.75.75 0 0 1 1.06.025Z"></path>
 						</svg>	
-					</a>
+					
                   </button> 
+                 </a>
                 </div>  
                 
                               
                 <!-- 저장버튼 -->
                 <div class="flex md:h-auto sm:mt-auto md:w-1/2 sm:justify-end">
                 <!-- 발주 디테일 리스트 페이지 -->
-                <button
+                 <a th:href="@{/myorderDetailList}">
+                   <button
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-3"
                     aria-label="Search"
                     type="button">        
-                    <a th:href="@{/myorderDetailList}">
+                   
 						<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 							<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
 						</svg>     	
-					</a>
-                  </button> 
+					
+                    </button> 
+                  </a>
                   <button   
                     id="btnSubmit"
                     name="btnSubmit"             
@@ -148,6 +152,7 @@
                   </button>   -->        
                 </div>
               </div>
+            </div>
           </form>          
         </main>
       </div>

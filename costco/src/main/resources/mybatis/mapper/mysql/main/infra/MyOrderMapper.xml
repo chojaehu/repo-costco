@@ -180,8 +180,9 @@
 	         </choose> 
 	         <choose>
 	         	<when test="shOption == 1">AND a.motSeq  = #{shValue}</when>
-	         	<when test="shOption == 2">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
-	         	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         	<when test="shOption == 2">AND b.morSeq  = #{shValue}</when>
+	         	<when test="shOption == 3">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         	<when test="shOption == 4">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
 	         </choose>
 	         
 	         ORDER BY b.morSeq 
@@ -357,8 +358,9 @@
 	         </choose> 
 	         <choose>
 	         	<when test="shOption == 1">AND a.motSeq  = #{shValue}</when>
-	         	<when test="shOption == 2">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
-	         	<when test="shOption == 3">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         	<when test="shOption == 2">AND b.morSeq  = #{shValue}</when>
+	         	<when test="shOption == 3">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
+	         	<when test="shOption == 4">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
 	         </choose>
 	</select>
 	

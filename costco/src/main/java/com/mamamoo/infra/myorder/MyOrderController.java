@@ -27,11 +27,13 @@ public class MyOrderController {
 	public String myorderList(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception
 	{
 		UtilFunction.setSearch(vo);
+		
 		int rowCount = service.morCount(vo);
 		
 		if(rowCount > 0)
 		{
 			vo.setPagingVo(rowCount);
+			
 			model.addAttribute("list", service.selectList(vo));
 		}
 		return Constants.PATH_MYORDER + "myorderList";
