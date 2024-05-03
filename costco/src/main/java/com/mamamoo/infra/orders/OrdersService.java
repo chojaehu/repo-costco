@@ -31,6 +31,10 @@ public class OrdersService {
 	public OrdersDto selectOne(OrdersDto dto) {
 		return dao.selectOne(dto);
 	}
+//	주문항목수정
+	public OrdersDto selectOneOrd(OrdersDto dto) {
+		return dao.selectOneOrd(dto);
+	}
 //	주문추가
 	public int insertOrt(OrdersDto dto) {
 		return dao.insertOrt(dto);
@@ -50,6 +54,10 @@ public class OrdersService {
 //	주문등록 및 수정 배송사
 	public List<OrdersDto> courierServiceList(OrdersDto dto) {
 		return dao.courierServiceList(dto);
+	}
+//	주문수정
+	public int updateOrd(OrdersDto dto) {
+		return dao.updateOrd(dto);
 	}
 //	상세주문 수정
 	public int updateOrt(OrdersDto dto) {

@@ -133,8 +133,6 @@
            AND ortSeq = #{ortSeq}
 	</select>
 	
-	
-
 	<!-- 주문리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
 		select
@@ -149,6 +147,17 @@
 			ORDER BY ordSeq
 			limit #{pgRowCount} offset #{pgOffset}
 	</select>
+	
+	<select id="selectOneOrd" resultMap="resultMapObj">
+        SELECT
+        	ordSeq
+        	,ordDate
+        FROM orders
+         WHERE 1 = 1
+           AND ordSeq = #{ordSeq}
+	</select>
+	
+	
 	
 	<!-- 카운팅 -->
     <select id="getCount">
@@ -177,6 +186,18 @@
 			, 10
 			)
 	</insert>
+
+	<!-- 주문목록 수정 -->
+	<update id="updateOrd">
+		update 
+			orders
+			SET
+				ordSeq = #{ordSeq}
+				,ordDate = #{ordDate}
+				,ordModDt = now()
+			WHERE 
+				ortSeq = #{ortSeq}
+	</update>
 
 	<!-- 상세주문목록 수정 -->
 	<update id="updateOrt">
@@ -243,7 +264,5 @@
     	     , ordReleasedNy = #{ordReleasedNy}
     	 WHERE ordSeq = #{ordSeq}
     </update>
-	
-	
 	
 </mapper>

@@ -13,6 +13,8 @@ public interface OrdersDao {
 	public int getCountOrt(OrdersVo vo);
 //	주문항목생성 시작
 	public OrdersDto selectOne(OrdersDto dto);
+//	주문항목수정
+	public OrdersDto selectOneOrd(OrdersDto dto);
 //	주문추가
 	public int insertOrd(OrdersDto dto);
 // 	상세주문추가
@@ -23,6 +25,8 @@ public interface OrdersDao {
 	public List<OrdersDto> courierServiceList(OrdersDto dto);
 //	주문등록 및 수정제품
 	public List<OrdersDto> productList(OrdersDto dto);
+//	주문수정
+	public int updateOrd(OrdersDto dto);
 //	상세주문 수정
 	public int updateOrt(OrdersDto dto);
 //	주문 출고상세 상태

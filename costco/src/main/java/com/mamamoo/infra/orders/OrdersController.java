@@ -16,7 +16,7 @@ public class OrdersController {
 	@Autowired
 	OrdersService service;
 	
-// 주문리스트
+// 주문 리스트
 	@RequestMapping(value = "/orderList")
 	public String ordersList(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
 		
@@ -33,7 +33,7 @@ public class OrdersController {
 		
 		return Constants.PATH_ORDERS + "orderList";
 	}
-	
+//	주문 페이징리스트
 	@RequestMapping(value = "/orderListAjax")
 	public String orderListAjax(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
 		
@@ -69,7 +69,7 @@ public class OrdersController {
 		return Constants.PATH_ORDERS + "orderDetailList";
 	}
 	
-//	페이징용 List
+//	상세주문 리스트 페이징
 	@RequestMapping(value = "/orderDetailListAjax")
 	public String orderDetailListAjax(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
 		
@@ -96,6 +96,16 @@ public class OrdersController {
 		
 		return Constants.PATH_ORDERS + "orderDetailCreate";
 	}
+	
+//	주문수정화면
+	@RequestMapping(value = "/orderForm")
+	public String orderForm(OrdersDto dto, Model model) throws Exception {
+		
+		model.addAttribute("itemOrd", service.selectOneOrd(dto));
+		
+		return Constants.PATH_ORDERS + "orderForm";
+	}
+	
 	
 //	상세주문수정화면
 	@RequestMapping(value = "/orderDetailForm")

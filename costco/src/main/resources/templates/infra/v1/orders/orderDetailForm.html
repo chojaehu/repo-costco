@@ -7,10 +7,10 @@
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900"
 		:class="{'overflow-hidden': isSideMenuOpen}">
 		<!-- Desktop sidebar -->
-		<div th:replace="~{infra/v1/include/bodySdm :: bodyTop('2')}"></div>
+		<div th:replace="~{infra/v1/include/bodySdm :: bodyTop('3')}"></div>
       
       <div class="flex flex-col flex-1">
-		<div th:replace="~{infra/v1/include/bodySdm :: bodyHeader('주문관리','')}"></div>
+		<div th:replace="~{infra/v1/include/bodySdm :: bodyHeader('','주문관리')}"></div>
 
         <main class="h-full pb-16 overflow-y-auto">
           <form name="form" id="form" method="get" autocomplete="off">
@@ -88,7 +88,6 @@
                 
                 <div class="mt-4 mb-4">                  
                 	<div class="flex flex-col md:flex-row mt-4 mb-4">
-			    		
 			    		<!-- 배송사 -->
 			    		<div class="md:h-auto mr-3 md:w-1/2">
 			      			<label class="block text-sm">
@@ -257,6 +256,8 @@
 			
 			let count = document.getElementById("ortCount").value;
 			
+			 
+			
 			alert(price);
 			alert(count)
 			let prises = price * count; // 총 합계
@@ -266,7 +267,19 @@
 			totalprice.value = prises.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); //3자리 마다 콤마 찍기
 			hiddenprice.value = prises; 
 		}
+		
+		let select = document.getElementById("pdtSeq")
+		let option = select.options[select.selectedIndex];
+		let price = option.dataset.price;
+		
+		document.getElementById("pdtSeq").onchange = function() {
+			ortCount.value = null;
+			ortAmts.value=null
+            hiddenprice.value = null;
+    	}
     </script>
+    
+    
     
     <script>
 	    // 현재 URL에서 ordSeq 값을 가져오는 함수
