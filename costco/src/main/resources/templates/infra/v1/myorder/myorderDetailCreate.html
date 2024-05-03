@@ -245,7 +245,9 @@
     		alert(index[1].pdtName)
     	} */
     	
-    	
+    	let motCount = document.getElementById("motCount");
+		let motAmt = document.getElementById("motAmts");
+		let hiddenprice = document.getElementById("motAmt");
     	//발주사 선택
     	document.getElementById("motCompCd").onchange = function(){
     		let index =[[${pdtlist}]];
@@ -255,14 +257,10 @@
     			//alert(aa)
     			let anotherSelectBox = document.getElementById("pdtSeq");
     		
-    		
-    			
                 anotherSelectBox.innerHTML = '';
                 
-                let motCount = document.getElementById("motCount");
-    			let motAmt = document.getElementById("motAmts");
-    			let hiddenprice = document.getElementById("motAmt");
-                motCount.value = null;
+                
+                
                 motAmt.value=null
                 hiddenprice.value = null;
                 
@@ -278,6 +276,11 @@
 	                	}
 	                } 
     	}
+    	document.getElementById("pdtSeq").onchange = function() {
+    		motCount.value = null;
+            motAmt.value=null
+            hiddenprice.value = null;
+    	} 
     	// 수량 입력시 총합 가격 자동 입력
     	document.getElementById("motCount").onchange = function(){
     		
