@@ -145,14 +145,14 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1">###</th>
-                      						<th class="px-4 py-1">발주일자</th>
-                      						<th class="px-4 py-1">입고여부</th>
-                      						<th class="px-4 py-1">삭제여부</th>
-                      						<th class="px-4 py-1">등록일시</th>
-                      						<th class="px-4 py-1">수정일시</th>
-                      						<th class="px-4 py-1">당담자</th>
-                      						<th class="px-8 py-1">작업</th>
+                      						<th class="px-1 py-1" style="text-align: center;">발주번호</th>
+                      						<th class="px-4 py-1" style="text-align: left;">발주일자</th>
+                      						<th class="px-6 py-1" style="text-align: center;">입고여부</th>
+                      						<th class="px-4 py-1" style="text-align: center;">삭제여부</th>
+                      						<th class="px-4 py-1" style="text-align: left;">등록일시</th>
+                      						<th class="px-4 py-1" style="text-align: left;">수정일시</th>
+                      						<th class="px-4 py-1" style="text-align: left;">당담자</th>
+                      						<th class="px-8 py-1" style="text-align: center;">작업</th>
                     					</tr>
                   					</thead>
                   
@@ -180,29 +180,26 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}"></td>
+					                    	<td style="text-align: center;" id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}"></td>
 					                    	
-					                    	<td class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					                    	<td style="text-align: left;" class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 					                    	
-					                    	<td class="px-4 py-1" >
-					                    	<th:block th:switch="${list.morWarehousingNy}">
-					                        		<span th:case = "0"
-					                        			>
-					                        			미입고
-					                        		</span>
-					                        		<span th:case = "1"
-					                        			>
-					                        			입고
-					                        		</span>   
-					                        		<span th:case = "2"
-					                        			>
-					                        			일부입고
-					                        		</span>                    		
-					                        </th:block>
-					                    	</td>
+					                    	<td class="px-6 py-1" style="text-align: center;">
+												<th:block th:switch="${list.morWarehousingNy}" >
+													<span th:case="0" class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700"
+						                      		 	th:if="${list.morWarehousingNy != null}">미입고
+						                      		</span>
+						                      		<span th:case="1" class="px-2 py-1 font-semibold leading-tight text-blue-100 bg-blue-600 rounded-full dark:text-white dark:bg-blue-700"
+						                      		 	th:if="${list.morWarehousingNy != null}">완&emsp;료
+						                      		</span>
+						                      		<span th:case="2" class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700"
+						                      		 	th:if="${list.morWarehousingNy != null}">일&emsp;부
+						                      		</span>
+												</th:block>
+											</td>
                         
-					                        <td class="px-4 py-1">
-					                        	<th:block th:switch="${list.morDelNy}">
+					                        <td class="px-4 py-1" style="text-align: center;">
+					                        	<th:block th:switch="${list.morDelNy}" >
 					                        		<span th:case = "0"
 					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
 					                        			N
@@ -214,10 +211,10 @@
 					                        	</th:block>
 					                        </td>        	
                    	
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.morRegDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					                    	<td style="text-align: left;" class="px-4 py-1" th:text="${#dates.format(list.morRegDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
 					                    	
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.morModDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-					                    	<td class="px-4 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}"></td>
+					                    	<td style="text-align: left;" class="px-4 py-1" th:text="${#dates.format(list.morModDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					                    	<td style="text-align: left;" class="px-4 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}"></td>
 					                    
 					                    	<td class="px-8 py-1">
 											<!-- 수정 -->
