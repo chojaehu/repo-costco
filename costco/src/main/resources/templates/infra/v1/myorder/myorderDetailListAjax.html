@@ -4,7 +4,7 @@
       
 	<body>
 						<div id="listData" class="w-full overflow-hidden rounded-lg shadow-xs">
-              				<div class="w-full overflow-x-auto">
+              				<div  class="w-full overflow-x-auto">
                 				<table class="w-full whitespace-no-wrap">
                   					<!-- 조회결과 리스트 타이틀-->
                   					<thead>
@@ -14,16 +14,16 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1">발주코드</th>
-                      						<th class="px-1 py-1">발주번호</th>
-                      						<th class="px-4 py-1">발주일자</th>
-                      						<th class="px-4 py-1">발주사</th>
-                      						<th class="px-4 py-1">제품</th>
-                      						<th class="px-4 py-1">수량</th>
-                      						<th class="px-4 py-1">금액</th>
-                      						<th class="px-6 py-1">입고여부</th>
-                      						<th class="px-6 py-1">삭제여부</th>
-                      						<th class="px-6 py-1">당담자</th>
+                      						<th class="px-1 py-1" style="text-align: center;">발주코드</th>
+                      						<th class="px-1 py-1" style="text-align: center;">발주번호</th>
+                      						<th class="px-4 py-1" style="text-align: left;">발주일자</th>
+                      						<th class="px-4 py-1" style="text-align: left;">발주사</th>
+                      						<th class="px-4 py-1" style="text-align: left;">발주담당자</th>
+                      						<th class="px-4 py-1" style="text-align: left;">발주제품</th>
+                      						<th class="px-4 py-1" style="text-align: right;">발주수량</th>
+                      						<th class="px-4 py-1" style="text-align: right;">발주금액</th>
+                      						<th class="px-6 py-1" style="text-align: center;">입고여부</th>
+                      						<th class="px-6 py-1" style="text-align: center;">삭제여부</th>
                       						<th class="px-6 py-1">작업</th>
                     					</tr>
                   					</thead>
@@ -47,37 +47,34 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motSeq}"  style="text-align: center;"></td>
+					                    	<td id="motSeq" name="motSeq" class="px-1 py-1" th:text="${list.motSeq}" style="text-align: center;"></td>
 					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}" style="text-align: center;"></td>
 					                    	
-					                    	<td class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					                    	<td cclass="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd ')}" style="text-align: left;"></td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1"  th:text="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
+					                    	<td  style="text-align: left;" id="mbrClientName" name="mbrClientName" class="px-4 py-1" th:text ="${list.mbrClientName}"  th:value="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
+					                    	<td style="text-align: left;" id="mbrName" name="mbrName" class="px-4 py-1" th:text ="${list.mbrName}"  th:value="${@membersService.selectOneMembersClientName(list.mbrName)}" ></td>
 					                    	<!-- selectOneMembersClientName -->
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.pdtName}"></td>
+					                    	<td id="pdtName" name="pdtName" class="px-4 py-1" th:text="${list.pdtName}"></td>
 					                    	
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motCount}" style="text-align: right;"></td>
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${#numbers.formatInteger(list.motAmt, 3, 'COMMA')}" style="text-align: right;"></td>
+					                    	<td id="motCount" name="motCount" class="px-4 py-1" th:text="${list.motCount}" style="text-align: right;"></td>
+					                    	<td id="motAmt" name="motAmt"class="px-4 py-1" th:text="${#numbers.formatInteger(list.motAmt, 3, 'COMMA')}" style="text-align: right;"></td>
 					                    	
-
-					                    	<td class="px-4 py-1">
-					                        	<th:block th:switch="${list.motWarehousingNy}">
-					                        		<span th:case = "0"
-					                        			>
-					                        			미입고
-					                        		</span>
-					                        		<span th:case = "1"
-					                        			>
-					                        			입고
-					                        		</span>   
-					                        		<span th:case = "2"
-					                        			>
-					                        			일부입고
-					                        		</span>                       		
-					                        	</th:block>
-					                        </td> 
+					                        <td class="px-6 py-1" style="text-align: center;">
+												<th:block th:switch="${list.motWarehousingNy}" >
+													<span th:case="0" class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700"
+						                      		 	th:if="${list.motWarehousingNy != null}">미입고
+						                      		</span>
+						                      		<span th:case="1" class="px-2 py-1 font-semibold leading-tight text-blue-100 bg-blue-600 rounded-full dark:text-white dark:bg-blue-700"
+						                      		 	th:if="${list.motWarehousingNy != null}">완&emsp;료
+						                      		</span>
+						                      		<span th:case="2" class="px-2 py-1 font-semibold leading-tight text-red-100 bg-red-600 rounded-full dark:text-white dark:bg-red-700"
+						                      		 	th:if="${list.motWarehousingNy != null}">일&emsp;부
+						                      		</span>
+												</th:block>
+											</td>
                         
-					                        <td class="px-4 py-1">
+					                        <td class="px-6 py-1" style="text-align: center;">
 					                        	<th:block th:switch="${list.motDelNy}">
 					                        		<span th:case = "0"
 					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
@@ -94,28 +91,38 @@
 					                    	
 					                    	<td class="px-4 py-1" th:text="${#dates.format(list.motModDt, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
 					                    	
-					                    	<td class="px-4 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}" ></td>
-					                    	
+					                    	<!-- <td class="px-4 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}"></td> -->
 					                    
 					                    	<td class="px-6 py-1">
 											<!-- 수정 -->
+											  <a th:href="@{/myorderDetailForm(motSeq=${list.motSeq})}">
                     	    					<button class="btnSave px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                             						id="btnUpate" name="btnUpdate">
-													<a th:href="@{/myorderDetailForm(motSeq=${list.motSeq})}">
+													
 													<!-- th:href="@{/codeGroupSdmForm(cdgSeq=${list.cdgSeq}, cdgName=${list.cdgName})}" -->
 														<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 															<path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z"></path>
 															<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z"></path>
 														</svg>															
-													</a>
+												
                       							</button>
+                      						  </a>
                     						</td>
                   						</tr> 
                   					</tbody>
                 				</table>
               				</div>
 
-
+							<script>
+								// 타이틀바 체크시 리스트 체크박스 체크 및 해제
+								document.getElementById("checkboxAll").addEventListener("change", fnCheckboxCheck);
+							
+								function fnCheckboxCheck() {
+							  		let checkedAll = document.querySelector("#checkboxAll");
+							  		const isChecked = checkedAll.checked;
+							  		$(".checkboxList").prop("checked", isChecked);
+								}  
+							</script>
               
 							<!-- 페이지넘김 -->
 						   <div th:replace="~{infra/v1/include/bodySdm :: bodyPagingBtn}"></div> 
@@ -139,30 +146,32 @@
                 				</span>
                               
                 				<span class="flex col-span-3 sm:mt-auto sm:justify-end">
-								<!-- 홈버튼 -->                
-				                <button class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Back">
-				                	<a th:href="@{/indexSdm}">
-										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-									  		<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
-										</svg>                
-				                  	</a>	                  
-				                </button>
+								<!-- 홈버튼 --> 
+								<a th:href="@{/index}">               
+					                <button class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Back">
+	
+											<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										  		<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
+											</svg>                
+					                  		                  
+					                </button>
+				                </a>
 								<!-- 추가버튼 -->        
-								&nbsp;&nbsp;          
-				                <button 
+								&nbsp;&nbsp;  
+								<a th:href="@{/myorderList}">        
+				                  <button 
 			                    	id="btnInsert"
 			                    	name="btnInsert"
 			                    	class="btnSave flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Create">
-									<a th:href="@{/myorderList}">
+									
 										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									  	<path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"></path>
 										</svg>	
-									</a>
-				                </button>                  
+				                  </button> 
+				                </a>                 
                 			</span>                
               			</div>
-              			</div>
-    
+            		</div>
     
   
   </body>
