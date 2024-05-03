@@ -17,4 +17,6 @@ public interface MembersDao {
 	public int delete(MembersDto dto);
 	// 회원정보 메모리 상주
 	public List<MembersDto> selectListCachedMembersArrayList();
+
+	public MembersDto selectOneLogin(MembersDto dto); 
 }

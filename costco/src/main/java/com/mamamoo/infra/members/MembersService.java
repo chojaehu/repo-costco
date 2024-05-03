@@ -27,6 +27,11 @@ public class MembersService {
 		return dao.selectOne(vo);
 	}
 	
+	// 로그인 아이디, 비밀번호 확인용
+	public MembersDto selectOneLogin(MembersDto dto) {
+		return dao.selectOneLogin(dto);
+	}
+	
 	// 입력
 	public int insert(MembersDto dto) {
 		return dao.insert(dto);

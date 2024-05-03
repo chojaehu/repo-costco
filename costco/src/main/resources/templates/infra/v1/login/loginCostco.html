@@ -9,9 +9,9 @@
 				<div class="flex flex-col overflow-y-auto md:flex-row">
 					<div class="h-32 md:h-auto md:w-1">
 						<img class="object-cover w-full h-full dark:hidden" aria-hidden="true"
-							src="sdm/assets/img/login-office.jpeg" alt="Office"/>
+							src="assets/img/login-office.jpeg" alt="Office"/>
 						<img class="hidden object-cover w-full h-full dark:block" aria-hidden="true"
-							src="sdm/assets/img/login-office-dark.jpeg" alt="Office"/>
+							src="assets/img/login-office-dark.jpeg" alt="Office"/>
 					</div>
 
 					<div class="flex items-center justify-center sm:p-12 md:w-1/2">
@@ -53,20 +53,6 @@
 								id="btnLogin" name="btnLogin" type="button">
 								Log in
 							</button>
-
-							<!-- <p class="mt-4">
-								<a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-									href="./forgot-password.html">
-									비밀번호를 잊으셨나요?
-								</a>
-							</p> -->
-
-							<p class="mt-6">
-								<a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-									th:href="@{/loginSdmMemberCreate}">
-									회원가입
-								</a>
-							</p>
 						</div>
 					</div>
 				</div>
@@ -105,11 +91,11 @@
 					async: true
 					, cache: false
 					, type: "post"
-					, data: {"mbrEmail":$("#mbrEmail").val(), "mbrPassword":$("#mbrPassword").val()}
+					, data: {"mbrEmail":$("#mbrEmail").val(), "mbrPassWord":$("#mbrPassword").val()}
 					, url: "/memberSdmLoginConfirm"
 					, success: function(response) {
 						if(response.rt == "success") {
-							location.href = "/indexSdm";
+							location.href = "/index";
 						} else if(response.rt == "id") {
 							alert("아이디가 일치하지 않습니다");
 						} else if(response.rt == "password") {

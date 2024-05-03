@@ -13,20 +13,8 @@ public class LoginController {
 	LoginService service;
 	
 	// 관리자 로그인
-	@RequestMapping(value = "/loginSdm")
-	public String loginSdm() throws Exception {
-		return Constants.PATH_LOGIN + "loginSdm";
+	@RequestMapping(value = "/loginCostco")
+	public String loginCostco() throws Exception {
+		return Constants.PATH_LOGIN + "loginCostco";
 	}	
-	
-	// 관리자 로그인 화면에서 회원가입 클릭
-	@RequestMapping(value = "/loginSdmMemberCreate")
-	public String loginSdmMemberCreate() throws Exception {
-		return Constants.PATH_LOGIN + "loginSdmMemberCreate";
-	}	
-	
-	// 사용자 로그인
-	/*
-	 * @RequestMapping(value = "/loginUsr") public String loginUsr() throws
-	 * Exception { return Constants.PATH_LOGIN + "loginUsr"; }
-	 */
 }

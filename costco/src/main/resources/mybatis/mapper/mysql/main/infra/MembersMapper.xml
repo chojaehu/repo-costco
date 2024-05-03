@@ -198,5 +198,16 @@
     	   AND mbrDelNy = 0
     	 ORDER BY mbrSeq 
     </select> 
-
+	
+	<!-- 로그인 id 확인용 -->
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		SELECT mbrSeq
+		     , mbrName
+		     , mbrEmail
+		     , mbrPassWord
+		  FROM members
+		 WHERE 1 = 1
+		   AND mbrEmail = #{mbrEmail}
+		   AND mbrDelNy = 0
+	</select>
 </mapper>
