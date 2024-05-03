@@ -31,12 +31,22 @@ public class MyOrderDto extends MembersDto{
 	
 	
 	private Integer xmorCount;
+	private String xRowNum;
 	
 	private String pdtName;
 	private Integer pdtSeq;
 	private Double pdtPrice;
 	
 	
+	
+	
+	
+	public String getxRowNum() {
+		return xRowNum;
+	}
+	public void setxRowNum(String xRowNum) {
+		this.xRowNum = xRowNum;
+	}
 	public String getTestmorSeq() {
 		return testmorSeq;
 	}

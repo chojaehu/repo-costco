@@ -9,7 +9,8 @@
 	<!-- 발주리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
 		select
-			a.morSeq 
+			@ROWNUM := @ROWNUM + 1 xRowNum
+			,a.morSeq 
 			,a.morDate 
 			,a.morWarehousingNy 
 			,a.morDelNy 
@@ -23,7 +24,7 @@
 				from 
 					myorder a
 				where 
-					1=1
+					1=1  AND (@ROWNUM := 0) = 0  
 					
 			 <include refid="selectCommon"/> 
 			 ORDER BY a.morSeq 
@@ -139,7 +140,8 @@
 	<!-- 발주 디테일 리스트 -->
 	<select id="myorderdetailList" resultMap="resultMapObj">
 			select
-				a.motSeq 
+				@ROWNUM := @ROWNUM + 1 xRowNum
+				,a.motSeq 
 				,b.morSeq
 				,b.morDate 
 				,a.motCompCd 
@@ -167,7 +169,7 @@
 						members d
 					on 
 						a.motCompCd = d.mbrSeq
-					where 1=1
+					where 1=1 AND (@ROWNUM := 0) = 0  
 			 <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
 			 <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
 	         
@@ -185,7 +187,7 @@
 	         	<when test="shOption == 4">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
 	         </choose>
 	         
-	         ORDER BY b.morSeq 
+	         ORDER BY a.motSeq 
 	         LIMIT #{pgRowCount}
     		 OFFSET #{pgOffset} 
 	</select>

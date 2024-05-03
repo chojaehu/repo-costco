@@ -14,6 +14,7 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
+                      						<th class="px-1 py-1" style="text-align: center;">#</th>
                       						<th class="px-1 py-1" style="text-align: center;">발주코드</th>
                       						<th class="px-1 py-1" style="text-align: center;">발주번호</th>
                       						<th class="px-4 py-1" style="text-align: left;">발주일자</th>
@@ -46,7 +47,7 @@
 					                        		style="height: 15px; width: 15px"
 					                        		th:checked="false" />
 					                    	</td>
-					                    	
+					                    	<td id="xRowNum" name="xRowNum" class="px-1 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
 					                    	<td id="motSeq" name="motSeq" class="px-1 py-1" th:text="${list.motSeq}" style="text-align: center;"></td>
 					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}" style="text-align: center;"></td>
 					                    	
@@ -172,7 +173,6 @@
                 			</span>                
               			</div>
             		</div>
-    
   
   </body>
 </html>

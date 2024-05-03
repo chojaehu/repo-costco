@@ -7,10 +7,10 @@
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900"
 		:class="{'overflow-hidden': isSideMenuOpen}">
 		<!-- Desktop sidebar -->
-		<div th:replace="~{infra/v1/include/bodySdm :: bodyTop('2')}"></div>
+		<div th:replace="~{infra/v1/include/bodySdm :: bodyTop('1')}"></div>
       
       <div class="flex flex-col flex-1">
-		<div th:replace="~{infra/v1/include/bodySdm :: bodyHeader('발주등록','발주등록수정')}"></div>
+		<div th:replace="~{infra/v1/include/bodySdm :: bodyHeader('','발주관리')}"></div>
 
         <main class="h-full pb-16 overflow-y-auto">
           <form name="form" id="form" method="get" autocomplete="off">
