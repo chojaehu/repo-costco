@@ -45,4 +45,18 @@ public class MembersController extends BaseController {
 
 		return returnMap;
 	}
+	
+	// 로그인아웃 세션종료
+	@ResponseBody
+	@RequestMapping(value = "/memberSdmLogOut")
+	public Map<String, Object> memberSdmLogOut(HttpSession httpSession) throws Exception {
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+		// 세션종료
+		httpSession.invalidate();
+		
+		returnMap.put("rt", "success");
+		return returnMap;
+	}
 }

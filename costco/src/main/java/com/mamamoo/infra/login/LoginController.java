@@ -8,7 +8,6 @@ import com.mamamoo.common.constants.Constants;
 
 @Controller
 public class LoginController {
-
 	@Autowired
 	LoginService service;
 	

@@ -6,7 +6,7 @@
 		  , url: "/memberSdmLogOut"
 		  , success: function(response){
 			  if(response.rt == "success") {
-				  location.href = "/loginSdm";
+				  location.href = "/loginCostco";
 			  } else {
 				  alert("로그아웃 실패");
 			  }
