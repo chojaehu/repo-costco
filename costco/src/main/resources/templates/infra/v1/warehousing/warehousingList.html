@@ -87,8 +87,8 @@
 			                    <!-- 검색어 -->
 			                    <div class="md:h-auto md:w-1/2 mr-3">
 			                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-			                        	id="shValue" name="shValue" placeholder="검색어"
-			                        	onkeydown="fnOnKeyDown()" onchange="fnOnChange(this)">
+			                        	id="shValue" name="shValue" placeholder="검색어" th:value="${vo.shValue}"
+			                        	onkeydown="fnOnKeyDown()">
 				                    <span id="shValueValid" name="shValueValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;">
 				                    	검색어 입력하세요
 				                    </span>                         
