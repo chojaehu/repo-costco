@@ -18,6 +18,19 @@ public class WarehousingController {
 	@Autowired
 	WarehousingService service;
 	
+	// 검색조건 초기화
+	@RequestMapping(value = "/warehousingListInit")
+	public String warehousingListInit(@ModelAttribute("vo") WarehousingVo vo, Model model) throws Exception {
+		vo.setShDateEnd(null);
+		vo.setShDateStart(null);
+		vo.setShDelNy(0);
+		vo.setShOption(null);
+		vo.setShOptionDate(0);
+		vo.setShValue(null);
+		
+		return "redirect:/warehousingList";
+	}
+	
 	// 조회
 	@RequestMapping(value = "/warehousingList")
 	public String warehousingList(@ModelAttribute("vo") WarehousingVo vo, Model model) throws Exception {

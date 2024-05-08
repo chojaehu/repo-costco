@@ -14,6 +14,19 @@ public class StockController {
 	@Autowired
 	StockService service;
 	
+	// 검색조건 초기화
+	@RequestMapping(value = "/stockListInit")
+	public String stockListInit(@ModelAttribute("vo") StockVo vo, Model model) throws Exception {
+		vo.setShDateEnd(null);
+		vo.setShDateStart(null);
+		vo.setShDelNy(0);
+		vo.setShOption(null);
+		vo.setShOptionDate(0);
+		vo.setShValue(null);
+		
+		return "redirect:/stockList";
+	}
+	
 	// 조회
 	@RequestMapping(value = "/stockList")
 	public String stockList(@ModelAttribute("vo") StockVo vo, Model model) throws Exception {
