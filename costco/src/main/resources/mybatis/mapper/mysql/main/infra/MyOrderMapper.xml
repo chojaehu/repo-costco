@@ -74,13 +74,13 @@
 	)
 	</insert>
 	<!-- 발주 입고여부 변경 -->
-	<update id = "myorderUpdt">
+	<!-- <update id = "myorderUpdt">
 		update myorder
 		set
 		morWarehousingNy = #{morWarehousingNy}
 		where
 			morSeq = #{morSeq}
-	</update>
+	</update> -->
 	
 	<!-- 발주 삭제 -->
 	<delete id= "myorderdeletechile">

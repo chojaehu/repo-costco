@@ -87,13 +87,13 @@ public class MyOrderController {
 		return Constants.PATH_MYORDER + "myorderCreate";
 	}
 	
-//	발주 수정 페이지
-	@RequestMapping(value = "/myorderForm")
-	public String myorderForm(MyOrderDto dto,Model model)throws Exception
-	{
-		model.addAttribute("item", service.selectOne(dto));
-		return Constants.PATH_MYORDER + "myorderForm";
-	}
+	/*
+	 * // 발주 수정 페이지
+	 * 
+	 * @RequestMapping(value = "/myorderForm") public String myorderForm(MyOrderDto
+	 * dto,Model model)throws Exception { model.addAttribute("item",
+	 * service.selectOne(dto)); return Constants.PATH_MYORDER + "myorderForm"; }
+	 */
 	
 //	발주 등록
 	@RequestMapping(value ="/myorderinsert")
@@ -103,12 +103,11 @@ public class MyOrderController {
 		return "redirect:myorderList";
 	}
 //	발주 수정
-	@RequestMapping(value = "/myorderUpdt")
-	public String myorderUpdt(MyOrderDto dto)throws Exception
-	{
-		service.myorderUpdt(dto);
-		return "redirect:myorderList";
-	}
+	/*
+	 * @RequestMapping(value = "/myorderUpdt") public String myorderUpdt(MyOrderDto
+	 * dto)throws Exception { service.myorderUpdt(dto); return
+	 * "redirect:myorderList"; }
+	 */
 //	발주 삭제 
 	@RequestMapping(value= "/myorderdelete")
 	public String myorderdelete(MyOrderDto dto)throws Exception
