@@ -183,10 +183,10 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	<td id="xRowNum" name="xRowNum" class="px-1 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
-					                    	<td id="motSeq" name="motSeq" class="px-1 py-1" th:text="${list.motSeq}" style="text-align: center;"></td>
-					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.morSeq}" style="text-align: center;"></td>
+					                    	<td id="motSeq" name="motSeq" class="px-1 py-1" th:text="${list.morSeq}" style="text-align: center;"></td>
+					                    	<td id="morSeq" name="morSeq" class="px-1 py-1" th:text="${list.motSeq}" style="text-align: center;"></td>
 					                    	
-					                    	<td cclass="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd ')}" style="text-align: left;"></td>
+					                    	<td class="px-4 py-1"  th:text="${#dates.format(list.morDate, 'yyyy-MM-dd ')}" style="text-align: left;"></td>
 					                    	
 					                    	<td  style="text-align: left;" id="mbrClientName" name="mbrClientName" class="px-4 py-1" th:text ="${list.mbrClientName}"  th:value="${@membersService.selectOneMembersClientName(list.motCompCd)}"></td>
 					                    	<td style="text-align: left;" id="mbrName" name="mbrName" class="px-4 py-1" th:text ="${list.mbrName}"  th:value="${@membersService.selectOneMembersClientName(list.mbrName)}" ></td>
@@ -426,6 +426,7 @@
 
 			shValue.setAttribute("class","block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input");
 			shValueValid.setAttribute("style", "visibility:hidden;");
+			location.href = "/myorderDetailListInit"; 
 		};		
 		
 // ============================================================================

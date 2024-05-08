@@ -22,6 +22,33 @@ public class MyOrderController {
 	
 	String str = "/infra/v1/myorder";
 	
+	
+	// 검색조건 초기화
+		@RequestMapping(value = "/myorderDetailListInit")
+		public String myorderDetailListInit(@ModelAttribute("vo") MyOrderVo vo, Model model) throws Exception {
+			vo.setShDateEnd(null);
+			vo.setShDateStart(null);
+			vo.setShDelNy(0);
+			vo.setShOption(null);
+			vo.setShOptionDate(0);
+			vo.setShValue(null);
+			vo.setShReceive(0);
+			
+			return "redirect:/myorderDetailList";
+		}
+		@RequestMapping(value = "/myorderListInit")
+		public String myorderListInit(@ModelAttribute("vo") MyOrderVo vo, Model model) throws Exception {
+			vo.setShDateEnd(null);
+			vo.setShDateStart(null);
+			vo.setShDelNy(0);
+			vo.setShOption(null);
+			vo.setShOptionDate(0);
+			vo.setShValue(null);
+			vo.setShReceive(0);
+			
+			return "redirect:/myorderList";
+		}
+	
 //	발주 리스트 페이지
 	@RequestMapping(value = "/myorderList")
 	public String myorderList(@ModelAttribute("vo") MyOrderVo vo, Model model)throws Exception

@@ -8,29 +8,29 @@
 	
 	<!-- 발주리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
-		select
-			@ROWNUM := @ROWNUM + 1 xRowNum
-			,a.morSeq 
-			,a.morDate 
-			,a.morWarehousingNy 
-			,a.morDelNy 
-			,a.morRegDt 
-			,a.morModDt 
-			,a.mbrSeq 
-			, (SELECT COUNT(*) 
-					      FROM myorderdetail aa 
-					     WHERE aa.morSeq = a.morSeq		        
+		SELECT *
+		  FROM (SELECT
+					   @ROWNUM := @ROWNUM + 1 xRowNum
+					 , a.morSeq
+					 , a.morDate
+					 , a.morWarehousingNy
+					 , a.morDelNy
+					 , a.morRegDt
+					 , a.morModDt
+					 , a.mbrSeq
+					 , (SELECT COUNT(*)
+						  FROM myorderdetail aa
+						 WHERE aa.morSeq = a.morSeq		       
 					   ) xmorCount
-				from 
-					myorder a
-				where 
-					1=1  AND (@ROWNUM := 0) = 0  
-					
-			 <include refid="selectCommon"/> 
-			 ORDER BY a.morSeq 
-			 LIMIT #{pgRowCount}
-    		 OFFSET #{pgOffset} 
-			 
+				  FROM myorder a
+				 WHERE 1=1
+				   AND (@ROWNUM := 0) = 0
+   					   <include refid="selectCommon"/>
+			     ORDER BY a.morSeq
+			   ) a
+		 ORDER BY a.xRowNum DESC
+	     LIMIT #{pgRowCount}
+    	OFFSET #{pgOffset}
 	</select>
 	<!-- 발주 수정폼 -->
 	<select id="selectOne" resultMap="resultMapObj">
@@ -139,57 +139,52 @@
 	
 	<!-- 발주 디테일 리스트 -->
 	<select id="myorderdetailList" resultMap="resultMapObj">
-			select
-				@ROWNUM := @ROWNUM + 1 xRowNum
-				,a.motSeq 
-				,b.morSeq
-				,b.morDate 
-				,a.motCompCd 
-				,c.pdtName 
-				,a.motCount 
-				,a.motAmt
-				,a.motWarehousingNy 
-				,a.motDelNy 
-				,a.motRegDt 
-				,a.motModDt
-				,b.mbrSeq
-				,d.mbrClientName 
-				,d.mbrName
-					from 
-						myorderdetail a
-					join
-						myorder b
-					on 
-						a.morSeq = b.morSeq
-					join 
-						product c
-					on 
-						a.pdtSeq  = c.pdtSeq 
-					join
-						members d
-					on 
-						a.motCompCd = d.mbrSeq
-					where 1=1 AND (@ROWNUM := 0) = 0  
-			 <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
-			 <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
-	         
-	         <choose>
-	         	<when test="shOptionDate == 1">AND b.morDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	<when test="shOptionDate == 2">AND a.motRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	<when test="shOptionDate == 3">AND a.motModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-	         	
-	         	
-	         </choose> 
-	         <choose>
-	         	<when test="shOption == 1">AND a.motSeq  = #{shValue}</when>
-	         	<when test="shOption == 2">AND b.morSeq  = #{shValue}</when>
-	         	<when test="shOption == 3">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
-	         	<when test="shOption == 4">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
-	         </choose>
-	         
-	         ORDER BY a.motSeq 
-	         LIMIT #{pgRowCount}
-    		 OFFSET #{pgOffset} 
+		SELECT *
+		  FROM (SELECT @ROWNUM := @ROWNUM + 1 xRowNum
+					 , a.motSeq
+					 , b.morSeq
+					 , b.morDate
+					 , a.motCompCd
+					 , c.pdtName
+					 , a.motCount
+					 , a.motAmt
+					 , a.motWarehousingNy
+					 , a.motDelNy
+					 , a.motRegDt
+					 , a.motModDt
+					 , b.mbrSeq
+					 , d.mbrClientName
+					 , d.mbrName
+				  FROM myorderdetail a
+					   JOIN	myorder b
+					     ON	a.morSeq = b.morSeq
+					   JOIN	product c
+						 ON a.pdtSeq  = c.pdtSeq
+					   JOIN	members d
+						 ON a.motCompCd = d.mbrSeq
+				 WHERE 1 = 1
+				   AND (@ROWNUM := 0) = 0
+					   <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if>
+					   <if test="shReceive != null and !shReceive.equals('')">AND IFNULL(a.motWarehousingNy, 0) = #{shReceive}</if>
+			        
+			           <choose>
+			         	  <when test="shOptionDate == 1">AND b.morDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			         	  <when test="shOptionDate == 2">AND a.motRegDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			         	  <when test="shOptionDate == 3">AND a.motModDt BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			           </choose>
+			         
+			           <choose>
+			         	  <when test="shOption == 1">AND a.motSeq  = #{shValue}</when>
+			         	  <when test="shOption == 2">AND b.morSeq  = #{shValue}</when>
+			         	  <when test="shOption == 3">AND c.pdtName LIKE CONCAT('%', #{shValue}, '%')</when>
+			         	  <when test="shOption == 4">AND d.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when>
+			           </choose>
+			        
+			     ORDER BY a.motSeq
+	           ) a
+		 ORDER BY a.xRowNum DESC  	        
+	     LIMIT #{pgRowCount}
+    	OFFSET #{pgOffset}
 	</select>
 	
 	<!-- 발주 디테일 수정폼 -->
