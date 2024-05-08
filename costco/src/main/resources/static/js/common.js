@@ -16,3 +16,16 @@
 		  }
 	  });			 
  } 
+ 
+// 리스트 체크박스 체크수 확인
+fnDeleteChkeckBox = function() {
+	let checkedList = document.querySelectorAll("input[name=checkbox]");
+	let resultValue = 0;
+	
+	for(let i = 0; i < checkedList.length; i++) {
+		if(checkedList[i].checked) {
+			resultValue++;
+		}
+	}
+	return resultValue;	
+} 
