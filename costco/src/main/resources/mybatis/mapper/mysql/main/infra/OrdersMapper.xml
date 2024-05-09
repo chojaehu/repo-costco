@@ -55,7 +55,8 @@
 	<!-- 상세주문리스트 -->
 	<select id="selectListOrt" resultMap="resultMapObj">
 		select
-			a.ortSeq
+			@ROWNUM := @ROWNUM + 1 xRowNum
+			,a.ortSeq
 			,a.ortCount
 			,a.ortAmt
 			,a.ortReleaseDt 
@@ -72,7 +73,7 @@
 			,e.mbrClientName as xmbrClientName
 			,e.mbrName as xmbrName
 			<include refid="selectCommonOrt"/>
-			ORDER BY b.ordSeq
+			ORDER BY b.ordSeq, a.ortSeq
 			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	
@@ -136,7 +137,8 @@
 	<!-- 주문리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
 		select
-			ordSeq
+			@ROWNUM := @ROWNUM + 1 xRowNum
+			,ordSeq
 			,ordDate
 			,ordDelNy
 			,ordRegDt

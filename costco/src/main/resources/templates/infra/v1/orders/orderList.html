@@ -44,8 +44,8 @@
 				                            id="shOptionDate" name="shOptionDate">
 											<option value=""  th:selected="${vo.shOptionDate == null}">날짜</option>
 				                            <option value="3" th:selected="${vo.shOptionDate == 3}">주문일</option>
-				                            <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
-				                            <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+				                            <option value="1" th:selected="${vo.shOptionDate == 1}">등록일시</option>
+				                            <option value="2" th:selected="${vo.shOptionDate == 2}">수정일시</option>
 				                        </select>
 				                    </div>
 
@@ -145,8 +145,9 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1" style="text-align: left;">주문코드</th>
-                      						<th class="px-4 py-1">주문일자</th>
+                      						<th class="px-1 py-1" style="text-align: center;">#</th>
+                      						<th class="px-1 py-1" style="text-align: center;">주문</th>
+                      						<th class="px-4 py-1">주문일</th>
                       						<th class="px-4 py-1">담당자</th>
                       						<th class="px-4 py-1">출고여부</th>
                       						<th class="px-4 py-1">등록일</th>
@@ -174,9 +175,13 @@
 					                        		style="height: 15px; width: 15px"
 					                        		th:checked="false" />
 					                    	</td>
-					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}" style="text-align: left;"></td>
 					                    	
-                   							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd HH:mm:ss')}" ></td>
+					                    	<!-- Row순번 -->
+				                    		<td id="xRowNum" name="xRowNum" class="px-1 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
+					                    	
+					                    	<td id="ordSeq" name="ordSeq" class="px-1 py-1" th:text="${list.ordSeq}" style="text-align: center;"></td>
+					                    	
+                   							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" ></td>
 					                    	
 											<td id="mbrSeq" name="mbrSeq" class="px-1 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}" ></td>
 

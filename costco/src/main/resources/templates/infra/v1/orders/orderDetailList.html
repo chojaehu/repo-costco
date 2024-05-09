@@ -45,8 +45,8 @@
 											<option value=""  th:selected="${vo.shOptionDate == null}">날짜</option>
 				                            <option value="3" th:selected="${vo.shOptionDate == 3}">주문일</option>
 				                            <option value="4" th:selected="${vo.shOptionDate == 4}">출고일</option>
-				                            <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
-				                            <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+				                            <option value="1" th:selected="${vo.shOptionDate == 1}">등록일시</option>
+				                            <option value="2" th:selected="${vo.shOptionDate == 2}">수정일시</option>
 				                        </select>
 				                    </div>
 
@@ -150,9 +150,10 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-2 py-1" style="text-align: right;">#</th>
+                      						<th class="px-1 py-1" style="text-align: center;">#</th>
                       						<th class="px-2 py-1" style="text-align: right;">주문</th>
-                      						<th class="px-4 py-1" style="text-align: right;">주문일</th>
+                      						<th class="px-2 py-1" style="text-align: right;">상세</th>
+                      						<th class="px-4 py-1" style="text-align: left;">주문일</th>
                       						<th class="px-2 py-1">거래처</th>
                       						<th class="px-2 py-1">담당자</th>
                       						<th class="px-4 py-1">상품명</th>
@@ -162,10 +163,10 @@
                       						<th class="px-2 py-1">배송처</th>
                       						<th class="px-2 py-1">배송담당자</th>
                       						<th class="px-4 py-1">출고여부</th>
-                      						<th class="px-4 py-1" style="text-align: right;">출고일</th>
+                      						<th class="px-4 py-1" style="text-align: left;">출고일</th>
                       						<th class="px-4 py-1">작업</th>
-                      						<th class="px-4 py-1" style="text-align: right;">등록일</th>
-                      						<th class="px-4 py-1" style="text-align: right;">수정일</th>
+                      						<th class="px-4 py-1" style="text-align: right;">등록일시</th>
+                      						<th class="px-4 py-1" style="text-align: right;">수정일시</th>
                       						<th class="px-4 py-1">삭제여부</th>
                     					</tr>
                   					</thead>
@@ -189,10 +190,12 @@
 					                        		th:checked="false" />
 					                    	</td>
 					                    	
-					                    	<td id="ortSeq" name="ortSeq" class="px-2 py-1" th:text="${list.ortSeq}" style="text-align: right;"></td>
+					                    	<!-- Row순번 -->
+				                    		<td id="xRowNum" name="xRowNum" class="px-1 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
 					                    	
-					                    	<td id="ordSeq" name="ordSeq" class="px-2 py-1" th:text="${list.ordSeq}" style="text-align: right;"></td>
+					                    	<td id="ordSeq" name="ordSeq" class="px-2 py-1" th:text="${list.ordSeq}" style="text-align: center;"></td>
 					                    	
+					                    	<td id="ortSeq" name="ortSeq" class="px-2 py-1" th:text="${list.ortSeq}" style="text-align: center;"></td>
                    							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" style="text-align: right;"></td>
 					                    	
 											<td id="mbrClientName" name="mbrClientName" class="px-2 py-1" th:text="${list.mbrClientName}"></td>
@@ -294,7 +297,7 @@
                 				<span class="flex col-span-3 sm:mt-auto sm:justify-end">
 								<!-- 홈버튼 -->                
 				                <button class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Back">
-				                	<a th:href="@{/indexSdm}">
+				                	<a th:href="@{/index}">
 										<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									  		<path clip-rule="evenodd" fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"></path>
 										</svg>                

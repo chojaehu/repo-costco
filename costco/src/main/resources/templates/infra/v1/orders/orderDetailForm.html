@@ -110,7 +110,7 @@
 			        			<span class="text-gray-700 dark:text-gray-400">출고일</span>
 			        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				                            id="ortDt" name="ortReleaseDt"
-				                            th:value="${#dates.format(item.ortReleaseDt, 'yyyy/MM/dd HH:mm:ss')}">
+				                            th:value="${#dates.format(item.ortReleaseDt, 'yyyy-MM-dd')}">
 			      			</label>
 			    		</div>
 					</div>
@@ -195,7 +195,7 @@
 	
 			$("#ortDt").datetimepicker({
 				timepicker:false,
-				format: 'Y/m/d', //'Y-m-d' //H:i
+				format: 'Y-m-d', //'Y-m-d' //H:i
 			});
 		});
 		

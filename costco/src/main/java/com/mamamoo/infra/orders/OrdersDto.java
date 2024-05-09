@@ -2,6 +2,8 @@ package com.mamamoo.infra.orders;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class OrdersDto {
 	
 // orders
@@ -20,6 +22,8 @@ public class OrdersDto {
 	private String ortCount;		//주문수량
 	private Double ortAmt;			//주문금액
 	private String ortShippingCd;	//배송처
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date ortReleaseDt;		//출고일자
 	private Integer ortReleaseNy;	//출고여부(0:미출고, 1:출고)
 	private Integer ortDelNy;		//삭제여부
@@ -43,10 +47,11 @@ public class OrdersDto {
 //	미출고, 출고완료, 일부출고
 	private Integer xorderdetail_0; // 미출고
 	private Integer xordortCount;
-//	private Integer xorderdetail_2; // 출고
-//	private Integer xorderdetail_3; // 일부출고
 //	미출고, 출고완료, 일부출고
 	
+//	목록 카운트
+	private String  xRowNum;
+//	목록 카운트
 	public String getOrdSeq() {
 		return ordSeq;
 	}
@@ -253,6 +258,14 @@ public class OrdersDto {
 
 	public void setXordortCount(Integer xordortCount) {
 		this.xordortCount = xordortCount;
+	}
+
+	public String getxRowNum() {
+		return xRowNum;
+	}
+
+	public void setxRowNum(String xRowNum) {
+		this.xRowNum = xRowNum;
 	}
 
 	
