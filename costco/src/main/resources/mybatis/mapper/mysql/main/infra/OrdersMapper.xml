@@ -12,6 +12,7 @@
 			left join members d on d.mbrSeq = a.ortCompCd
 			left join members e on e.mbrSeq = a.ortShippingCd
         WHERE 1=1
+        	AND (@ROWNUM := 0) = 0
         <if test="shDelNy != null and !shDelNy.equals('')">AND ortDelNy = #{shDelNy}</if>
         <if test="shReleasedNy != null and !shReleasedNy.equals('')">AND ortReleaseNy = #{shReleasedNy}</if>
         
@@ -36,6 +37,7 @@
 	<sql id="selectCommon">
     	FROM orders
         WHERE 1=1
+        	AND (@ROWNUM := 0) = 0
         <if test="shDelNy != null and !shDelNy.equals('')">AND ordDelNy = #{shDelNy}</if>
         <if test="shReleasedNy != null and !shReleasedNy.equals('')">AND ordReleasedNy = #{shReleasedNy}</if>
          
@@ -73,7 +75,7 @@
 			,e.mbrClientName as xmbrClientName
 			,e.mbrName as xmbrName
 			<include refid="selectCommonOrt"/>
-			ORDER BY b.ordSeq, a.ortSeq
+			ORDER BY a.ortSeq desc
 			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	
@@ -146,7 +148,7 @@
 			,ordReleasedNy
 			,mbrSeq
 			<include refid="selectCommon"/>
-			ORDER BY ordSeq
+			ORDER BY ordSeq desc
 			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	

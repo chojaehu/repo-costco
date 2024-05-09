@@ -150,7 +150,7 @@
                           							id="checkboxAll" name="checkboxAll" type="checkbox"
                           							style="height: 15px; width: 15px">
                       						</th>
-                      						<th class="px-1 py-1" style="text-align: center;">#</th>
+                      						<th class="px-2 py-1" style="text-align: center;">#</th>
                       						<th class="px-2 py-1" style="text-align: right;">주문</th>
                       						<th class="px-2 py-1" style="text-align: right;">상세</th>
                       						<th class="px-4 py-1" style="text-align: left;">주문일</th>
@@ -191,20 +191,21 @@
 					                    	</td>
 					                    	
 					                    	<!-- Row순번 -->
-				                    		<td id="xRowNum" name="xRowNum" class="px-1 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
+				                    		<td id="xRowNum" name="xRowNum" class="px-2 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
 					                    	
 					                    	<td id="ordSeq" name="ordSeq" class="px-2 py-1" th:text="${list.ordSeq}" style="text-align: center;"></td>
-					                    	
+                   							
 					                    	<td id="ortSeq" name="ortSeq" class="px-2 py-1" th:text="${list.ortSeq}" style="text-align: center;"></td>
+					                    	
                    							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" style="text-align: right;"></td>
 					                    	
 											<td id="mbrClientName" name="mbrClientName" class="px-2 py-1" th:text="${list.mbrClientName}"></td>
 											
 											<td id="mbrName" name="mbrName" class="px-2 py-1" th:text="${list.mbrName}"></td>
 											
-											<td id="pdtName" name="pdtName" class="px-4 py-1" th:text="${list.pdtName}"></td>
+											<td id="pdtName" name="pdtName" class="px-3 py-1" th:text="${list.pdtName}"></td>
 
-											<td id="pdtPrice" name="pdtPrice" class="px-4 py-1" th:text="${#numbers.formatInteger(list.pdtPrice,1,'COMMA')}" style="text-align: right;"></td>
+											<td id="pdtPrice" name="pdtPrice" class="px-3 py-1" th:text="${#numbers.formatInteger(list.pdtPrice,1,'COMMA')}" style="text-align: right;"></td>
 											
 											<td id="ortCount" name="ortCount" class="px-1 py-1" th:text="${list.ortCount}" style="text-align: right;"></td>
 											
@@ -227,9 +228,9 @@
 					                        	</th:block>
 					                        </td>
 					                    	
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.ortReleaseDt, 'yyyy-MM-dd')}" style="text-align: right;"></td>
+					                    	<td class="px-3 py-1" th:text="${#dates.format(list.ortReleaseDt, 'yyyy-MM-dd')}" style="text-align: right;"></td>
 											
-					                    	<td class="px-4 py-1">
+					                    	<td class="px-3 py-1">
                	    							<button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-2"
                             						id="btnUpate" name="btnUpdate">
 													<a th:href="@{/orderDetailForm(ortSeq=${list.ortSeq},ordSeq=${list.ordSeq})}">
@@ -241,11 +242,11 @@
                       							</button>
                     						</td>
 
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.ortRegDt, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
+					                    	<td class="px-3 py-1" th:text="${#dates.format(list.ortRegDt, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
 					                    	
-					                    	<td class="px-4 py-1" th:text="${#dates.format(list.ortModDt, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
+					                    	<td class="px-3 py-1" th:text="${#dates.format(list.ortModDt, 'yyyy-MM-dd HH:mm:ss')}" style="text-align: left;"></td>
 					                    	
-					                        <td class="px-4 py-1" style="text-align: right;">
+					                        <td class="px-3 py-1" style="text-align: right;">
 					                        	<th:block th:switch="${list.ordDelNy}">
 					                        		<span th:case = "0"
 					                        			class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
@@ -434,6 +435,8 @@
 
 			shValue.setAttribute("class","block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input");
 			shValueValid.setAttribute("style", "visibility:hidden;");
+			
+			location.href = "/orderDetailListInit" // 검색조건 초기화
 		};		
 		
 // ============================================================================

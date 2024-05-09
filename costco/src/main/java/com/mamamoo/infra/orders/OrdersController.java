@@ -10,11 +10,40 @@ import com.mamamoo.common.constants.Constants;
 import com.mamamoo.common.util.UtilFunction;
 import com.mamamoo.infra.code.CodeDto;
 import com.mamamoo.infra.warehousing.WarehousingDto;
+import com.mamamoo.infra.warehousing.WarehousingVo;
 
 @Controller
 public class OrdersController {
 	@Autowired
 	OrdersService service;
+	
+//	주문등록 검색조건 초기화
+	@RequestMapping(value = "/orderListInit")
+	public String orderListInit(@ModelAttribute("vo") OrdersVo vo, Model model) throws Exception {
+		vo.setShDateEnd(null);
+		vo.setShDateStart(null);
+		vo.setShDelNy(0);
+		vo.setShReleasedNy(0);
+		vo.setShOption(null);
+		vo.setShOptionDate(0);
+		vo.setShValue(null);
+		
+		return "redirect:/orderList";
+	}
+	
+//	주문목록 검색조건 초기화
+	@RequestMapping(value = "/orderDetailListInit")
+	public String orderDetailListInit(@ModelAttribute("vo") OrdersVo vo, Model model) throws Exception {
+		vo.setShDateEnd(null);
+		vo.setShDateStart(null);
+		vo.setShDelNy(0);
+		vo.setShReleasedNy(0);
+		vo.setShOption(null);
+		vo.setShOptionDate(0);
+		vo.setShValue(null);
+		
+		return "redirect:/orderDetailList";
+	}
 	
 // 주문 리스트
 	@RequestMapping(value = "/orderList")
