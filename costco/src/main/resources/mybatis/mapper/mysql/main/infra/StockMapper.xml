@@ -6,8 +6,7 @@
 	<resultMap id="resultMapObj" type="com.mamamoo.infra.stock.StockDto"></resultMap>
 	
 	<sql id="selectCommon">
-		SELECT @ROWNUM := @ROWNUM + 1 rowNum
-		     , aa.mbrClientName
+		SELECT aa.mbrClientName
 		     , aa.pdtName
      	     , aa.pdtPrice
 		     , SUM(aa.sumMotQuentity) sumMotQuentity
@@ -75,8 +74,7 @@
 				     , b.pdtName
      				 , b.pdtPrice
 				) aa
-		  WHERE 1 = 1 
-            AND (@ROWNUM := 0) = 0 
+		  WHERE 1 = 1  
          <choose>
          	<when test="shOption == 1">AND aa.mbrClientName LIKE CONCAT('%', #{shValue}, '%')</when> <!-- 발주처명 -->
          	<when test="shOption == 2">AND aa.pdtName       LIKE CONCAT('%', #{shValue}, '%')</when> <!-- 상품명 -->
@@ -87,7 +85,8 @@
 	</sql>
 	
 	<select id="selectList" resultMap="resultMapObj">
-		SELECT aaa.*
+		SELECT @ROWNUM := @ROWNUM + 1 rowNum
+		     , aaa.*
 		  FROM (
 		  		<include refid="selectCommon"/>
 		         ORDER BY aa.mbrClientName
@@ -95,7 +94,8 @@
      				 , aa.pdtPrice        
 				 LIMIT 99999999999
                ) aaa
-         ORDER BY aaa.rowNum DESC
+         WHERE (@ROWNUM := 0) = 0
+         ORDER BY @ROWNUM := @ROWNUM + 1 DESC
     	 LIMIT #{pgRowCount}
     	OFFSET #{pgOffset}  		 
 	</select>

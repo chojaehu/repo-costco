@@ -6,8 +6,7 @@
 	<resultMap id="resultMapObj" type="com.mamamoo.infra.warehousing.WarehousingDto"></resultMap>
 	
 	<sql id="selectCommonSelect">
-        SELECT @ROWNUM := @ROWNUM + 1 xRowNum
-             , b.morSeq xwhsMorSeq
+        SELECT b.morSeq xwhsMorSeq
              , b.morDate xwhsMorDate
         	 , a.motSeq	xwhsMotSeq
              , a.motCompCd
@@ -33,8 +32,7 @@
 		         ON e.pdtSeq = a.pdtSeq
 		       LEFT JOIN warehousing c
 		         ON c.motSeq = a.motSeq      		  
-         WHERE 1 = 1 
-           AND (@ROWNUM := 0) = 0         
+         WHERE 1 = 1         
          
          <if test="shDelNy != null and !shDelNy.equals('')">AND IFNULL(a.motDelNy, 0) = #{shDelNy}</if> <!-- 삭제여부 -->
          
@@ -52,13 +50,16 @@
 	</sql>
 	
 	<select id="selectList" resultMap="resultMapObj">
-		SELECT aa.*
+		SELECT @ROWNUM := @ROWNUM + 1 xRowNum
+             , aa.*
 		  FROM (
 		  		<include refid="selectCommonSelect"/>
 			    <include refid="selectCommonFrom"/>			 
 		         ORDER BY b.morSeq, a.motSeq         
 				 LIMIT 99999999999
                ) aa
+         WHERE (@ROWNUM := 0) = 0
+         ORDER BY @ROWNUM := @ROWNUM + 1 DESC 
     	 LIMIT #{pgRowCount}
     	OFFSET #{pgOffset}  		 
 	</select>
