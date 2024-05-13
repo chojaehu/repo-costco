@@ -11,20 +11,20 @@
       							id="checkboxAll" name="checkboxAll" type="checkbox"
       							style="height: 15px; width: 15px">
   						</th>
-  						<th class="px-1 py-1" style="text-align: center;">#</th>
-  						<th class="px-2 py-1" style="text-align: center;">발주</th>
-  						<th class="px-2 py-1" style="text-align: center;">상세</th>
+  						<th class="px-1 py-1 text-center">#</th>
+  						<th class="px-2 py-1 text-center">발주</th>
+  						<th class="px-2 py-1 text-center">상세</th>
   						<th class="px-2 py-1">발주일</th>
   						<th class="px-2 py-1">발주처</th>
   						<th class="px-2 py-1">발주품명</th>
-  						<th class="px-2 py-1" style="text-align: right;">발주수량</th>
-  						<th class="px-2 py-1" style="text-align: right;">발주금액</th>
+  						<th class="px-2 py-1 text-right">발주수량</th>
+  						<th class="px-2 py-1 text-right">발주금액</th>
   						<th class="px-2 py-1">입고일</th>
-  						<th class="px-2 py-1" style="text-align: right;">입고</th>
-  						<th class="px-2 py-1" style="text-align: right;">미입고</th>
+  						<th class="px-2 py-1 text-right">입고</th>
+  						<th class="px-2 py-1 text-right">미입고</th>
   						<th class="px-2 py-1">입고여부</th>
   						<th class="px-2 py-1">삭제여부</th>
-  						<th class="px-2 py-1" style="text-align: center;">작업</th>
+  						<th class="px-2 py-1 text-center">작업</th>
 					</tr>
 				</thead>
   
@@ -46,13 +46,13 @@
                         		style="height: 15px; width: 15px"
                         		th:checked="false" />
                     	</td>
-	                    	
+                    	
                     	<!-- Row순번 -->
-                    	<td id="xRowNum" name="xRowNum" class="px-1 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
+                    	<td id="xRowNum" name="xRowNum" class="px-1 py-1 text-center" th:text="${list.xRowNum}"></td>
                     	<!-- 발주순번 -->
-                    	<td id="xwhsMorSeq" name="xwhsMorSeq" class="px-2 py-1" th:text="${list.xwhsMorSeq}" style="text-align: center;"></td>
+                    	<td id="xwhsMorSeq" name="xwhsMorSeq" class="px-2 py-1 text-center" th:text="${list.xwhsMorSeq}"></td>
                     	<!-- 발주상세순번 -->
-                    	<td id="xwhsMotSeq" name="xwhsMotSeq" class="px-2 py-1" th:text="${list.xwhsMotSeq}" style="text-align: center;"></td>
+                    	<td id="xwhsMotSeq" name="xwhsMotSeq" class="px-2 py-1 text-center" th:text="${list.xwhsMotSeq}"></td>
                     	<!-- 발주일 -->
                     	<td class="px-2 py-1" th:text="${#dates.format(list.xwhsMorDate, 'yyyy-MM-dd')}"></td>
                     	<!-- 발주처 -->
@@ -60,15 +60,15 @@
                     	<!-- 발주품명 -->
                     	<td class="px-2 py-1" th:text="${list.xwhsPdtName}"></td>
                     	<!-- 발주수량 -->
-                    	<td class="px-2 py-1" th:text="${list.xwhsMotCount}" style="text-align: right;"></td>
+                    	<td class="px-2 py-1 text-right" th:text="${list.xwhsMotCount}"></td>
                     	<!-- 발주금액 -->
-                    	<td class="px-2 py-1" th:text="${#numbers.formatInteger(list.xwhsMotAmt, 1, 'COMMA')}" style="text-align: right;"></td>
+                    	<td class="px-2 py-1 text-right" th:text="${#numbers.formatInteger(list.xwhsMotAmt, 1, 'COMMA')}"></td>
                     	<!-- 입고일 -->
                     	<td class="px-2 py-1" th:text="${#dates.format(list.whsDate, 'yyyy-MM-dd')}"></td>
                     	<!-- 입고수량 -->
-                    	<td class="px-2 py-1" th:text="${list.whsCount}" style="text-align: right;"></td>
+                    	<td class="px-2 py-1 text-right" th:text="${list.whsCount}"></td>
                     	<!-- 미입고수량 -->
-                    	<td class="px-2 py-1" th:text="${list.xwhsCountTot}" style="text-align: right;"></td>
+                    	<td class="px-2 py-1 text-right" th:text="${list.xwhsCountTot}"></td>
                     	<!-- 입고여부 -->
                     	<td class="px-2 py-1">
 							<th:block th:switch="${list.xwhsMotWarehousingNy}">
@@ -96,7 +96,7 @@
                         		</span>                        		
                         	</th:block>
                         </td>        	
-                    	<td class="px-2 py-1">
+                    	<td class="px-2 py-1 text-center">
 							<!-- 수정 -->
 	    					<button th:if="${list.whsCount} != 0" class="btnSave px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
         						id="btnUpate" name="btnUpdate">

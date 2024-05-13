@@ -36,18 +36,18 @@
 				      			<label class="block text-sm">
 				        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 				        			<span class="text-gray-700 dark:text-gray-400">발주순번</span>
-				        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				        			<input class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				            			id="xwhsMorSeq" name="xwhsMorSeq" placeholder="발주순번"
 				            			th:value="${item.xwhsMorSeq}"
 				            			readonly>			            			
 				      			</label>
 				    		</div>
 				    		<!--  발주상세순번 -->
-				    		<div class="md:h-auto mr-3 md:w-1/2">
+				    		<div class="md:h-auto md:w-1/2">
 				      			<label class="block text-sm">
 				        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 				        			<span class="text-gray-700 dark:text-gray-400">발주상세순번</span>
-				        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				        			<input class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				            			id="xwhsMotSeq" name="xwhsMotSeq" placeholder="발주상세순번"
 				            			th:value="${item.xwhsMotSeq}"
 				            			readonly>			            			
@@ -60,7 +60,7 @@
 				      			<label class="block text-sm">
 				        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 				        			<span class="text-gray-700 dark:text-gray-400">발주수량</span>
-				        			<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				        			<input class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				            			id="xwhsMotCount" name="xwhsMotCount" placeholder="발주수량"
 				            			th:value="${item.xwhsMotCount}"
 				            			readonly>			            			
@@ -68,7 +68,7 @@
 				    		</div>
 
 							<!--  입고수량 -->
-				    		<div class="md:h-auto mr-3 md:w-1/2 mb-4">
+				    		<div class="md:h-auto md:w-1/2 mb-4">
 				      			<label class="block text-sm">
 				        			<span class="text-xs text-red-600 dark:text-red-400"><b>*</b></span>
 				        			<span class="text-gray-700 dark:text-gray-400">입고수량</span>
@@ -76,10 +76,10 @@
 				        			<input th:if = "${item.whsSeq} == null" id="whsCount" name="whsCount" type="hidden" th:value="${item.xwhsCountTot}">
 				        			<input th:unless = "${item.whsSeq} == null" id="whsCount" name="whsCount" type="hidden" th:value="${item.whsCount}">
 				        			
-				        			<input th:if = "${item.whsSeq} == null" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				        			<input th:if = "${item.whsSeq} == null" class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				            			id="xwhsCountTot" name="xwhsCountTot" placeholder="입고수량"
 				            			th:value="${item.xwhsCountTot}">			            			
-				        			<input th:unless = "${item.whsSeq} == null" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				        			<input th:unless = "${item.whsSeq} == null" class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
 				            			id="xwhsCountTot" name="xwhsCountTot" placeholder="입고수량"
 				            			th:value="${item.whsCount}">
 				            		<span id="xwhsCountTotValid" name="xwhsCountTotValid" class="text-xs text-red-600 dark:text-red-400" style="visibility:hidden;"></span>			            			
@@ -103,7 +103,7 @@
 				  			<!-- 저장버튼 -->
 				  			<div class="flex md:h-auto sm:mt-auto md:w-1/2 sm:justify-end">
 				    			<button id="btnSubmit" name="btnSubmit"
-				      				class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-3"
+				      				class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 				      				aria-label="Edit"
 				      				type="button">
 									<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -112,7 +112,7 @@
 				    			</button>
 								
 								<!-- 삭제버튼 -->
-								<button th:if="${item.whsSeq} != null" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red mr-3"
+								<button th:if="${item.whsSeq} != null" class="ml-3 flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red mr-3"
 									id="btnDelete" name="btnDelete" aria-label="Delete" onclick="fnDelete();"
 									@click="openModal"
 									type="button">
