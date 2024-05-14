@@ -79,7 +79,8 @@ public class WarehousingController {
 		service.insert(dto);
 		
 		// 입고상태 변경
-		upDateMotWarehousing(dto);
+		//upDateMotWarehousing(dto);
+		
 		return "redirect:/warehousingList";
 	}
 	
@@ -97,7 +98,7 @@ public class WarehousingController {
 		service.update(dto);
 		
 		// 입고상태 변경
-		upDateMotWarehousing(dto);
+		//upDateMotWarehousing(dto);
 		
 		return "redirect:/warehousingList";
 	}
@@ -159,7 +160,7 @@ public class WarehousingController {
 		service.delete(dto);
 		
 		// 입고상태 변경
-		upDateMotWarehousing(dto);
+		//upDateMotWarehousing(dto);
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("rt", "success");

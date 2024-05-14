@@ -16,7 +16,7 @@
 		     , a.motAmt xwhsMotAmt
 		     , c.whsSeq
 		     , c.whsDate
-		     , IFNULL(a.motWarehousingNy, 0) xwhsMotWarehousingNy
+		     , fnWarehousingState(c.whsSeq) xwhsMotWarehousingNy
 		     , IFNULL(c.whsCount, 0) whsCount
 		     , IFNULL(c.whsDelNy, 0) whsDelNy  
 		     , IFNULL(a.motCount, 0) - (SELECT IFNULL(SUM(whsCount), 0) FROM warehousing aa WHERE aa.motSeq = a.motSeq) xwhsCountTot     
