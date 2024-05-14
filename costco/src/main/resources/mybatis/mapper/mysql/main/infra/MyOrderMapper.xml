@@ -13,7 +13,7 @@
 					   @ROWNUM := @ROWNUM + 1 xRowNum
 					 , a.morSeq
 					 , a.morDate
-					 , a.morWarehousingNy
+					 , fnMyOrderState(a.morSeq) morWarehousingNy
 					 , a.morDelNy
 					 , a.morRegDt
 					 , a.morModDt
@@ -148,7 +148,7 @@
 					 , c.pdtName
 					 , a.motCount
 					 , a.motAmt
-					 , a.motWarehousingNy
+					 , fnMyOrderDetailState(a.motSeq) motWarehousingNy
 					 , a.motDelNy
 					 , a.motRegDt
 					 , a.motModDt
