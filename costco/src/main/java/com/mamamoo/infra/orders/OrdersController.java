@@ -62,6 +62,7 @@ public class OrdersController {
 		
 		return Constants.PATH_ORDERS + "orderList";
 	}
+	
 //	주문 페이징리스트
 	@RequestMapping(value = "/orderListAjax")
 	public String orderListAjax(@ModelAttribute("vo") OrdersVo vo, OrdersDto dto, Model model)throws Exception {
@@ -148,9 +149,6 @@ public class OrdersController {
 		return Constants.PATH_ORDERS + "orderDetailForm";
 	}
 	
-	
-	
-	
 //	주문등록
 	@RequestMapping(value = "/orderInsert")
 	public String orderInsert(OrdersDto dto) throws Exception {
@@ -177,26 +175,59 @@ public class OrdersController {
 		
 		// 출고상태 변경
 		
-		isDto = service.selectOneOrtReleaseNy(dto);
+//		isDto = service.selectOneOrtReleaseNy(dto);
 		
 		// 주문, 주문상세 출고상태 설정
-		if(isDto != null) {
-			if(isDto.getXorderdetail_0() == 0) {
-				dto.setOrdReleasedNy(0); // 미입고
-			} else if(isDto.getXordortCount() == isDto.getXorderdetail_0()) {
-				dto.setOrdReleasedNy(1); // 입고완료
-			} else {
-				dto.setOrdReleasedNy(2); // 부분입고
-			};
-			
-			// 주문상세 출고상태 변경
-			service.updateOrdReleasedNy(dto);			
-		}
+//		if(isDto != null) {
+//			if(isDto.getXorderdetail_0() == 0) {
+//				dto.setOrdReleasedNy(0); // 미입고
+//			} else if(isDto.getXordortCount() == isDto.getXorderdetail_0()) {
+//				dto.setOrdReleasedNy(1); // 입고완료
+//			} else {
+//				dto.setOrdReleasedNy(2); // 부분입고
+//			};
+//			
+//			// 주문상세 출고상태 변경
+//			service.updateOrdReleasedNy(dto);			
+//		}
 		
 		return "redirect:/orderDetailList";
 	}
 	
+//	주문목록 삭제
+	@RequestMapping(value = "/ordDelete")
+	public String ordDelete(OrdersDto dto) throws Exception {
+		
+		service.ordDelete(dto);
+		
+		return "redirect:/orderList";
+	}
 	
-
+//	상세주문목록 삭제
+	@RequestMapping(value = "/ortDelete")
+	public String ortDelete(OrdersDto dto) throws Exception {
+		
+		service.ortDelete(dto);
+		
+		return "redirect:/orderDetailList";
+	}
+	
+//	다중주문목록 삭제
+	@RequestMapping(value = "/ordDeleteList")
+	public String ordDeleteList(OrdersVo vo) throws Exception {
+		
+		service.ordDeleteList(vo);
+		
+		return "redirect:/orderList";
+	}
+	
+//	다중상세주문목록 삭제
+	@RequestMapping(value = "/ortDeleteList")
+	public String ortDeleteList(OrdersVo vo) throws Exception {
+		
+		service.ortDeleteList(vo);
+		
+		return "redirect:/orderList";
+	}
 
 }

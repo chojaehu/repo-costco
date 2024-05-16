@@ -33,4 +33,12 @@ public interface OrdersDao {
 	public OrdersDto selectOneOrtReleaseNy(OrdersDto dto);
 //	주문 출고여부 변경
 	public int updateOrdReleasedNy(OrdersDto dto);
-}
+//	주문목록 삭제
+	public int ordDelete(OrdersDto dto);
+//	상세주문목록 삭제
+	public int ortDelete(OrdersDto dto);
+//	다중주문목록 삭제
+	public int ordDeleteList(OrdersVo vo);
+//	다중상세주문목록 삭제
+	public int ortDeleteList(OrdersVo vo);
+	}

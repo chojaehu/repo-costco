@@ -12,7 +12,7 @@
 			left join members d on d.mbrSeq = a.ortCompCd
 			left join members e on e.mbrSeq = a.ortShippingCd
         WHERE 1=1
-        	AND (@ROWNUM := 0) = 0
+        	AND ortDelNy = 0 
         <if test="shDelNy != null and !shDelNy.equals('')">AND ortDelNy = #{shDelNy}</if>
         <if test="shReleasedNy != null and !shReleasedNy.equals('')">AND ortReleaseNy = #{shReleasedNy}</if>
         
@@ -37,7 +37,6 @@
 	<sql id="selectCommon">
     	FROM orders
         WHERE 1=1
-        	AND (@ROWNUM := 0) = 0
         <if test="shDelNy != null and !shDelNy.equals('')">AND ordDelNy = #{shDelNy}</if>
         <if test="shReleasedNy != null and !shReleasedNy.equals('')">AND ordReleasedNy = #{shReleasedNy}</if>
          
@@ -50,32 +49,35 @@
          <choose>
          	<when test="shOption == 1">AND ordSeq = #{shValue}</when>
          </choose>
-         
-         <!-- <if test="shOptionGroup != null and !shOptionGroup.equals('')">AND a.cdgSeq = #{shOptionGroup}</if> -->
 	</sql>
 
 	<!-- 상세주문리스트 -->
 	<select id="selectListOrt" resultMap="resultMapObj">
-		select
-			@ROWNUM := @ROWNUM + 1 xRowNum
-			,a.ortSeq
-			,a.ortCount
-			,a.ortAmt
-			,a.ortReleaseDt 
-			,a.ortReleaseNy
-			,a.ortRegDt
-			,a.ortModDt
-			,b.ordSeq
-			,b.ordDate
-			,b.ordDelNy
-			,c.pdtName
-			,c.pdtPrice
-			,d.mbrClientName
-			,d.mbrName
-			,e.mbrClientName as xmbrClientName
-			,e.mbrName as xmbrName
+		select @ROWNUM := @ROWNUM + 1 xRowNum, a.*
+		  from (
+			select 
+				b.ordSeq
+				,a.ortSeq
+				,a.ortCount
+				,a.ortAmt
+				,a.ortReleaseDt 
+				,fnOrderDetailState(a.ortSeq) ortReleaseNy
+				,a.ortRegDt
+				,a.ortModDt
+				,b.ordDate
+				,b.ordDelNy
+				,c.pdtName
+				,c.pdtPrice
+				,d.mbrClientName
+				,d.mbrName
+				,e.mbrClientName as xmbrClientName
+				,e.mbrName as xmbrName
 			<include refid="selectCommonOrt"/>
-			ORDER BY a.ortSeq desc
+			ORDER BY b.ordSeq, a.ortSeq
+			)a
+			WHERE
+				(@ROWNUM := 0) = 0
+				order by @ROWNUM := @ROWNUM + 1 desc
 			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	
@@ -138,17 +140,21 @@
 	
 	<!-- 주문리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
-		select
-			@ROWNUM := @ROWNUM + 1 xRowNum
-			,ordSeq
+		select  @ROWNUM := @ROWNUM + 1 xRowNum, a.*
+		  from(select
+			ordSeq
 			,ordDate
 			,ordDelNy
 			,ordRegDt
 			,ordModDt
-			,ordReleasedNy
+			,fnOrderState(ordSeq)ordReleasedNy
 			,mbrSeq
 			<include refid="selectCommon"/>
-			ORDER BY ordSeq desc
+			ORDER BY ordSeq
+			)a
+			WHERE
+				(@ROWNUM := 0) = 0
+			order by @ROWNUM := @ROWNUM + 1 desc
 			limit #{pgRowCount} offset #{pgOffset}
 	</select>
 	
@@ -160,8 +166,6 @@
          WHERE 1 = 1
            AND ordSeq = #{ordSeq}
 	</select>
-	
-	
 	
 	<!-- 카운팅 -->
     <select id="getCount">
@@ -268,5 +272,50 @@
     	     , ordReleasedNy = #{ordReleasedNy}
     	 WHERE ordSeq = #{ordSeq}
     </update>
+    
+    <!-- 주문 DelNy -->
+    <update id="ortDelNy">
+    	UPDATE orderdetail
+    		SET ortDelNy = 1
+    	WHERE ortSeq = #{ordSeq}
+    </update>
+    
+    <!-- 주문목록 삭제 -->
+    <delete id="ordDelete">
+    	delete 
+    	from orders
+    	WHERE 1=1
+    	AND ordSeq = #{ortSeq}
+    </delete>
+    
+    <!-- 주문목록 다중삭제 -->
+    <delete id="ordDeleteList">
+    	DELETE
+    	FROM orders 
+    	WHERE ordSeq IN
+    	<foreach collection="shCheckedArray" item="list" open="(" close=")" separator=",">
+ 	    	#{list}
+ 	    </foreach>
+    </delete>
+    
+    
+    <!-- 상세주문목록 삭제 -->
+    <delete id="ortDelete">
+    	delete 
+    	from orderdetail
+    	WHERE 1=1
+    	AND ortSeq = #{ortSeq}
+    </delete>
+    
+    <!-- 상세주문목록 다중삭제 -->
+    <delete id="ortDeleteList">
+    	DELETE
+    	FROM orderdetail 
+    	WHERE ortSeq IN
+    	<foreach collection="shCheckedArray" item="list" open="(" close=")" separator=",">
+ 	    	#{list}
+ 	    </foreach>
+    </delete>
+    
 	
 </mapper>

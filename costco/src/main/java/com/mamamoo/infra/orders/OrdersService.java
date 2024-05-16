@@ -72,7 +72,22 @@ public class OrdersService {
 		return dao.updateOrdReleasedNy(dto);
 	}
 	
-
+//	주문목록 삭제
+	public int ordDelete(OrdersDto dto) {
+		return dao.ordDelete(dto);
+	}
+//	상세주문목록 삭제
+	public int ortDelete(OrdersDto dto) {
+		return dao.ortDelete(dto);
+	}
+//	다중주문목록 삭제
+	public int ordDeleteList(OrdersVo vo) {
+		return dao.ordDeleteList(vo);
+	}
+//	다중주문목록 삭제
+	public int ortDeleteList(OrdersVo vo) {
+		return dao.ortDeleteList(vo);
+	}
 
 	
 }
