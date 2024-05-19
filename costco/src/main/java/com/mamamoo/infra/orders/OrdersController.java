@@ -1,10 +1,14 @@
 package com.mamamoo.infra.orders;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mamamoo.common.constants.Constants;
 import com.mamamoo.common.util.UtilFunction;
@@ -213,21 +217,33 @@ public class OrdersController {
 	}
 	
 //	다중주문목록 삭제
+	@ResponseBody
 	@RequestMapping(value = "/ordDeleteList")
-	public String ordDeleteList(OrdersVo vo) throws Exception {
+	public Map<String, Object> ordDeleteList(OrdersVo vo,OrdersDto dto) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-		service.ordDeleteList(vo);
+		if(service.ordDeleteList(vo)>0) {
+			returnMap.put("rt", "success");
+		}else {
+			returnMap.put("rt", "fail");
+		}
 		
-		return "redirect:/orderList";
+		return returnMap;
 	}
 	
 //	다중상세주문목록 삭제
+	@ResponseBody
 	@RequestMapping(value = "/ortDeleteList")
-	public String ortDeleteList(OrdersVo vo) throws Exception {
+	public Map<String, Object> ortDeleteList(OrdersVo vo,OrdersDto dto) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-		service.ortDeleteList(vo);
+		if(service.ortDeleteList(vo)>0) {
+			returnMap.put("rt", "success");
+		}else {
+			returnMap.put("rt", "fail");
+		}
 		
-		return "redirect:/orderList";
+		return returnMap;
 	}
 
 }

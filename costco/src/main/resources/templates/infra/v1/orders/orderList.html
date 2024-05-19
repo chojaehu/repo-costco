@@ -153,7 +153,7 @@
                       						<th class="px-4 py-1">등록일시</th>
                       						<th class="px-4 py-1">수정일시</th>
                       						<th class="px-4 py-1">삭제여부</th>
-                      						<th class="px-2 py-2"style="text-align: left;">수정</th>
+                      						<th class="px-2 py-2"style="text-align: left;">작업</th>
                     					</tr>
                   					</thead>
                   
@@ -167,10 +167,11 @@
 												There is no data !!!
 					                  		</td>
                   						</tr>
+                  						
 					                  	<tr class="text-gray-700 dark:text-gray-400" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
 					                  		<td class="px-2 py-1">
 					                  			<input class="checkboxList text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray mr-3"
-					                  				id = "checkbox" name="checkbox" type="checkbox"
+					                  				id = "checkbox" name="checkbox" type="checkbox" th:if="${list.ordReleasedNy} != 1"
 					                  				th:value="${list.ordSeq}"
 					                        		style="height: 15px; width: 15px"
 					                        		th:checked="false"/>
@@ -178,13 +179,13 @@
 					                    	
 					                    	<!-- Row순번 -->
 				                    		<td id="xRowNum" name="xRowNum" class="px-2 py-1" th:text="${list.xRowNum}" style="text-align: center;"></td>
-					                    	
+					                    	<!-- 주문코드 -->
 					                    	<td id="ordSeq" name="ordSeq" class="px-2 py-1" th:text="${list.ordSeq}" style="text-align: center;"></td>
-					                    	
+					                    	<!-- 주문일 -->
                    							<td class="px-4 py-1" th:text="${#dates.format(list.ordDate, 'yyyy-MM-dd')}" ></td>
-					                    	
+					                    	<!-- 담당자 -->
 											<td id="mbrSeq" name="mbrSeq" class="px-1 py-1" th:text="${@membersService.selectOneMembersName(list.mbrSeq)}" ></td>
-
+											<!-- 출고여부 -->
 					                    	<td class="px-4 py-1">
 					                        	<th:block th:switch="${list.ordReleasedNy}">
 					                        		<span th:case = "0"
@@ -201,11 +202,11 @@
 					                        		</span>                          		
 					                        	</th:block>
 					                        </td>
-					                        
+					                        <!-- 등록일시 -->
 					                        <td class="px-4 py-1" th:text="${#dates.format(list.ordRegDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-					                        
+					                        <!-- 수정일시 -->
 					                        <td class="px-4 py-1" th:text="${#dates.format(list.ordModDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-
+											<!-- 삭제여부 -->
 					                        <td class="px-4 py-1">
 					                        	<th:block th:switch="${list.ordDelNy}">
 					                        		<span th:case = "0"
@@ -218,8 +219,9 @@
 					                        		</span>                        		
 					                        	</th:block>
 					                        </td>
-
+											<!-- 작업 -->
 					                    	<td class="px-1 py-1" >
+					                    		<div>
 	                      							<button th:if="${list.ordReleasedNy} != 1"
 								                    	id="btnInsert"
 								                    	name="btnInsert"
@@ -475,7 +477,6 @@
 					, success: function(response) {
 						if(response.rt == "success") {
 							// Controller 호출
-							alert("성공");
 							fnCallController();
 						} else {
 							alert("삭제중 오류");

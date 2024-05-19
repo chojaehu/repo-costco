@@ -41,8 +41,8 @@
 					                  	<tr class="text-gray-700 dark:text-gray-400" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
 					                  		<td class="px-2 py-1">
 					                  			<input class="checkboxList text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray mr-3"
-					                  				id = "checkbox" name="checkbox" type="checkbox"
-					                  				th:value="${list.ordSeq}"
+					                  				id = "checkbox" name="checkbox" type="checkbox" th:if="${list.ortReleaseNy} != 1"
+					                  				th:value="${list.ortSeq}"
 					                        		style="height: 15px; width: 15px"
 					                        		th:checked="false" />
 					                    	</td>
@@ -97,7 +97,8 @@
 					                        </td>        	
 											
 					                    	<td class="px-3 py-1">
-               	    							<button class="flex items-center justify-between px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-2"
+               	    							<button th:if="${list.ortReleaseNy} != 1"
+               	    								class="flex items-center justify-between px-2 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mr-2"
                             						id="btnUpate" name="btnUpdate">
 													<a th:href="@{/orderDetailForm(ortSeq=${list.ortSeq},ordSeq=${list.ordSeq})}">
 														<svg class="w-5 h-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
